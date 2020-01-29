@@ -1,0 +1,38 @@
+.content-container-wrapper {
+  margin-top: 0;
+}
+
+.uen-dropdown h3, .user-dropdown h3 {
+  float: left;
+  width: 10%;
+}
+
+.free-access-uen {
+  float: left;
+  width: 30%;
+  padding-left: 25px;
+  margin-top: 22px;
+}
+
+.free-access-uen+input {
+  float: left;
+  transform: scale(1.6);
+  margin: 25px 0 0 0;
+}
+
+.uen-dropdown select, .user-dropdown select {
+  float: left;
+  margin-top: 15px;
+  width: 30%;
+}
+
+.project-access {
+  margin-top: 40px;
+  margin-right: 30px;
+}
+
+.action-buttons {
+  text-align: right;
+  margin-top: 20px;
+  margin-right: 30px;
+}

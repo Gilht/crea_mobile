@@ -1,0 +1,35 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <button type="button" [routerLink]="'/app/package'" class="btn btn-large btn-block btn-info">
+                    <</button>
+            </div>
+            <div class="bar-filter-container">
+                <h3>CHECKLIST > Paquetes > {{packageId? 'Editar' : 'Nuevo'}} paquete</h3>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+
+        <div class="container">
+            <div class="form-container">
+                <div class="form-group">
+                    <label class="purchaseLabel">Nombre del paquete</label>
+                    <span style="font-size: 10px;" [ngStyle]="{'color' :  package?.name?.length == 60 ? 'red' : 'black' }">({{package?.name?.length || 0}}/60 carácteres máximo)</span>
+                    <input type="text" class="form-control" [(ngModel)]="package.name" maxlength="60">
+                </div>
+                <button type="button" class="btn btn-primary" (click)="savePackage(package);" [disabled]="!package.name">Guardar</button>
+            </div>
+        </div>
+    </div>
+    <div class="loading" *ngIf="loading">
+        <div class="cssload-thecube">
+            <div class="cssload-cube cssload-c1"></div>
+            <div class="cssload-cube cssload-c2"></div>
+            <div class="cssload-cube cssload-c4"></div>
+            <div class="cssload-cube cssload-c3"></div>
+        </div>
+    </div>
+    <ng2-toasty></ng2-toasty>

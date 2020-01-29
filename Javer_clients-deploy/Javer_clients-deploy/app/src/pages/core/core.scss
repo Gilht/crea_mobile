@@ -1,0 +1,91 @@
+page-core {
+
+    .img-position {
+        margin-left: 40%;
+        height: 12%; 
+        width: 12%;
+    }
+    .button-background {
+        background: white;
+    }
+
+    .btn {
+        height: 120px;
+        width: 100%;
+        border: 1px ;
+        border-radius: 8px;
+    }
+
+    .module-background {
+        background: #d0d0d0;
+        height: 65%;
+        width: 100%;
+        box-shadow: 1px 1px 8px #888888;
+    }
+    .bottom-module-background {
+        background: rgb(255, 255, 255);
+        height: 45%;
+        width: 100%;
+        box-shadow: 1px 1px 8px #888888;
+        color: black;
+        white-space: nowrap;
+    }
+
+    .btn-ver {
+        width: 70%;
+        height: 35px;
+        background: #d72222;
+        border-radius: 3px;
+        color: rgb(238, 237, 237);
+        font-weight: bold;
+        text-transform:none;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        margin-top: 5%;
+    }
+
+    .main-menu-format {
+        width: 28%;
+        margin-left: 3.3%;
+        margin-top: 2.5%;
+        float: left;
+        height: 270px;
+        padding: .9%;
+    }
+
+    .container {
+        white-space: nowrap;
+    }
+    
+    .col1, .col2, .col3 {
+        display: table-cell;
+    }
+
+    .text-format {
+        font-size: 30px;
+    }
+    .description-text-format {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 10px 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .padding-format {
+        padding: 5%;
+    }
+
+    .break-line {
+        word-break: keep-all;
+    }
+    .no-padding {
+        padding: 0px !important;
+    }
+
+    .small_button{
+        line-height: 5px !important;
+        min-height: 24px !important;
+    }
+
+}

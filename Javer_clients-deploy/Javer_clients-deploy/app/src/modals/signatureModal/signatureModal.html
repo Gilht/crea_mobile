@@ -1,0 +1,22 @@
+<ion-content>
+    <div class="title">Escribe tu Firma</div>
+    <ion-row [ngClass]="{'drawing-active': isDrawing}">
+        <ion-col></ion-col>
+        <ion-col>
+            <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+        </ion-col>
+        <ion-col></ion-col>
+
+    </ion-row>
+    <ion-row>
+        <ion-col col-4>
+            <button ion-button full class="btn-primary" (click)="clearPad()">Borrar</button>
+        </ion-col>
+        <ion-col col-4>
+            <button ion-button full class="btn-primary" (click)="dismiss(true)">Guardar</button>
+        </ion-col>
+        <ion-col col-4>
+            <button ion-button full class="btn-disabled" (click)="dismiss(false)">Cancelar</button>
+        </ion-col>
+    </ion-row>
+</ion-content>

@@ -1,0 +1,192 @@
+<ion-header class="hide-print">
+  <ion-navbar>
+    <button ion-button menuToggle start large>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <img class="img-position" src="./assets/imgs/casas-javer.png">
+  </ion-navbar>
+  <ion-row class="red-panel">
+    <ion-row>
+      <ion-col col-12>
+        <h1>Viviendas Asignadas > Contestar{{type == 1 ? ' DTU' : ' Avance'}}</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-grid class="better-grid">
+          <ion-row>
+            <ion-col col-4 class="grid-grids">
+              <ion-row>
+                <ion-col col-6>
+                  Residente
+                </ion-col>
+                <ion-col col-6>
+                  {{resident?.workName + ' ' + resident?.lastName + ' ' + resident?.lastNameMother}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6>
+                  Proyecto
+                </ion-col>
+                <ion-col col-6>
+                  {{sections[position]?.house.commercialName}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6>
+                  Frente
+                </ion-col>
+                <ion-col col-6>
+                  {{sections[position]?.house.front}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6>
+                  Conjunto
+                </ion-col>
+                <ion-col col-6>
+                  {{sections[position]?.house.collection}}
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-4 class="grid-grids">
+              <ion-row>
+                <ion-col col-6>
+                  Prototipo
+                </ion-col>
+                <ion-col col-6>
+                  {{sections[position]?.prototypeName}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6>
+                  Manzana
+                </ion-col>
+                <ion-col col-6>
+                  {{sections[position]?.house.blockName}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6>
+                  Lote
+                </ion-col>
+                <ion-col col-6>
+                  {{sections[position]?.house.lotName}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6>
+                  U. Privativa
+                </ion-col>
+                <ion-col col-6>
+                  {{sections[position]?.house.privativeUnit}}
+                </ion-col>
+              </ion-row>
+            </ion-col>
+            <ion-col col-4 class="grid-grids">
+              <ion-row>
+                <ion-col col-6>
+                  Elemento
+                </ion-col>
+                <ion-col col-6>
+                  {{sections[position]?.house.element}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6>
+                  Sección
+                </ion-col>
+                <ion-col col-6>
+                  {{sections[position]?.sectionCode}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6>
+                  Fecha
+                </ion-col>
+                <ion-col col-6>
+                  {{today | date: 'dd/MM/yyyy'}}
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-6>{{type == 1 ? '% DTU' : '% Avance'}}</ion-col>
+                <ion-col col-6>{{type == 1 ? getTotalSectionDtu((sections[position] || {})) : getTotalSectionAdvance(sections[position] || {})}}</ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-3>
+        <button ion-button class="btn-primary full-width" (click)="back()">Atrás</button>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button class="btn-primary full-width" [disabled]="!hasWritePermission()" (click)="saveAll()">Guardar Todo</button>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button class="btn-primary full-width" (click)="download()">Descargar</button>
+      </ion-col>
+      <ion-col col-3>
+        <button ion-button class="btn-primary full-width" (click)="next()">Siguiente</button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="packages-headers title">
+      <ion-col col-4 class="packages-names">
+        Paquetes/Conceptos
+      </ion-col>
+      <ion-col col-2>
+        Estatus
+      </ion-col>
+      <ion-col col-3>
+        Comentarios
+      </ion-col>
+      <ion-col col-3>
+        Fotografía
+      </ion-col>
+    </ion-row>
+  </ion-row>
+</ion-header>
+
+<ion-content class="hide-print">
+  <ng-container *ngIf="sections.length > 0 && !loading">
+    <ion-grid class="checklist-grid" [ngClass]="{validatedSection: sectionsExtraAttrs[this.position].dtuPercent >= 100}">
+      <ion-row *ngFor="let subpackage of sections[position].sectionHouseTPS; let x = index;">
+        <ion-row *ngIf="x == 0 || subpackage.tPS.templatePackage.packageId != sections[position].sectionHouseTPS[x-1].tPS.templatePackage.packageId"
+          class="package" [style.background-color]="getColor(subpackage.tPS.subpackage.packageId)">
+          <ion-col col-4>{{subpackage.tPS.templatePackage.package.name}}</ion-col>
+          <ion-col col-2></ion-col>
+          <ion-col col-3 style="font-weight:bold">{{getPercent(subpackage.tPS.subpackage.packageId) + '%'}}</ion-col>
+          <ion-col col-3></ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-4>
+            <span> {{subpackage.tPS.subpackage.name}}</span>
+          </ion-col>
+          <ion-col col-2 (click)="changeStatus(x)" class="sp-status" [ngClass]="{checkDisabled: isDisabled(x)}">
+            <img *ngIf="subpackage.subpackageStatus == 0" src="./assets/imgs/status-pending.png" alt="">
+            <img *ngIf="subpackage.subpackageStatus == 1" src="./assets/imgs/status-inprogress.png" alt="">
+            <img *ngIf="subpackage.subpackageStatus == 2" src="./assets/imgs/status-complete.png" class="completed" alt="">
+            <img *ngIf="subpackage.subpackageStatus == 3" src="./assets/imgs/status-na.png" alt="">
+          </ion-col>
+          <ion-col col-3 (click)="addComments(x)" class="sp-comments">
+            <img *ngIf="subpackage.comments == '' || !subpackage.comments" src="./assets/imgs/add-comment.png" alt="">
+            <img *ngIf="subpackage.comments != '' &&  subpackage.comments" src="./assets/imgs/added-comment.png" alt="">
+          </ion-col>
+          <ion-col col-3 (click)="addPicture(x)" class="sp-picture">
+            <img *ngIf="!subpackage.srv_hasPicture" src="./assets/imgs/add-picture.png" class="add-picture" alt="" [ngClass]="{pictureDisabled: isDisabled(x) || !hasWritePermission() }">
+            <img *ngIf="subpackage.srv_hasPicture" src="./assets/imgs/added-picture.png" class="added-picture" alt="" [ngClass]="{pictureDisabled: (!online && !sectionHasPicture(subpackage.file)) || !hasWritePermission() }">
+          </ion-col>
+        </ion-row>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+</ion-content>
+<div class="loading" *ngIf="loading">
+  <div class="cssload-thecube">
+    <div class="cssload-cube cssload-c1"></div>
+    <div class="cssload-cube cssload-c2"></div>
+    <div class="cssload-cube cssload-c4"></div>
+    <div class="cssload-cube cssload-c3"></div>
+  </div>
+</div>

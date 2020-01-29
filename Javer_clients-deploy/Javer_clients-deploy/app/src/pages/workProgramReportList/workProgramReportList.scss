@@ -1,0 +1,50 @@
+page-workprogramreportlist {
+    .btn-info {
+        float: right;
+        margin-right: 40px;
+    }
+
+    .list-panel-filters {
+        display: flex;
+        align-items: center;
+    }
+
+    .list-panel-filters .bar-filter-container{
+        width: 25%;
+    }
+
+    .list-panel-filters .bar-filter-container .form-control{
+        padding: 6px 4px;
+        font-size: 12px;
+    }
+    .eye-button{
+        background: #ed1b24;
+        width: 41px;
+        height: 33px;
+        padding: 0px 8px;
+        color: white;
+        cursor: pointer;
+    }
+    .table-container{
+        width: 100%;
+    }
+    .table-container table{
+        width: 100%;
+    }
+    .list-panel .table td, .list-panel .table th {
+        text-align: center;
+        padding: 3px;
+        padding-left: 13px;
+    }
+    ion-list {
+        margin :0 !important;
+    }
+    .right-button{
+        position: absolute;
+        right: 10px;
+    }
+    .right-button-2{
+        position: absolute;
+        right: 60px;
+    }
+}

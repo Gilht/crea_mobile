@@ -1,0 +1,168 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <button type="button" [routerLink]="'/app/dtu'" class="btn btn-large btn-block btn-info">
+                    <</button>
+            </div>
+            <div class="bar-filter-container">
+                <h3>CONFIGURACIÓN > DTU > Configurar DTU</h3>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Proyecto</th>
+                        <th>Reponsable</th>
+                        <th>Correo Responsable</th>
+                        <th>Compras</th>
+                        <th>Correo Compras</th>
+                        <th>Control de Obra</th>
+                        <th>Correo de Control de Obra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let project of projects">
+                        <td>{{project.name}}</td>
+                        <td>{{project.dtuAgent ? project.dtuAgent.workName + " " + project.dtuAgent.lastName + " " + project.dtuAgent.lastNameMother
+                            : ""}}</td>
+                        <td>{{project.dtuEmail}}</td>
+                        <td>{{project.purchasingAgent ? project.purchasingAgent.workName + " " + project.purchasingAgent.lastName
+                            + " " + project.purchasingAgent.lastNameMother : ""}}</td>
+                        <td>{{project.purchaseEmail}}</td>
+                        <td>{{project.controlAgent ? project.controlAgent.workName + " " + project.controlAgent.lastName + "
+                            " + project.controlAgent.lastNameMother : ""}}</td>
+                        <td>{{project.controlEmail}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ng-pagination *ngIf="dataToShow && switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+        <ng-pagination *ngIf="dataToShow && !switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+        <ul id="tab-bar" class="nav nav-tabs">
+            <li [ngClass]="{active: showScreen == 'assignment'}" (click)="showScreen = 'assignment'">
+                <a class="cursor-pointer title" style="font-size: 15px;">Asignación</a>
+            </li>
+            <li [ngClass]="{active: showScreen == 'contacts'}" (click)="showScreen = 'contacts'" *ngIf="projects.length <= 1">
+                <a class="cursor-pointer title" style="font-size: 15px;">Contactos Adicionales</a>
+            </li>
+            <li [ngClass]="{active: showScreen == 'emailConfig'}" (click)="showScreen = 'emailConfig'" *ngIf="projects.length <= 1">
+                <a class="cursor-pointer title" style="font-size: 15px;">Configuración de Correos</a>
+            </li>
+        </ul>
+        <div class="tabs-panel-container">
+            <div *ngIf="showScreen == 'assignment'">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="dtuLabel">Responsable</label>
+                            <select [disabled]="!writeFlag" class="form-control" [(ngModel)]='dtuAssign.resident' (ngModelChange)='populateResidentEmail()'>
+                                <option value="undefined">Seleccionar</option>
+                                <option *ngFor="let item of users" [ngValue]="item">{{item.workName + " " + item.lastName + " " + item.lastNameMother }}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Correo electrónico" [(ngModel)]='dtuAssign.email' [disabled]="true">
+                        </div>
+                        <button *ngIf="writeFlag" type="button" class="btn btn-primary" (click)="asingnDtu();" [disabled]="!isValidAsingnDtu()">Asignar</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="showScreen == 'contacts'">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="dtuLabel">Nombre</label>
+                            <input [disabled]="!writeFlag" type="text" class="form-control" [(ngModel)]="newContact.name">
+                        </div>
+                        <div class="form-group">
+                            <label class="dtuLabel">Correo</label>
+                            <input [disabled]="!writeFlag" type="email" class="form-control" [(ngModel)]="newContact.email">
+                        </div>
+                        <button *ngIf="writeFlag" type="button" class="btn btn-primary" (click)="asingnContact();" [disabled]="!isValidAsingnContact()">Asignar</button>
+                    </div>
+                    <div class="col-md-6">
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Correo</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let contact of contacts">
+                                    <td>{{contact.name}}</td>
+                                    <td>{{contact.email}}</td>
+                                    <td>
+                                        <button *ngIf="writeFlag" type="button" class="btn btn-primary action-button" (click)="deleteContact(contact)">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="no-info" *ngIf="contacts.length == 0">
+                                        <small>No se han agregado contactos aún</small>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+            <div *ngIf="showScreen == 'emailConfig'" class="emailConfig">
+                <h4> Enviar Correo a:</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="dtuLabel">
+                                <input [disabled]="!writeFlag" type="checkbox" [(ngModel)]="allowAlerts.readyToValidate"> &nbsp;&nbsp;&nbsp;Viviendas listas con 80%</label>
+                            <input type="text" class="form-control" [(ngModel)]="allowAlerts.readyToValidateEmail" [disabled]="!allowAlerts.readyToValidate"
+                                placeholder="Correo Electrónico">
+                        </div>
+                        <div class="form-group">
+                            <label class="dtuLabel">
+                                <input [disabled]="!writeFlag" type="checkbox" [(ngModel)]="allowAlerts.alreadyValidated"> &nbsp;&nbsp;&nbsp;Viviendas validadas por el verificador</label>
+                            <input type="text" class="form-control" [(ngModel)]="allowAlerts.alreadyValidatedEmail" placeholder="Correo Electrónico"
+                                [disabled]="!allowAlerts.alreadyValidated">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="dtuLabel">
+                                <input [disabled]="!writeFlag" type="checkbox" [(ngModel)]="allowAlerts.rejected"> &nbsp;&nbsp;&nbsp;Viviendas rechazadas en el tren de viviendas</label>
+                            <input type="text" class="form-control" [(ngModel)]="allowAlerts.rejectedEmail" placeholder="Correo Electrónico" [disabled]="!allowAlerts.rejected">
+                        </div>
+                        <div class="form-group">
+                            <label class="dtuLabel">
+                                <input [disabled]="!writeFlag" type="checkbox" [(ngModel)]="allowAlerts.acceptedDtu"> &nbsp;&nbsp;&nbsp;Viviendas con DTU en el tren de viviendas</label>
+                            <input type="text" class="form-control" [(ngModel)]="allowAlerts.acceptedDtuEmail" placeholder="Correo Electrónico" [disabled]="!allowAlerts.acceptedDtu">
+                        </div>
+                    </div>
+                </div>
+                <small *ngIf="emailAlertError">Algunos correos no se han podido mostrar ya que tienen mas de un correo asignado en la misma alerta</small>
+                <button *ngIf="writeFlag" type="button" class="btn btn-primary" (click)="saveEmail();">Guardar</button>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

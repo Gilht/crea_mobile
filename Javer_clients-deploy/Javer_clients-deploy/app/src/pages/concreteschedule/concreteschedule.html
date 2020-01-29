@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle start large>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    <img class="img-position" src="./assets/imgs/casas-javer.png">
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content fullscreen="true" *ngIf="!loading">
+  <ion-col no-padding>
+    <ion-row class="red-panel"></ion-row>
+    <ion-list class="list-panel">
+      <h1 class="text-format">Programar Concretos</h1>
+      <ion-item class="red-panel-input-format">
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [disabled]="true" [(ngModel)]="concretOrder.date"></ion-datetime>
+      </ion-item>
+      <ion-item class="red-panel-input-format">
+        <ion-input style="font-style: italic;" placeholder="Residente" [disabled]="true" [(ngModel)]="concretOrder.residentName"
+          type="text"></ion-input>
+      </ion-item>
+      <ion-item class="red-panel-input-format">
+        <ion-select [(ngModel)]="concretOrder.subdivision" placeholder="Fraccionamiento">
+          <ion-option *ngFor="let subdivision of subdivisionEmails" [value]="subdivision">{{subdivision.subdivision}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </ion-col>
+  <ion-scroll scrollY="true" scrollX="true" style="height: 374px;">
+    <ion-grid class="concrete-grid">
+      <ion-row class="cols">
+        <ion-col></ion-col>
+        <ion-col>Conjunto</ion-col>
+        <ion-col>Fecha Requerida</ion-col>
+        <ion-col>Hora Requerida</ion-col>
+        <ion-col>Cant</ion-col>
+        <ion-col>Descripción</ion-col>
+        <ion-col>Uso</ion-col>
+        <ion-col>Manzana</ion-col>
+        <ion-col>Req</ion-col>
+        <ion-col>Contratista</ion-col>
+      </ion-row>
+      <ion-row class="concrete-items" *ngFor="let concrete of concretOrder.concretes; let i = index">
+        <ion-col>
+          <button ion-button style="background: #d72222;" (click)="deleteRow(i)"><ion-icon name="trash"></ion-icon></button>
+        </ion-col>
+        <ion-col>
+          <input type="text" [(ngModel)]="concrete.group">
+        </ion-col>
+        <ion-col>
+          <ion-datetime class="date-input-format" displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="concrete.date"></ion-datetime>
+        </ion-col>
+        <ion-col>
+          <input type="text" placeholder="00:00" [textMask]="{mask: mask}" [(ngModel)]="concrete.time" />
+        </ion-col>
+        <ion-col>
+          <input type="number" [(ngModel)]="concrete.quantity">
+        </ion-col>
+        <ion-col>
+          <input type="text" placeholder="{{concrete.observations}}" [(ngModel)]="concrete.observations">
+        </ion-col>
+        <ion-col>
+          <input type="text" [(ngModel)]="concrete.usage">
+        </ion-col>
+        <ion-col>
+          <input type="number" [(ngModel)]="concrete.block">
+        </ion-col>
+        <ion-col>
+          <input type="text" [(ngModel)]="concrete.req">
+        </ion-col>
+        <ion-col>
+          <input type="text" [(ngModel)]="concrete.contractor">
+        </ion-col>
+      </ion-row>
+      <div class='no-lines' *ngIf="concretOrder.concretes.length == 0">
+        Agrega tu orden
+      </div>
+    </ion-grid>
+  </ion-scroll>
+  <button ion-button style="margin-left: 1%;background: #d72222;" [disabled]="!hasWritePermission()" (click)="addRow()"><ion-icon name="md-add-circle"></ion-icon></button>
+  <label style="vertical-align: -webkit-baseline-middle;"> Agregar Concreto</label>
+
+  <button ion-button style="margin-left: 1%;background: #d72222;" [disabled]="!hasWritePermission()" (click)="sendReport()">Enviar</button>
+
+</ion-content>
+<div class="loading" *ngIf="loading">
+  <div class="cssload-thecube">
+    <div class="cssload-cube cssload-c1"></div>
+    <div class="cssload-cube cssload-c2"></div>
+    <div class="cssload-cube cssload-c4"></div>
+    <div class="cssload-cube cssload-c3"></div>
+  </div>
+</div>

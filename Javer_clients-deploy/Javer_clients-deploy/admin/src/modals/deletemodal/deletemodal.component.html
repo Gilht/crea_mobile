@@ -1,0 +1,20 @@
+<div class="container-fluid">
+        <div class="row custom-modal-header">
+            <div class="col-xs-12">
+                <h3 align="center">Advertencia</h3>
+            </div>
+        </div>
+            <h4 align="center">{{context.msj}}</h4>
+        <div class="row custom-modal-footer">
+            <div class="col-xs-6">
+                <h2></h2>
+            </div>
+            <br>
+            <div class="col-xs-3" style="margin-left: 30%;">
+                <button type="button" class="btn modal-btn-delete btn-block btn-hover" (click)='closeNot();'>Cancelar</button>
+            </div>
+            <button type="button" class="btn btn-primary modal-button" (click)='closeOk();'>Aceptar</button>
+        </div>
+        <br>
+    </div>
+    

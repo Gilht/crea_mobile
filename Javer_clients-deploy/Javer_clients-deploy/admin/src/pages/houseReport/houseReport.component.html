@@ -1,0 +1,51 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <h3> REPORTES > Reporte de Viviendas</h3>
+        <div class="list-panel-filters">
+            <div *ngIf="isReassign" class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.resident' (ngModelChange)="filterProjects()">
+                        <option value="">Residente</option>
+                        <option *ngFor="let item of residents" [ngValue]="item">{{item.workName + " " + item.lastName + " " + item.lastNameMother }}</option>
+                    </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.proyecto' (ngModelChange)="getFrente()">
+                        <option value="">Proyecto</option>
+                        <option *ngFor="let item of projects" [ngValue]="item.externalId">{{item.name}}</option>
+                    </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.frente' (ngModelChange)="getConjunto()">
+                        <option value="">Frente</option>
+                        <option *ngFor="let item of frentes" [ngValue]="item.id">{{item.value }}</option>
+                    </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.conjunto'>
+                        <option value="">Conjunto</option>
+                        <option *ngFor="let item of conjuntos" [ngValue]="item.id">{{item.value }}</option>
+                    </select>
+            </div>
+            <div class="bar-filter-container">
+                <p-calendar dateFormat="dd/mm/yy" placeholder="Fecha" class="form-control-cal" [(ngModel)]="filter.date"></p-calendar>
+            </div>
+            <div class="bar-filter-container">
+                <button type="button" class="btn btn-primary" [disabled]="!filter.date || !filter.proyecto" (click)="getExcel();">Descargar</button>
+                <button type="button" class="btn btn-warning" (click)="cleanFilters();">Limpiar</button>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

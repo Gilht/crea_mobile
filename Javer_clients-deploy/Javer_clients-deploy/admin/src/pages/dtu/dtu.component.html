@@ -1,0 +1,86 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <h3>CONFIGURACIÓN > DTU</h3>
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <input type="text" placeholder="Proyecto" class="form-control" [(ngModel)]='filter.project' (ngModelChange)="filterProjects()">
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.dtu' (ngModelChange)="filterProjects()">
+                    <option value="">Responsable</option>
+                    <option *ngFor="let item of residents" [ngValue]="item">{{item.workName + " " + item.lastName + " " + item.lastNameMother }}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.purchase' (ngModelChange)="filterProjects()">
+                    <option value="">Compras</option>
+                    <option *ngFor="let item of residents" [ngValue]="item">{{item.workName + " " + item.lastName + " " + item.lastNameMother }}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.siteControl' (ngModelChange)="filterProjects()">
+                    <option value="">Control de Obra</option>
+                    <option *ngFor="let item of residents" [ngValue]="item">{{item.workName + " " + item.lastName + " " + item.lastNameMother }}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <button type="button" class="btn btn-warning" (click)="cleanFilters();">Limpiar</button>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" (change)="checkAll()"> Seleccione</th>
+                        <th>Proyecto</th>
+                        <th>Reponsable</th>
+                        <th>Correo Responsable</th>
+                        <th>Compras</th>
+                        <th>Correo Compras</th>
+                        <th>Control de Obra</th>
+                        <th>Correo de Control de Obra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let project of projects">
+                        <td>
+                            <input type="checkbox" name="" [(ngModel)]="project.selected" id="">
+                        </td>
+                        <td>{{project.name}}</td>
+                        <td>{{project.dtuAgent ? project.dtuAgent.workName + " " + project.dtuAgent.lastName + " " + project.dtuAgent.lastNameMother
+                            : ""}}</td>
+                        <td>{{project.dtuEmail}}</td>
+                        <td>{{project.purchasingAgent ? project.purchasingAgent.workName + " " + project.purchasingAgent.lastName
+                            + " " + project.purchasingAgent.lastNameMother : ""}}</td>
+                        <td>{{project.purchaseEmail}}</td>
+                        <td>{{project.controlAgent ? project.controlAgent.workName + " " + project.controlAgent.lastName + "
+                            " + project.controlAgent.lastNameMother : ""}}</td>
+                        <td>{{project.controlEmail}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="no-info" *ngIf="projects.length == 0"><small>No hay información para mostrar</small></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ng-pagination *ngIf="dataToShow && switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+        <ng-pagination *ngIf="dataToShow && !switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+
+        <button type="button" class="btn btn-info" [disabled]="!getListSelected(projects)" (click)="configureNewProject();">Configurar DTU</button>
+
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

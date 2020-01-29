@@ -1,0 +1,64 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <h3>Desarrollador > Cátalogo de permisos del cliente</h3>
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <input type="text" placeholder="Permiso" class="form-control" [(ngModel)]='filter.clientPermission' (ngModelChange)="filterClientPermissions()">
+            </div>
+            <div class="bar-filter-container">
+                <button type="button" class="btn btn-warning" (click)="cleanFilters();">Limpiar</button>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="table-container">
+            <table class="table table-hover">
+                <colgroup>
+                    <col span="1">
+                    <col style="width:130px;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Permiso</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let clientPermission of clientPermissions">
+                        <td>{{clientPermission.name}}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary action-button" [routerLink]="['edit', clientPermission.id]">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary action-button" (click)="deleteClientPermissionModal(clientPermission)">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="no-info" *ngIf="clientPermissions.length == 0">
+                            <small>No hay información para mostrar</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ng-pagination *ngIf="dataToShow && switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+        <ng-pagination *ngIf="dataToShow && !switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+
+        <button type="button" class="btn btn-info" (click)="configureNewClientPermission();">Agregar permiso</button>
+
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

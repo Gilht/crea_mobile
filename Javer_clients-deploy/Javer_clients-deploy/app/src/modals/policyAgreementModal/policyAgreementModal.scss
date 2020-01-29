@@ -1,0 +1,81 @@
+page-policyAgreementModal {
+
+    ion-row {
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    textarea {
+        width: 95%;
+    }
+
+    .am-container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 0 50px 25px 50px;
+
+        .am-header {
+            text-align: center;
+            flex: 1;
+        }
+
+        .am-body {
+            flex: 6;
+            font-size: 30px;
+
+            .am-image {
+                width: 20%;
+                margin: 15px auto 40px auto;
+            }
+        }
+
+        .am-content {
+            font-size: 19px;
+
+            p {
+                margin: 25px 0;
+            }
+        }
+
+        .am-checkbox-wrapper {
+            display: flex;
+            align-items: center;
+
+            input {
+                transform: scale(1.5);
+            }
+
+            label {
+                margin-left: 15px;
+                font-size: 15px;
+            }
+        }
+
+        .am-footer {
+            display: flex;
+            flex: 1;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            .am-button-container {
+                flex: 1;
+                justify-content: center;
+
+                button {
+                    margin: 0 15px;
+                    display: flex;
+                    width: 80%;
+                }
+
+                .continue-button {
+                    margin: auto;
+                }
+            }
+        }
+
+    }
+}

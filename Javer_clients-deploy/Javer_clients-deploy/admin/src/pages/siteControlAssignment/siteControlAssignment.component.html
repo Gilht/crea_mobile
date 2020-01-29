@@ -1,0 +1,181 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <button type="button" [routerLink]="'/app/siteControl'" class="btn btn-large btn-block btn-info">
+                    <</button>
+            </div>
+            <div class="bar-filter-container">
+                <h3>CONFIGURACIÓN > Control de Obra > Asignación</h3>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Proyecto</th>
+                        <th>Reponsable</th>
+                        <th>Correo Responsable</th>
+                        <th>Compras</th>
+                        <th>Correo Compras</th>
+                        <th>Control de Obra</th>
+                        <th>Correo de Control de Obra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let project of projects">
+                        <td>{{project.name}}</td>
+                        <td>{{project.dtuAgent ? project.dtuAgent.workName + " " + project.dtuAgent.lastName + " " + project.dtuAgent.lastNameMother
+                            : ""}}</td>
+                        <td>{{project.dtuEmail}}</td>
+                        <td>{{project.purchasingAgent ? project.purchasingAgent.workName + " " + project.purchasingAgent.lastName
+                            + " " + project.purchasingAgent.lastNameMother : ""}}</td>
+                        <td>{{project.purchaseEmail}}</td>
+                        <td>{{project.controlAgent ? project.controlAgent.workName + " " + project.controlAgent.lastName + "
+                            " + project.controlAgent.lastNameMother : ""}}</td>
+                        <td>{{project.controlEmail}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="no-info" *ngIf="projects.length == 0"><small>No hay información para mostrar</small></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ng-pagination *ngIf="dataToShow && switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+        <ng-pagination *ngIf="dataToShow && !switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+        <ul id="tab-bar" class="nav nav-tabs">
+            <li [ngClass]="{active: showScreen == 'assignment'}" (click)="showScreen = 'assignment'">
+                <a class="cursor-pointer title" style="font-size: 15px;">Asignación</a>
+            </li>
+            <li [ngClass]="{active: showScreen == 'contacts'}" (click)="showScreen = 'contacts'" *ngIf="projects.length <= 1">
+                <a class="cursor-pointer title" style="font-size: 15px;">Contactos Adicionales</a>
+            </li>
+            <li [ngClass]="{active: showScreen == 'notifications'}" (click)="showScreen = 'notifications'" *ngIf="projects.length <= 1">
+                <a class="cursor-pointer title" style="font-size: 15px; width: 200px;">Notificaciones Estimaciones</a>
+            </li>
+        </ul>
+        <div class="tabs-panel-container">
+            <div *ngIf="showScreen == 'assignment'">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label class="purchaseLabel">Control de Obra</label>
+                            <select [disabled]="!writeFlag" class="form-control" [(ngModel)]='controlAssign.resident' (ngModelChange)='populateResidentEmail()'>
+                                        <option value="undefined" selected>Seleccionar</option>
+                                        <option *ngFor="let item of users" [ngValue]="item">{{item.workName + " " + item.lastName + " " + item.lastNameMother }}</option>
+                                    </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Correo electrónico" [(ngModel)]='controlAssign.email' [disabled]="true">
+                        </div>
+                        <button *ngIf="writeFlag" type="button" class="btn btn-primary" (click)="asingnControl();" [disabled]="!isValidAsingnPurchase()">Asignar</button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="showScreen == 'contacts'">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="purchaseLabel">Nombre</label>
+                            <input [disabled]="!writeFlag" type="text" class="form-control" [(ngModel)]="newContact.name">
+                        </div>
+                        <div class="form-group">
+                            <label class="purchaseLabel">Correo</label>
+                            <input [disabled]="!writeFlag" type="email" class="form-control" [(ngModel)]="newContact.email">
+                        </div>
+                        <button *ngIf="writeFlag" type="button" class="btn btn-primary" (click)="asingnContact();" [disabled]="!isValidAsingnContact()">Asignar</button>
+                    </div>
+                    <div class="col-md-6">
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Correo</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let contact of contacts">
+                                    <td>{{contact.name}}</td>
+                                    <td>{{contact.email}}</td>
+                                    <td>
+                                        <button *ngIf="writeFlag" type="button" class="btn btn-primary action-button" (click)="deleteContact(contact)">
+                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="no-info" *ngIf="contacts.length == 0"><small>No se han agregado contactos aún</small></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+            <div *ngIf="showScreen == 'notifications'">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="purchaseLabel">Nombre</label>
+                            <input [disabled]="!writeFlag" type="text" class="form-control" [(ngModel)]="newContactNotify.name">
+                        </div>
+                        <div class="form-group">
+                            <label class="purchaseLabel">Correo</label>
+                            <input [disabled]="!writeFlag" type="email" class="form-control" [(ngModel)]="newContactNotify.email">
+                        </div>
+                        <button *ngIf="writeFlag" type="button" class="btn btn-primary" (click)="asingnContactNotify();" [disabled]="!isValidAsingnContactNotify()">Asignar</button>
+                    </div>
+                    <div class="col-md-6">
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Correo</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let contact of contactsNotify">
+                                    <td>{{contact.name}}</td>
+                                    <td>{{contact.email}}</td>
+                                    <td>
+                                        <button *ngIf="writeFlag" type="button" class="btn btn-primary action-button" (click)="deleteContactNotify(contact)">
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="no-info" *ngIf="contactsNotify.length == 0"><small>No se han agregado contactos aún</small></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

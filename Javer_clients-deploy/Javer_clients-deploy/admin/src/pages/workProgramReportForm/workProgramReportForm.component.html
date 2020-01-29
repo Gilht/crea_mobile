@@ -1,0 +1,228 @@
+<div style="height: 96%;" *ngIf="!loading">
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" style="margin-left:0%">
+        <div class="list-panel-filters">
+            <div class="row no-margin">
+                <div class="bar-filter-container">
+                    <button type="button" (click)="goBack()" class="btn btn-large btn-block btn-info">
+                        <</button>
+                </div>
+                <div class="bar-filter-container">
+                    <h3>REPORTES > Reporte de Programa de Obra</h3>
+                </div>
+            </div>
+            <div class="row no-margin">
+                <div class="bar-filter-container">
+                    <select class="form-control" [(ngModel)]='filter.proyecto' (ngModelChange)="getFrente();setProyect($event);" [disabled]="workProgramId != null">
+                        <option value="">Proyecto</option>
+                        <option *ngFor="let item of projects" [ngValue]="item.externalId">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="bar-filter-container">
+                    <select class="form-control" [(ngModel)]='filter.frente' (ngModelChange)="getConjunto();setFront($event);" [disabled]="workProgramId != null">
+                        <option value="">Frente</option>
+                        <option *ngFor="let item of frentes" [ngValue]="item.id">{{item.value }}</option>
+                    </select>
+                </div>
+                <div class="bar-filter-container">
+                    <select class="form-control" [(ngModel)]='filter.conjunto' (ngModelChange)="getHouse();setCollection($event);" [disabled]="workProgramId != null">
+                        <option value="">Conjunto</option>
+                        <option *ngFor="let item of conjuntos" [ngValue]="item.id">{{item.value }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="container">
+            <!-- Left Part (Template Data)-->
+            <div class="part-one">
+                <div class="part-title">
+                    {{workProgram.collection}}
+                    <br>
+                    <select class="form-control" [(ngModel)]='selectedTemplate' (ngModelChange)='initCollapsable()' style="width: 70%; display: inline-block;">
+                        <option value="-1">Plantilla</option>
+                        <option *ngFor="let item of workProgram.templates; let t = index;" [ngValue]="t">{{item.template.name}}</option>
+                    </select>
+                </div>
+                <div class="part-subtitle">Duración: {{workProgram.weekNumber}} Semanas
+                </div>
+
+                <div class="part-cols sectionsA-sectionsT sticky-60">
+                    <div>{{currentTemplateSections}} Secciones Asignadas / {{totalSections}} Secciones Totales </div>
+                </div>
+                <div class="part-cols sticky-90">
+                    <div>Paquetes / Subpaquetes</div>
+                </div>
+
+                <div class="package-subpackages" *ngIf="selectedTemplate >= 0">
+
+                    <ng-container *ngFor="let pack of workProgram.templates[selectedTemplate].template.packages; let p = index;">
+                        <div (click)="expand(p);" (mouseenter)="hover(p + getPastOpenedSubpackages(p-1), true)" (mouseleave)="hover(p+ getPastOpenedSubpackages(p-1),false)"
+                            class="expandable-package package-odd-even">
+                            {{pack.package.name}}
+                            <i style="float:right" [ngClass]="{'glyphicon': true, 'glyphicon-menu-down': !collapsable[p].expanded, 'glyphicon-menu-up' : collapsable[p].expanded}"></i>
+                        </div>
+                        <ng-container *ngIf="collapsable[p].expanded">
+                            <div *ngFor="let subpack of pack.subpackages; let z = index" class="subpackage-row package-odd-even" data-toggle="tooltip"
+                                data-placement="left" [title]="subpack.subpackage.name" (mouseenter)="hover((p+z+1) + getPastOpenedSubpackages(p-1), true)"
+                                (mouseleave)="hover((p+z+1)+ getPastOpenedSubpackages(p-1),false)">
+                                {{subpack.subpackage.name}}
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+            </div>
+            <!-- Mid Part (Days tasks of done sections) -->
+            <div class="part-two">
+                <!-- Months -->
+                <div *ngFor="let month of months; let m = index;" class="part-title" [style.width.px]="getMonthSize(m)">
+                    {{month.name}}
+                </div>
+                <br>
+                <!-- Weeks and Days -->
+                <div class="days-container" *ngFor="let week of weeks; let w = index;">
+                    <div class="part-subtitle">{{week.name}}</div>
+                    <div class="week-day-container">
+
+                        <div class="part-cols sticky-60">
+                            {{week.days[0].number}} {{getMonthFromNum(week.initialDay.month())}}
+                        </div>
+
+                        <div class="part-cols sticky-75">
+                            {{week.days[week.days.length - 1].number}} {{getMonthFromNum(week.lastDay.month())}}
+                        </div>
+
+                        <div class="calculate-week sticky-90">
+                            <div class="day-holder">
+                                P
+                            </div>
+                            <div class="day-holder">
+                                R
+                            </div>
+                        </div>
+                        <!-- Show data on table -->
+                        <ng-container *ngIf="selectedTemplate >= 0">
+                            <ng-container *ngFor="let wPWeekTP of filteredWeeks[w].wPWeeksTP; let s = index;">
+
+                                <ng-container *ngIf="(s == 0 || wPWeekTP.tPId != filteredWeeks[w].wPWeeksTP[s - 1].tPId)">
+                                    <div class="programmed-row" (mouseenter)="hover(s + getPastOpenedSubpackages(s-1), true)" (mouseleave)="hover(s+ getPastOpenedSubpackages(s-1),false)">
+                                        <ng-container *ngIf="expandPackage(wPWeekTP.tPId)">
+                                            <div class="day-holder ">
+
+                                            </div>
+                                            <div class="day-holder ">
+
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="!expandPackage(wPWeekTP.tPId)">
+                                            <ng-container *ngIf="blockPackage(filteredWeeks, wPWeekTP.tPId)">
+                                                <div class="day-holder">
+                                                </div>
+                                                <div class="day-holder"></div>
+                                            </ng-container>
+                                            <ng-container *ngIf="!blockPackage(filteredWeeks, wPWeekTP.tPId)">
+                                                <div class="day-holder">
+                                                    {{wPWeekTP.programmed}}
+                                                </div>
+                                                <div class="day-holder" [ngClass]="{'color-change':calculatePackageReal(wPWeekTP.tPId, week.initialDay, week.lastDay) < wPWeekTP.programmed}">
+                                                    <ng-container *ngIf="calculatePackageReal(wPWeekTP.tPId, week.initialDay, week.lastDay) != 0 || calculatePastPackageValues(w,s) > 0">
+                                                        {{calculatePackageReal(wPWeekTP.tPId, week.initialDay, week.lastDay)}}
+                                                    </ng-container>
+                                                </div>
+                                            </ng-container>
+
+                                        </ng-container>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="expandPackage(wPWeekTP.tPId)">
+                                    <ng-container *ngFor="let wPWeekTPS of wPWeekTP.wPWeeksTPS; let x = index">
+
+                                        <div class="programmed-row" (mouseenter)="hover((s+x+1) + getPastOpenedSubpackages(s-1), true)" (mouseleave)="hover((s+x+1)+ getPastOpenedSubpackages(s-1),false)">
+                                            <div class="day-holder">
+                                                {{wPWeekTPS.programmed}}
+                                            </div>
+                                            <div class="day-holder " [ngClass]="{'color-change':calculateSubpackageReal(wPWeekTPS.tPSId, week.initialDay, week.lastDay) < wPWeekTPS.programmed}">
+                                                <ng-container *ngIf="calculateSubpackageReal(wPWeekTPS.tPSId, week.initialDay, week.lastDay) != 0 || calculatePastSubpackageValues(w,s,x) > 0">
+                                                    {{calculateSubpackageReal(wPWeekTPS.tPSId, week.initialDay, week.lastDay)}}
+                                                </ng-container>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+                <br>
+            </div>
+
+            <ng-container *ngIf="filteredWeeks.length > 0">
+                <!-- Right Part (Totals) -->
+                <div class="part-three-wrapper">
+                    <div class="part-three" *ngIf="selectedTemplate >= 0 && checkTotal">
+                        <div class="title">TOTAL
+                            <br>Programado</div>
+                        <ul class="total-list">
+                            <ng-container *ngFor="let pack of workProgram.templates[selectedTemplate].template.packages; let p = index;">
+                                <li class="total-element" (mouseenter)="hover(p + getPastOpenedSubpackages(p-1), true)" (mouseleave)="hover(p+ getPastOpenedSubpackages(p-1),false)">
+                                    <ng-container *ngIf="blockPackage(filteredWeeks, pack.id)">
+
+                                    </ng-container>
+                                    <ng-container *ngIf="!blockPackage(filteredWeeks, pack.id)">
+                                        {{calculatePackageTotal(filteredWeeks, p)}}
+                                    </ng-container>
+                                </li>
+                                <ng-container *ngIf="expandPackage(pack.id)">
+                                    <ng-container *ngFor="let subpack of pack.subpackages; let i = index">
+                                        <li class="total-element" (mouseenter)="hover((p+i+1) + getPastOpenedSubpackages(p-1), true)" (mouseleave)="hover((p+i+1)+ getPastOpenedSubpackages(p-1),false)">
+                                            {{calculateSubpackageTotal(filteredWeeks, p, i)}}
+                                        </li>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                        </ul>
+
+                    </div>
+                    <div class="part-three" *ngIf="selectedTemplate >= 0 && checkTotal">
+                        <div class="title">TOTAL
+                            <br>Real</div>
+                        <ul class="total-list">
+                            <ng-container *ngFor="let pack of workProgram.templates[selectedTemplate].template.packages; let p = index;">
+                                <li class="total-element" (mouseenter)="hover(p + getPastOpenedSubpackages(p-1), true)" (mouseleave)="hover(p+ getPastOpenedSubpackages(p-1),false)">
+                                    <ng-container *ngIf="blockPackage(filteredWeeks, pack.id)">
+                                    </ng-container>
+                                    <ng-container *ngIf="!blockPackage(filteredWeeks, pack.id)">
+                                        {{calculatePackageTotalReal(pack)}}
+                                    </ng-container>
+                                </li>
+                                <ng-container *ngIf="expandPackage(pack.id)">
+                                    <ng-container *ngFor="let subpack of pack.subpackages; let i = index">
+                                        <li class="total-element" (mouseenter)="hover((p+i+1) + getPastOpenedSubpackages(p-1), true)" (mouseleave)="hover((p+i+1)+ getPastOpenedSubpackages(p-1),false)">
+                                            {{calculateSubpackageTotalReal(subpack)}}
+                                        </li>
+                                    </ng-container>
+                                </ng-container>
+
+                            </ng-container>
+                        </ul>
+
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="row">
+        <button type="button" class="btn btn-primary" (click)="exportExcel()">Descargar</button>
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

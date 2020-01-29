@@ -1,0 +1,43 @@
+<div *ngIf='!loading' class="main-container">
+    <div class="cc-panel-wrapper">
+        <div class="cc-panel">
+            <div class="panel panel-default login-panel">
+                <img src="assets/img/casas-javer.png" class="company-logo" alt="Logo Casas Javer">
+                <label for="pwd">USUARIO</label>
+                <div class="form-group username-input-container">
+                    <div class="input-group">
+                        <span class="input-group-addon glyphicon glyphicon-user login-input"></span>
+                        <input type="text" placeholder="Usuario" class="form-control" [(ngModel)]="newUser.userName">
+                    </div>
+                </div>
+                <label for="pwd">CONTRASEÑA</label>
+                <div class="form-group password-input-container">
+                    <div class="input-group">
+                        <span class="input-group-addon glyphicon glyphicon-lock login-input"></span>
+                        <input [type]="passwordInputType" placeholder="Contraseña" class="form-control" [(ngModel)]="newUser.password" (keyup.enter)="login()">
+                    </div>
+                </div>
+                <div class="form-group show-password-input-container">
+                    <label class="container">Mostrar contrase&ntilde;a
+                      <input type="checkbox" [(ngModel)]="showPassword" (ngModelChange)="changePasswordInputType()">
+                      <span class="checkmark"></span>
+                    </label>
+                </div>
+                <button class="btn btn-default btn-login" (click)="login()">INICIAR SESIÓN</button>
+                <div class="privacy-policy-container text-center">
+                    <a href="https://www.javer.com.mx/avisos-de-privacidad.php" target="_new">Avisos de privacidad</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="version-container">
+        <div>Server - {{ serverVersion }}</div>
+        <div>Admin - {{ adminVersion }}</div>
+    </div>
+</div>
+
+<div *ngIf='loading'>
+    <br>
+    <div class="loader"></div>
+</div>
+<ng2-toasty></ng2-toasty>

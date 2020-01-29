@@ -1,0 +1,24 @@
+button{
+    margin:auto;
+    display:block;
+  }
+
+
+.text-area {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button1 {
+  float: right;
+  background: red;
+  color: white;
+}
+
+.btn-primary {
+  float: right;
+  margin-right: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,51 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <button type="button" [routerLink]="'/app/subpackage'" class="btn btn-large btn-block btn-info">
+                    <</button>
+            </div>
+            <div class="bar-filter-container">
+                <h3>CHECKLIST > Subpaquetes > {{subpackageId ? 'Editar Paquete':'Nuevo Subpaquete'}}</h3>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+
+        <div class="container">
+            <div class="form-container">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="form-group">
+                            <label class="purchaseLabel">Nombre del Subpaquete</label>
+                            <span style="font-size: 10px;" [ngStyle]="{'color' :  subpackage?.name?.length == 60 ? 'red' : 'black' }">({{subpackage?.name?.length || 0}}/60 carácteres máximo)</span>
+                            <input type="text" class="form-control" [(ngModel)]="subpackage.name" maxlength="60">
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <input type="checkbox" [(ngModel)]="subpackage.main">
+                        <label>Principal</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="purchaseLabel">Paquete</label>
+                        <select class="form-control" [(ngModel)]="subpackage.packageId">
+                            <option *ngFor="let item of package" [value]="item.id">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" (click)="saveSubpackage(subpackage);" [disabled]="!subpackage.name || !subpackage.packageId">Guardar</button>
+            </div>
+        </div>
+    </div>
+    <div class="loading" *ngIf="loading">
+        <div class="cssload-thecube">
+            <div class="cssload-cube cssload-c1"></div>
+            <div class="cssload-cube cssload-c2"></div>
+            <div class="cssload-cube cssload-c4"></div>
+            <div class="cssload-cube cssload-c3"></div>
+        </div>
+    </div>
+    <ng2-toasty></ng2-toasty>

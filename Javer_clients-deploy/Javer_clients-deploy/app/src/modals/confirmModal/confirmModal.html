@@ -1,0 +1,9 @@
+<ion-content>
+    <ion-row>
+        <h6>{{message}}</h6>
+    </ion-row>
+    <ion-row style="padding: 0 10%;">
+        <button ion-button class="btn-disabled" (click)="dismiss(false)">{{cancel}}</button>
+        <button ion-button class="btn-primary" (click)="dismiss(true)">{{accept}}</button>
+    </ion-row>
+</ion-content>

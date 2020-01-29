@@ -1,0 +1,42 @@
+<div class="uen-permissions">
+  <div class="component-header">
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <button type="button" [routerLink]="'/app/user'" class="btn btn-large btn-block btn-info">
+                    <</button>
+            </div>
+            <div class="bar-filter-container">
+                <h3>USUARIO > Asignar roles</h3>
+            </div>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+  <div class="list-panel content-container-wrapper" *ngIf="!loading">
+    <div class="user-dropdown">
+      <h4>Usuario: {{user.workName + " " + user.lastName + " " + user.lastNameMother }}</h4>
+      <div style="clear: both;"></div>
+    </div>
+    <div class="project-access">
+      <ng2-dual-list-box [data]="notAllowedProjects" [valueField]="id" [textField]="name" [rightData]="allowedProjects"
+        (onItemsMoved)="syncLists($event)"
+        [availableText]="'Sin Acceso'"
+        [selectedText]="'Con Acceso'">
+      </ng2-dual-list-box>
+    </div>
+    <div class="action-buttons">
+        <button type="button" class="btn btn-warning">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="save(user)" [disabled]="!((listToSync.length > 0) || (listToSync.length > 0) || couldSave)">Guardar</button>
+    </div>
+  </div>
+  <div class="loading" *ngIf="loading">
+      <div class="cssload-thecube">
+          <div class="cssload-cube cssload-c1"></div>
+          <div class="cssload-cube cssload-c2"></div>
+          <div class="cssload-cube cssload-c4"></div>
+          <div class="cssload-cube cssload-c3"></div>
+      </div>
+  </div>
+</div>

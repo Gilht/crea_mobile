@@ -1,0 +1,10 @@
+.sourcemaps/
+
+google-service-configs/
+node_modules/
+platforms/
+plugins/
+www/
+temp/
+
+src/clientsSharedModule

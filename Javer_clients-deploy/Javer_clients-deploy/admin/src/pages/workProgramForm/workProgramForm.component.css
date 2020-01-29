@@ -1,0 +1,404 @@
+.btn-primary {
+    float: right;
+    margin-right: 35px;
+    margin-top: 10px;
+}
+
+.bar-filter-container h3{
+    margin-top: 5px;
+}
+
+.form-container{
+    background-color: #fff;
+    height: 100%;
+    padding: 30px;
+    padding-bottom: 45px;
+    margin: 40px;
+    color: black;    
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.37);  
+}
+
+.container{
+    width: 100%;
+    max-height: 81%;
+    background: white;
+    margin-top: 20px;
+    overflow: scroll;
+    padding: 0;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.container div{
+    display: inline-block;
+}
+
+.part-one{
+    width:35%;
+    vertical-align: top;
+    min-width: 35%;
+    position: sticky;
+    left: 0;
+    z-index: 10;
+    height: min-content;
+}
+.part-two{
+    vertical-align: top;
+    z-index:0;
+}
+.part-three{
+    width: 80px;
+    height: min-content;
+}
+.part-subtitle{
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+}
+.part-three-wrapper{
+    position: sticky;
+    right: 0;
+    display: flex !important;
+}
+.programmed-row:nth-child(even){
+    background :#f1f1f1;
+}
+.programmed-row:nth-child(odd){
+    background :#ffffff;
+}
+
+.part-one .package-subpackages  .package-odd-even:nth-child(even){
+     background :#ffffff;
+}
+
+.part-one .package-subpackages .package-odd-even:nth-child(odd){
+    background :#f1f1f1
+}
+
+.part-one .part-title{
+    width: 100%;
+    height: 54px;
+    max-height: 54px;
+    background: #bf0811;
+    text-align: center;
+}
+
+.part-one .part-subtitle{
+    width: 100%;
+    background: #801815;
+    padding: 7px 10px;
+    height: 60px;
+    max-height: 60px;
+    font-size: 12px;
+}
+.part-one .part-subtitle input{
+    width:15%;
+    color: black;
+    text-align: center;
+}
+.part-one .part-subtitle button{
+    width: 35%;/*20%*/
+    font-size: 13px;/*8px*/
+    float: unset;
+    text-align: center;
+    padding: 5px;
+}
+.part-one .part-cols div{
+    width: 100%;
+    height: 30px;
+    max-height: 30px;
+    background:  #d67870;
+    border-top: 1px solid white;
+    text-align: center;
+    line-height: 30px;
+}
+
+.part-one .sectionsA-sectionsT {
+    overflow: hidden;
+    display: flex;
+}
+
+.part-cols{
+    width: 100%;
+}
+.package-subpackages{
+    width: 100%;
+}
+.sticky-60{
+    position: sticky;
+    top: 60px;
+    z-index: 9999;
+}
+.sticky-75{
+    position: sticky;
+    top: 75px;
+    z-index: 9999;
+}
+.sticky-90{
+    position: sticky;
+    top: 90px;
+    z-index: 9999;
+}
+
+.package-subpackages .package{
+    width: 100%;
+    height: 20px;
+    max-height: 20px;
+    background:  #d67870;
+    text-align: center;
+}
+
+.package-subpackages .subpackage{
+    width: 100%;
+    height: 20px;
+    max-height: 20px;
+    background:  #d67870;
+    text-align: center;
+}
+.part-one .package-subpackages div{
+    text-align: left;
+}
+.subpackage-row{
+    width: 100%;
+    height: 20px;
+    color: black;
+    padding-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex !important;
+}
+.subpackage-row div{
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+    white-space: nowrap;
+    background: transparent;
+    text-overflow: ellipsis;
+    color: black;
+    height: 17px;
+    flex-direction: column;
+    font-size: 12px;
+}
+
+.part-two{
+    white-space: nowrap;
+    height: max-content;
+    background: white;
+}
+
+.part-two .part-title{
+    white-space: normal;
+    text-align: center;
+    background: #bf0811;
+    vertical-align: middle;
+    border-right: 1px solid white;
+    height: 54px;
+    max-height: 54px;
+}
+.part-two .part-subtitle{
+    color: white;
+    text-align: center;
+    background: #c7c7c7;
+    width: 100%;
+    border-right: 1px solid white;
+    height: 60px;
+    max-height: 60px;
+    border-bottom: 1px solid white;
+    color: black;
+    line-height: 60px;
+}
+.day-holder{
+    width: 50px;
+    font-size: 10px;
+    padding: 0;
+    white-space: normal;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    text-align: center;
+    line-height: 30px;
+}
+.day-holder div{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    color: white;
+    background: #d67870;
+    border-right: 1px solid white;
+    margin: 1px 0px;
+    line-height: 20px;
+}
+.calculate-week{
+    width:105px;
+    height:30px !important;
+    background: #c7c7c7 !important; 
+    line-height: 20px;
+    color: black;
+    border-right: 1px solid white;
+    border-top: 1px solid white;
+}
+.days-container {
+    white-space: normal;
+}
+.days-container .week-day-container{
+    white-space: normal;
+    display: flex;
+    flex-direction: column;
+    max-width: 160px;
+    width: 105px;
+}
+.days-container .part-cols{
+    width: 100%;
+    height: 15px;
+    max-height: 15px;
+    background:  #c7c7c7;
+    text-align: center;
+    border-right: 1px solid white;
+    color: black;
+    font-size: 12px;
+}
+
+.subpackage-input-rows .subpackage-input-row:nth-child(even){
+    background: #f1f1f1;
+}
+.subpackage-input-rows .subpackage-input-row:nth-child(odd){
+    background: white;
+}
+.subpackage-input-row{
+    width: 100%;
+    display: flex !important;
+}
+.input-holder div{
+    width: 20px;
+    height: 20px;
+    color: white;
+    font-size: 10px;
+    white-space: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+.input-holder div input{
+    width: 20px;
+    font-size: 10px;
+    color: black;
+    height: 20px;
+    text-align: center;
+}
+.input-holder{
+    white-space: nowrap;
+    display: inline-flex !important;
+    height: 20px;
+    max-height: 20px;
+}
+.calc-col{
+    background: gray;
+}
+.father ::-webkit-scrollbar { 
+    width: 20px; 
+    background: transparent !important; 
+}
+.part-three .title{
+    height: 174px;
+    width: 100%;
+    text-align: center;
+    white-space: normal;
+    background: #c7c7c7;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    font-size: 12px;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    position: sticky;
+    top: -54px;
+}
+
+.total-list{
+    width: 80px;
+    padding: 0;
+    list-style-type: none;
+}
+
+.total-list .total-element{
+    width: 100%;
+    height: 20px;
+    font-size: 10px;
+    min-height: 20px;
+    color: black;
+    line-height: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+.total-list .total-element:nth-child(odd){
+    background :#f1f1f1;
+}
+.total-list .total-element:nth-child(even){
+    background :#ffffff;
+}
+
+.totals{
+    height: 20px;
+    width: 100%;
+    display: flex !important;
+    font-size: 10px;
+    background:#77bae8;
+    color: white;
+}
+.list-panel {
+    margin-top: -180px;
+    color: white;
+    height: 85%;
+    margin-left: 30px;
+}
+
+.programmed-row{
+    width: 100%;
+    height: 20px;
+    display: flex !important;
+}
+.programmed-row div{
+    width: 50%;
+    background: transparent;
+    color: black;
+    height: 20px;
+    flex-direction: column;
+    line-height: 20px;
+}
+
+input[type=number] {
+    padding:5px; 
+    border:2px solid #ccc; 
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    width: 50px;
+    height: 20px;
+    text-align: center;
+}
+
+.expandable-package{
+    cursor: pointer;
+    width: 100%;
+    display: inline-block;
+    height: 20px;
+    min-height: 20px;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+li {
+    max-height: min-content;
+    display: block;
+}
+
+.color-change {
+    color:red !important;
+}
+
+.input-color-change {
+    color:white !important;
+}

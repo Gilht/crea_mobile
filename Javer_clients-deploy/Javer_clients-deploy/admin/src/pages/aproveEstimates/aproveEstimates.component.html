@@ -1,0 +1,100 @@
+<div style="height: 100%">
+    <div class="red-panel"></div>
+    <div class="list-panel" *ngIf="!loading">
+        <h3>CONTROL DE OBRA > Aprobar Estimaciones</h3>
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filters.project' (ngModelChange)="populateProvidersFilter()">
+                    <option value="">Proyecto</option>
+                    <option *ngFor="let item of projects" [ngValue]="item">{{item}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filters.provider' (ngModelChange)="populateFrontsFilter()">
+                    <option value="">Proveedor</option>
+                    <option *ngFor="let item of providers" [ngValue]="item">{{item}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filters.front' (ngModelChange)="populateCollectionsFilter()">
+                    <option value="">Frente</option>
+                    <option *ngFor="let item of fronts" [ngValue]="item">{{item}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filters.collection' (ngModelChange)="populateContractsFilter()">
+                    <option value="">Conjunto</option>
+                    <option *ngFor="let item of collections" [ngValue]="item">{{item}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filters.contract' (ngModelChange)="searchEstimates()">
+                    <option value="">Contrato</option>
+                    <option *ngFor="let item of contracts" [ngValue]="item">{{item}}</option>
+                </select>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <button type="button" class="btn btn-primary" (click)="searchEstimates()">Buscar</button>
+            </div>
+            <div class="bar-filter-container">
+                <button type="button" class="btn btn-warning" (click)="cleanFilters()">Limpiar</button>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="table-container">
+                <table class="table table-hover">
+                    <colgroup>
+                        <col span="7">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" [(ngModel)]="selectA" (ngModelChange)="selectAll()">
+                            </th>
+                            <th>Proyecto</th>
+                            <th>Frente</th>
+                            <th>Conjunto</th>
+                            <th>Proveedor</th>
+                            <th>Contrato</th>
+                            <th># Estimación</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="estimates">
+                        <tr *ngFor="let estimate of estimates">
+                            <td>
+                                <input type="checkbox" name="" [(ngModel)]="estimate.selected">
+                            </td>
+                            <td>{{estimate.project}}</td>
+                            <td>{{estimate.frontName}}</td>
+                            <td>{{estimate.collectionName}}</td>
+                            <td>{{estimate.providerName}}</td>
+                            <td>{{estimate.contract}}</td>
+                            <td>{{estimate.estimateNumber}}</td>
+                        </tr>
+                        <tr *ngIf="estimates.length == 0">
+                            <td colspan="7" class="no-info">
+                                <small>No hay información para mostrar</small>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="display:block; width:100%; margin-top: 15px;">
+                <button class="btn btn-primary" style="float:right" (click)="validateEstimates()" [disabled]="!canValid()">Validar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

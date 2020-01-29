@@ -1,0 +1,240 @@
+<div id="capture" *ngIf="!loading" style="height: 93%;">
+    <div *ngIf="estimate" style="height: 24%;">
+        <div class="row" class="red-panel">
+            <div style="width:100%">
+                <div class="row">
+                    <div class="col-xs-4">
+                        <h3 class="title">Estimaciones</h3>
+                    </div>
+                    <div class="col-xs-8">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="square-to-estimate"></div> Actividad disponible para estimar
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="square-no-apply"></div> Elemento no aplica en ese contrato
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="square-estimated"></div> Actividad estimada por Módulo de Construcción
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="square-selected"></div> Actividad Seleccionada
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="square-system-estimated"></div> Actividad estimada por Sistema
+                            </div>
+                            <div class="col-xs-6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel-info" style="width:100%">
+                        <div class="panel">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <span>Proyecto</span>
+                                    <span>{{estimate.projectCode + ' ' + estimate.project}}</span>
+                                </div>
+                                <div class="col-xs-4">
+                                    <span>Frente</span>
+                                    <span>{{estimate.frontName}}</span>
+                                </div>
+                                <div class="col-xs-4">
+                                    <span>Conjunto</span>
+                                    <span>{{estimate.collectionName}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <span>Proveedor</span>
+                                    <span>{{estimate.providerName}}</span>
+                                </div>
+                                <div class="col-xs-4">
+                                    <span>Contrato</span>
+                                    <span>{{estimate.contract}}</span>
+                                </div>
+                                <div class="col-xs-4">
+                                    <span># Estimación</span>
+                                    <span>{{estimate.estimateNumber}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="filter-wrapper">
+                <div class="input-filter-wrapper">
+                    <input type="text" class="filter-subpackage" placeholder="Subpaquete" [(ngModel)]="selectedSubpackage" (ngModelChange)="applyFilters()"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="filter-wrapper">
+                <div class="toggle-controls-wrapper">
+                    <input type="checkbox" id="shwav" class="show-available" [(ngModel)]="filters.showAvailable" (ngModelChange)="applyFilters()" />
+                    <label for="shwav">Mostrar Disponibles</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="filter-wrapper">
+                <div class="toggle-controls-wrapper">
+                    <input type="checkbox" id="shwuc" class="show-unit-cost" [(ngModel)]="filters.showUnitCost" (ngModelChange)="applyFilters()" />
+                    <label for="shwuc">Mostrar Costo Unitario</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="filter-wrapper">
+                <div class="toggle-controls-wrapper">
+                    <input type="checkbox" id="shwfe" class="show-final-estimation" [(ngModel)]="estimate.isFinal" [disabled]="disableEditIsFinalEstimate" />
+                    <label for="shwfe">Estimaci&oacute;n de cierre</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label class="signature-input" *ngIf="modified"
+                    style="width: 30%; font-weight: 700;text-shadow: 2px 1px 1px #ffcbcb;">
+                {{'Cambios agregados por ' + (resident ? resident.workName + ' ' + resident.lastName + ' ' + resident.lastNameMother : currentUser) }}
+            </label>
+        </div>
+    </div>
+    <div class="container" *ngIf="estimate">
+        <div class="col-container">
+            <div class="subpackage-row cols" [ngClass]="{'hidden-unit-cost': !filters.showUnitCost}">
+                <div>Paq</div>
+                <div>Subpaquete</div>
+                <div>Cant.
+                    <br> Total</div>
+                <div>Cant.
+                    <br>Est</div>
+                <div>Cant. x
+                    <br>Est</div>
+                <div>Cant.
+                    <br>Sel</div>
+                <div *ngIf="filters.showUnitCost">Costo<br>Unitario</div>
+            </div>
+            <div class="house-col">Elementos</div>
+        </div>
+        <div class="col-container" style="height:87%; overflow: hidden;" *ngIf="estimate.sections.length > 0 && subpackagesToShow.length > 0">
+            <div class="double-scroll-fixer">
+                <div class="containers">
+                    <div class="subpackage-container">
+                        <div class="table-subtitle"></div>
+                        <div class="subpackage-row" *ngFor="let sp of subpackagesToShow; let s = index;" [ngClass]="{'hidden-unit-cost': !filters.showUnitCost}">
+                            <div>{{sp.packageCode}}</div>
+                            <div>{{sp.subpackageName}}</div>
+                            <div>{{getSubpackageSections(sp)}}</div>
+                            <div>{{getSectionsDone(sp)}}</div>
+                            <div>{{getPendingSections(sp)}}</div>
+                            <div>{{getSubpackageRowTotal(sp)}}</div>
+                            <div *ngIf="filters.showUnitCost">{{sp.cost | currency: 'USD' : 'symbol' : '1.2-2'}}</div>
+                        </div>
+                    </div>
+                    <div class="house-container">
+                        <div class="houses-cols-holder">
+                            <ng-container *ngFor="let s of estimate.sections; let z = index;">
+                                <div class="houses-cols" [style.width.px]="getSectionWidth(s)" *ngIf="z == 0 || s.element != estimate.sections[z-1].element">
+                                    {{s.element}}
+                                </div>
+                            </ng-container>
+                            <br>
+                            <div class="section-div" *ngFor="let section of estimate.sections" [style.width.px]="getColSize(section)">{{section.sectionCode}}</div>
+                        </div>
+                        <div class="colored-container">
+                            <div class="colored-col" *ngFor="let h of estimate.sections; let i = index;" [style.width.px]="getColSize(h)">
+                                <div class="colored-cell" *ngFor="let s of subpackagesToShow; let j = index;" [style.width.px]="getColSize(h)" (click)="toEstimate(i,j)"
+                                    [style.background-color]="paintCell(i,j)">{{getCellNumber(i,j)}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pagination-controls row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-4 text-center">
+            <button type="button" class="btn btn-primary" (click)="changePage()">
+              {{ getPaginationBeforeNextString() }}
+            </button>
+          </div>
+          <div class="col-md-4">
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]="pagination.currentPage" (ngModelChange)="setCurrentPage(pagination.currentPage)">
+                    <option *ngFor="let label of pagination.list; let i = index" [ngValue]="i">{{ label }}</option>
+                </select>
+            </div>
+          </div>
+          <div class="col-md-4 text-center">
+            <button type="button" class="btn btn-primary" (click)="changePage(true)">
+              {{ getPaginationBeforeNextString(true) }}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+    <div class="row bottom-row" *ngIf="estimate">
+        <div class="col-sm-2 col-md-2">
+            <div class="signature-container">
+                <img [src]="estimate.residentSignature">
+                <br>
+                <span>Firma del Residente</span>
+            </div>
+        </div>
+        <div class="col-sm-2 col-md-2">
+            <div class="signature-container">
+                <img [src]="estimate.contractSignature">
+                <br>
+                <span>Firma del Contratista</span>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+            <div class="row no-gutters">
+                <div class="col-sm-6">
+                    <div class="show-subtotal-button">
+                        <button class="btn btn-primary" style="background-color: black !important; color:white; border-color: black !important; margin-left: 15px;"
+                        (click)="showSubtotal = !showSubtotal;">Ver Subtotal</button>
+                        <label [ngStyle]="{'display' : showSubtotal ? 'block' : 'none'}">{{'Subtotal : ' + (getSubpackageTotal() | currency:'USD':true:'1.2-2') + ' El subtotal mostrado está sujeto a cambios'}}</label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label>Calificaci&oacute;n: </label>
+                    <div class="show-rating-button">
+                        <select [(ngModel)]="estimate.rating" class="form-control">
+                            <option *ngFor="let r of rating.availableElements" [value]="r">{{ r }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-4">
+            <div class="send-save-buttons">
+                <button type="button" class="btn btn-primary" (click)="send()">Enviar a Control de Obra</button>
+                <button type="button" class="btn btn-primary" (click)="save()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>

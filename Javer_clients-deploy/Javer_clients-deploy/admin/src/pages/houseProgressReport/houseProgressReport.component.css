@@ -1,0 +1,64 @@
+.btn-info {
+    float: right;
+    margin-right: 35px;
+}
+
+.list-panel-filters .bar-filter-container{
+    max-width: 180PX;
+    min-width: 110px;
+}
+
+.list-panel-filters .bar-filter-container .form-control{
+    padding: 6px 4px;
+    font-size: 12px;
+}
+
+.panel-container .projects-select {
+  height: 110px;
+}
+
+.panel-container::ng-deep .form-control-cal.start-date-cal input, .panel-container::ng-deep .form-control-cal.end-date-cal input {
+  margin-top: 10px;
+  margin-bottom: 22px;
+}
+
+.panel-container .header-action-buttons.row {
+  padding-top: 10px;
+}
+
+.panel-container .header-action-buttons.row .btn-download-report {
+  margin-right: 15px;
+}
+
+[classes~="my-multiselect-style"]::ng-deep .selected-list .c-btn {
+  font-family: "Roboto", "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+[classes~="my-multiselect-style"]::ng-deep .pure-checkbox input[type="checkbox"]+label {
+  font-family: "Roboto", "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+[classes~="my-multiselect-style"]::ng-deep .selected-list > div {
+  overflow-y: scroll;
+  overflow-x: auto;
+  max-height: 115px;
+}
+
+[classes~="my-multiselect-style"]::ng-deep .selected-list .c-list .c-token {
+  background: #5f5f5f;
+}
+
+[classes~="my-multiselect-style"]::ng-deep .pure-checkbox input[type="checkbox"]:checked + label:before {
+    background: #e2564c;
+}
+
+[classes~="my-multiselect-style"]::ng-deep .pure-checkbox input[type="checkbox"] + label:before {
+  color: #e2564c;
+  border: 2px solid #e2564c;
+}
+
+[classes~="my-multiselect-style"]::ng-deep .selected-item {
+  background: #ffe9e9;
+}

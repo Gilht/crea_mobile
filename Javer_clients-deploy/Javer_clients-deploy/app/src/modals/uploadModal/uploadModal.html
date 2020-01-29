@@ -1,0 +1,25 @@
+<ion-content>
+    <div class="upload-modal-inner">
+        <div class="upload-title">
+            <span>Cargando Información por favor espere</span>
+        </div>
+        <hr>
+        <div class="upload-subtitle">
+            <div>
+                <img src="./assets/imgs/home.png">
+                <h3>Viviendas</h3>
+                <span>{{sectionCounter + '/' + sectionTotal}}</span>
+            </div>
+            <div>
+                <img src="./assets/imgs/email.png">
+                <h3>Correos</h3>
+                <span>{{mailCounter + '/' + totalMails}}</span>
+            </div>
+        </div>
+        <div class="upload-bar">
+            <div class="outer-bar">
+                <div class="inner-bar" [style.width.%]="((sectionCounter + mailCounter)/(sectionTotal + totalMails))*100"></div>
+            </div>
+        </div>
+    </div>
+</ion-content>

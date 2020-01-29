@@ -1,0 +1,83 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <h3>CONTROL DE OBRA > Programa de Obra</h3>
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.proyecto' (ngModelChange)="getFrente()">
+                    <option value="">Proyecto</option>
+                    <option *ngFor="let item of projects" [ngValue]="item.externalId">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.frente' (ngModelChange)="getConjunto()">
+                    <option value="">Frente</option>
+                    <option *ngFor="let item of frentes" [ngValue]="item.id">{{item.value }}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.conjunto'>
+                    <option value="">Conjunto</option>
+                    <option *ngFor="let item of conjuntos" [ngValue]="item.id">{{item.value }}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <button type="button" class="btn btn-primary" (click)="getWorkPrograms();" [disabled]="!filter.conjunto || !filter.frente || !filter.proyecto">Buscar</button>
+                <button type="button" class="btn btn-warning" (click)="cleanFilters();">Limpiar</button>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Versión</th>
+                        <th>Fracc/Proyecto</th>
+                        <th>Conjunto</th>
+                        <th>Sector/Frente</th>
+                        <th>Autorización</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let wP of workPrograms; let i = index;">
+                        <td>{{wP.version}}</td>
+                        <td>{{wP.commercialName}}</td>
+                        <td>{{wP.collection}}</td>
+                        <td>{{wP.front}}</td>
+                        <td>
+                            <span [ngClass]="{'glyphicon': true, 'glyphicon-ok': wP.authorized, 'glyphicon-remove' : !wP.authorized}"></span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn eye-button" [routerLink]="['edit', wP.id]">
+                                <span class="glyphicon glyphicon-eye-open" style="color: white; font-size: 20px;"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="12" class="no-info" *ngIf="workPrograms.length == 0">
+                            <small>No hay información para mostrar</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ng-pagination *ngIf="dataToShow && switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+        <ng-pagination *ngIf="dataToShow && !switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+
+        <button *ngIf="writeFlag" type="button" class="btn btn-info" (click)="configureNewWorkProgram();">Agregar Programa de Obra</button>
+
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

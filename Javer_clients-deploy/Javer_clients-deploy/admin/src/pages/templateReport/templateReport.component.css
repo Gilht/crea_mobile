@@ -1,0 +1,14 @@
+#get-sections.btn-primary {
+    float: right;
+    margin-right: 35px;
+}
+
+.list-panel-filters .bar-filter-container{
+    max-width: 180PX;
+    min-width: 110px;
+}
+
+.list-panel-filters .bar-filter-container .form-control{
+    padding: 6px 4px;
+    font-size: 12px;
+}

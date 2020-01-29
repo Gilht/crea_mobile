@@ -1,0 +1,52 @@
+export enum SubpackageStatus {
+  Pending = 0,
+  InProgress = 1,
+  Completed = 2,
+  Na = 3
+}
+
+export enum ChecklistType {
+  Dtu = 1,
+  Advance = 2,
+}
+
+export enum EstimateStatus {
+  SendToBoss = 1,
+  SendToWorkControl = 2,
+  ValidatedByWorkControl = 3
+}
+
+export enum PlatformType {
+  portal = 1,
+  mobile = 2
+}
+
+export enum SessionStatus {
+  Valid = 1,
+  Expired = 2,
+  Invalid = 3
+}
+
+
+// API Error Codes
+// Prior typescript version 2.4 enums with string values throw errors and to update the
+// ts version we need to update other things too, so we need to use an object
+let ApiErrorCodes = {
+  GENERAL_UNEXPECTED: 'GENERAL_UNEXPECTED',
+  GENERAL_GENERATING_RESPONSE: 'GENERAL_GENERATING_RESPONSE',
+  GENERAL_CALLING_WEB_SERVICE: 'GENERAL_CALLING_WEB_SERVICE',
+  GENERAL_WEB_SERVICE_UNTAGGED_ERROR: 'GENERAL_WEB_SERVICE_UNTAGGED_ERROR',
+  GENERAL_UNAUTHORIZED_REQUEST: 'GENERAL_UNAUTHORIZED_REQUEST',
+  ESTIMATE_NOT_EXISTS: 'ESTIMATE_NOT_EXISTS',
+  ESTIMATE_NOT_REQUIRED_STATUS: 'ESTIMATE_NOT_REQUIRED_STATUS',
+  USER_WRONG_USERNAME_PASSWORD: 'USER_WRONG_USERNAME_PASSWORD',
+  USER_IS_NOT_REGISTERED: 'USER_IS_NOT_REGISTERED',
+  USER_NO_ASSIGNED_SECTION_HOUSES: 'USER_NO_ASSIGNED_SECTION_HOUSES',
+  USER_NOT_ACCEPTED_PRIVACY_POLICY: 'USER_NOT_ACCEPTED_PRIVACY_POLICY',
+  SERVICE_POLICY_NOT_FOUND: 'SERVICE_POLICY_NOT_FOUND',
+  TEMPLATE_SECTION_HOUSE_NOT_VALID: 'TEMPLATE_SECTION_HOUSE_NOT_VALID',
+  SECTION_HOUSE_NOT_EXISTS: 'SECTION_HOUSE_NOT_EXISTS',
+  SECTION_HOUSE_HAS_PROGRESS: 'SECTION_HOUSE_HAS_PROGRESS'
+};
+
+export { ApiErrorCodes };

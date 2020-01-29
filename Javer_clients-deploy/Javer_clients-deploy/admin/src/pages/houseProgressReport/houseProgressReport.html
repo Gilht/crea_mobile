@@ -1,0 +1,42 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <h3> REPORTES > Reporte Carga de Avances</h3>
+        <div class="row panel-container">
+            <div class="row col-sm-12">
+                <angular2-multiselect [data]="allowedSubdivisions" [(ngModel)]="filter.projects" [settings]="{text: 'Proyecto', selectAllText: 'Seleccionar Todo', unSelectAllText: 'Deseleccionar Todo'}" classes="my-multiselect-style">
+                </angular2-multiselect>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p-calendar dateFormat="dd/mm/yy" placeholder="Desde" class="form-control-cal start-date-cal" [(ngModel)]="filter.startDate"></p-calendar>
+                        </div>
+                        <div class="col-sm-6">
+                            <p-calendar dateFormat="dd/mm/yy" placeholder="Hasta" class="form-control-cal end-date-cal" [(ngModel)]="filter.endDate"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="row header-action-buttons">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-primary btn-download-report" [disabled]="false" (click)="downloadReport();">Descargar</button>
+                            <button type="button" class="btn btn-warning" (click)="cleanFilters();">Limpiar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

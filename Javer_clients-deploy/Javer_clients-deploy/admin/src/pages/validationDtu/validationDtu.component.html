@@ -1,0 +1,124 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <h3>VIVIENDAS > Validación de DTU/DTI</h3>
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.proyecto' (ngModelChange)="getFrente()">
+                    <option value="">Proyecto</option>
+                    <option *ngFor="let item of projects" [ngValue]="item.externalId">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.frente' (ngModelChange)="getConjunto()">
+                    <option value="">Frente</option>
+                    <option *ngFor="let item of frentes" [ngValue]="item.id">{{item.value }}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.conjunto' (ngModelChange)="getManzana()">
+                    <option value="">Conjunto</option>
+                    <option *ngFor="let item of conjuntos" [ngValue]="item.id">{{item.value }}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.manzana'>
+                    <option value="">Manzana</option>
+                    <option *ngFor="let item of manzanas" [ngValue]="item.id">{{item.value }}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <button type="button" class="btn btn-primary" (click)="getSections();">Buscar</button>
+                <button type="button" class="btn btn-warning" (click)="cleanFilters();">Limpiar</button>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="list-panel-filters" *ngIf="!loading">
+            <div class="bar-filter-container dtu-dti-date-button-container">
+                <button type="button" class="btn btn-primary" (click)="selectAllAvailable()">Seleccionar Disponibles</button>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Listas</th>
+                        <th>Validadas</th>
+                        <th>Rechazadas</th>
+                        <th></th>
+                        <th>DTU/DTI</th>
+                        <th>Residente</th>
+                        <th>Fracc/Proyecto</th>
+                        <th>Sector/Frente</th>
+                        <th>Conjunto</th>
+                        <th>Prototipo</th>
+                        <th>Lote</th>
+                        <th>Manzana</th>
+                        <th>Número Interior</th>
+                        <th>ID Vivienda</th>
+                        <th>Unidad Privativa</th>
+                        <th>Elemento</th>
+                        <th>Sección</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let section of sections">
+                        <td>
+                            <input type="checkbox" name="" id="" [disabled]="true" [(ngModel)]="section.ready">
+                        </td>
+                        <td>
+                            <input type="checkbox" name="" id="" [disabled]="true" [(ngModel)]="section.valid">
+                        </td>
+                        <td>
+                            <input type="checkbox" name="" [disabled]="!canSectionBeProcessed(section) || section.shouldAssignDate" [(ngModel)]="section.rejected">
+                        </td>
+                        <td>
+                            <input type="checkbox" name="" *ngIf="!wasSectionProcessed(section)" [disabled]="!canSectionBeProcessed(section) || section.rejected" [(ngModel)]="section.shouldAssignDate">
+                            <input type="checkbox" name="" *ngIf="wasSectionProcessed(section)" disabled="true" checked="true">
+                        </td>
+                        <td class="label-dtu-dti-text-column">
+                            <div class="label-dtu-dti-text">{{ (section.dtu ? 'DTU' : (section.dti ? 'DTI' : '')) }}</div>
+                        </td>
+                        <td>{{section.resident ? section.resident.workName + " " + section.resident.lastName
+                            + " " + section.resident.lastNameMother : ""}}</td>
+                        <td>{{section.house.commercialName}}</td>
+                        <td>{{section.house.front}}</td>
+                        <td>{{section.house.collection}}</td>
+                        <td>{{section.prototypeName}}</td>
+                        <td>{{section.house.lotName}}</td>
+                        <td>{{section.house.blockName}}</td>
+                        <td>{{section.interiorNumber}}</td>
+                        <td>{{section.idLivingPlace}}</td>
+                        <td>{{section.house.privativeUnit}}</td>
+                        <td>{{section.house.element}}</td>
+                        <td>{{section.sectionCode}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="18" class="no-info" *ngIf="sections.length == 0">
+                            <small>No hay información para mostrar</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ng-pagination *ngIf="dataToShow && switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+        <ng-pagination *ngIf="dataToShow && !switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+
+
+        <button type="button" class="btn btn-info" [disabled]="!isModified()" (click)="saveDtu();">Guardar</button>
+
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

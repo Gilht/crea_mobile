@@ -1,0 +1,40 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <button type="button" [routerLink]="'/app/subcategory'" class="btn btn-large btn-block btn-info">
+                    <</button>
+            </div>
+            <div class="bar-filter-container">
+                <h3>PLANOS > Subcategorías > {{subcategoryId ? 'Editar' : 'Nueva'}} Subcategoría</h3>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+
+        <div class="container">
+            <div class="form-container">
+                <div class="form-group">
+                    <label class="purchaseLabel">Nombre de la Subcategoría</label>
+                    <input type="text" class="form-control" [(ngModel)]="subcategory.name">
+                </div>
+                <div class="form-group">
+                    <label class="purchaseLabel">Categoría</label>
+                    <select class="form-control" [(ngModel)]="subcategory.categoryId">
+                        <option *ngFor="let item of categories" [value]="item.id">{{item.name}}</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary" (click)="saveSubcategory(subcategory);" [disabled]="!subcategory.name || !subcategory.categoryId">Guardar</button>
+            </div>
+        </div>
+    </div>
+    <div class="loading" *ngIf="loading">
+        <div class="cssload-thecube">
+            <div class="cssload-cube cssload-c1"></div>
+            <div class="cssload-cube cssload-c2"></div>
+            <div class="cssload-cube cssload-c4"></div>
+            <div class="cssload-cube cssload-c3"></div>
+        </div>
+    </div>
+</div>

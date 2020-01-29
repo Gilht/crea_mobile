@@ -1,0 +1,39 @@
+button {
+  display: block;
+  margin: 20px auto;
+}
+
+.custom-modal-header > div {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.custom-modal-content > div {
+  font-size: 15px;
+  padding: 25px 15%;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-wrapper input {
+  transform: scale(1.5);
+}
+
+.checkbox-wrapper label {
+  margin-left: 15px;
+  font-size: 15px;
+}
+
+.button-container {
+  flex: 1;
+  justify-content: center;
+}
+
+.continue-button {
+  margin: auto;
+}

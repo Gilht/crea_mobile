@@ -1,0 +1,24 @@
+<ion-header>
+    <div class="center">
+        <h3>Seleccione el tipo de vivienda</h3>
+    </div>
+</ion-header>
+<ion-content>
+    <div>
+        <ion-list radio-group [(ngModel)]="selectedType">
+            <ion-item>
+                <ion-label>DTU</ion-label>
+                <ion-radio value="DTU"></ion-radio>
+            </ion-item>
+            <ion-item>
+                <ion-label>DTI</ion-label>
+                <ion-radio value="DTI"></ion-radio>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>
+<ion-footer>
+    <div class="center confirm-wrapper">
+        <button ion-button class="btn-primary" (click)="dismiss()">Aceptar</button>
+    </div>
+</ion-footer>

@@ -1,0 +1,15 @@
+page-confirmModal {
+    button{
+        width: 45% !important;
+        max-width: 45% !important;
+    }
+    ion-row{
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        width: 100%;
+    }
+    textarea{
+        width: 95%;
+    }
+}

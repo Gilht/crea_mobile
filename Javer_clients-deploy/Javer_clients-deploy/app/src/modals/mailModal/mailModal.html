@@ -1,0 +1,12 @@
+<ion-content>
+    <ion-row>
+        <h1>Seleccione un Correo</h1>
+    </ion-row>
+    <ion-row class="select-row" [ngClass]="{'selected-row': selectedRow == x, 'last-row' : x == (mails.length   -1)}" *ngFor="let mail of mails; let x = index;"
+        (click)="selectRow(x)">
+        {{mail}}
+    </ion-row>
+    <ion-row style="position: fixed;bottom: 2px; padding: 9px;">
+        <button ion-button class="btn-primary" (click)="dismiss()" [disabled]="!isMailIndexValid()">Aceptar</button>
+    </ion-row>
+</ion-content>

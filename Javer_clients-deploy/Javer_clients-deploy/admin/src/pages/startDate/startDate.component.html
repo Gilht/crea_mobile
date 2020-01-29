@@ -1,0 +1,110 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <h3>CONTROL DE OBRA > {{isReassign ? "Reasignación de Fecha de Arranque" : "Asignar Fecha de Arranque"}}</h3>
+        <div class="list-panel-filters">
+            <div *ngIf="isReassign" class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.resident' (ngModelChange)="filterProjects()">
+                    <option value="">Residente</option>
+                    <option *ngFor="let item of residents" [ngValue]="item">{{item.workName + " " + item.lastName + " " + item.lastNameMother }}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.proyecto' (ngModelChange)="getFrente()">
+                    <option value="">Proyecto</option>
+                    <option *ngFor="let item of projects" [ngValue]="item.externalId">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.frente' (ngModelChange)="getConjunto()">
+                    <option value="">Frente</option>
+                    <option *ngFor="let item of frentes" [ngValue]="item.id">{{item.value }}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.conjunto' (ngModelChange)="getManzana()">
+                    <option value="">Conjunto</option>
+                    <option *ngFor="let item of conjuntos" [ngValue]="item.id">{{item.value }}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.manzana'>
+                    <option value="">Manzana</option>
+                    <option *ngFor="let item of manzanas" [ngValue]="item.id">{{item.value }}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <button type="button" class="btn btn-primary" (click)="getSections();">Buscar</button>
+                <button type="button" class="btn btn-warning" (click)="cleanFilters();">Limpiar</button>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" (change)="checkAll()">
+                        </th>
+                        <th>Residente</th>
+                        <th>Fracc/Proyecto</th>
+                        <th>Sector/Frente</th>
+                        <th>Conjunto</th>
+                        <th>Prototipo</th>
+                        <th>Lote</th>
+                        <th>Manzana</th>
+                        <th>Número Interior</th>
+                        <th>ID Vivienda</th>
+                        <th>Unidad Privativa</th>
+                        <th>Elemento</th>
+                        <th>Sección</th>
+                        <th>Fecha de Arranque</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let section of sections">
+                        <td>
+                            <input type="checkbox" [checked]="isSelected" name="" [(ngModel)]="section.selected" id="">
+                        </td>
+                        <td>{{section.resident ? section.resident.workName + " " + section.resident.lastName + " " + section.resident.lastNameMother
+                            : ""}}</td>
+                        <td>{{section.house.commercialName}}</td>
+                        <td>{{section.house.front}}</td>
+                        <td>{{section.house.collection}}</td>
+                        <td>{{section.prototypeName}}</td>
+                        <td>{{section.house.lotName}}</td>
+                        <td>{{section.house.blockName}}</td>
+                        <td>{{section.interiorNumber}}</td>
+                        <td>{{section.idLivingPlace}}</td>
+                        <td>{{section.house.privativeUnit}}</td>
+                        <td>{{section.house.element}}</td>
+                        <td>{{section.sectionCode}}</td>
+                        <td>{{section.startDate | date: 'dd/MM/yyyy'}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="12" class="no-info" *ngIf="sections.length == 0">
+                            <small>No hay información para mostrar</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ng-pagination *ngIf="dataToShow && switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+        <ng-pagination *ngIf="dataToShow && !switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+
+        <button type="button" class="btn btn-info" [disabled]="!getListSelected(sections)" (click)="configureNewDate();">Asignar Fecha de Arranque</button>
+
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

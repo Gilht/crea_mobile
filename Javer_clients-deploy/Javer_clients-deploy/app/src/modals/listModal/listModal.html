@@ -1,0 +1,18 @@
+<ion-header>
+  <h1 class="title text-center">{{title}}</h1>
+</ion-header>
+<ion-content>
+    <ion-grid class="no-padding">
+      <ion-row>
+        <ion-col col-12 class="container-rows">
+            <ion-row class="select-row" [ngClass]="{'selected-row': selectedRow == x, 'last-row' : x == (list.length   -1), 'first-row' : x == 0}"
+                *ngFor="let value of list; let x = index;" (click)="selectRow(x)">
+                {{value[displayProperty]}}
+            </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+  <button ion-button color="danger" (click)="dismiss()">Aceptar</button>
+</ion-footer>

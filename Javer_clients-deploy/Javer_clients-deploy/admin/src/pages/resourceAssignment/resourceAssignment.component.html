@@ -1,0 +1,39 @@
+<div class="uen-permissions">
+  <div class="component-header">
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+      <h3 style="float: left;">Desarrollador > Asignar recursos</h3>
+      <div style="clear: both;"></div>
+    </div>
+  </div>
+  <div class="list-panel content-container-wrapper" *ngIf="!loading">
+    <div class="user-dropdown">
+      <h3>Permiso:</h3>
+      <select class="form-control" [ngModel]="clientPermissionsId" (ngModelChange)="onClientPermissionChange($event)">
+        <option value="">Seleccione una opci&oacute;n</option>
+        <option *ngFor="let clientPermissions of clientPermissionsList" [ngValue]="clientPermissions.id">{{clientPermissions.name}}</option>
+      </select>
+      <div style="clear: both;"></div>
+    </div>
+    <div class="project-access">
+      <ng2-dual-list-box [data]="notAllowedResource" [valueField]="id" [textField]="name" [rightData]="allowedResource"
+        (onItemsMoved)="syncLists($event)"
+        [availableText]="'Sin Acceso'"
+        [selectedText]="'Con Acceso'">
+      </ng2-dual-list-box>
+    </div>
+    <div class="action-buttons">
+        <button type="button" class="btn btn-warning">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!((listToSync.length > 0) || (listToSync.length > 0) || couldSave)">Guardar</button>
+    </div>
+  </div>
+  <div class="loading" *ngIf="loading">
+      <div class="cssload-thecube">
+          <div class="cssload-cube cssload-c1"></div>
+          <div class="cssload-cube cssload-c2"></div>
+          <div class="cssload-cube cssload-c4"></div>
+          <div class="cssload-cube cssload-c3"></div>
+      </div>
+  </div>
+</div>

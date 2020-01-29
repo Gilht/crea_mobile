@@ -1,0 +1,63 @@
+page-uploadModal {
+    .upload-title {
+        font-size: 18px;
+        font-weight: bold;
+        width: 100%;
+        display: block;
+        padding: 5%;
+        text-align: center;
+    }
+    .upload-title span {
+        font-size: 35px;
+    }
+    .upload-subtitle{
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        height: 52%;
+        padding: 0% 10%;
+        justify-content: center;
+    }
+    .upload-subtitle div{
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        height: 50%;
+        flex-direction: column;
+        padding: 0% 12%;
+        align-items: center;
+    }
+    .upload-subtitle div img{
+        position: relative;
+        height: 100%;
+    }
+    .upload-bar{
+        width: 100%;
+        display: flex;
+        height: min-content;
+        align-items: center;
+        justify-content: center;
+    }
+    .upload-bar .outer-bar{
+        width: 80%;
+        border-radius: 10px;
+        border: 1px solid red;
+        height: 60px;
+        justify-content: center;
+    }
+    .upload-bar .outer-bar .inner-bar{
+        position: relative;
+        left: 0px;
+        background: red;
+        border-radius: 10px;
+        height: 60px;
+    }
+    .upload-modal-inner{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+    }
+}

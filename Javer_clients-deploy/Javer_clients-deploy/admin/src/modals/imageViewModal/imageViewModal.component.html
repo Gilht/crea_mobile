@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <div class="row custom-modal-header">
+        <div class="col-xs-12">
+            <h3 align="center">{{context.type == "image" ? "Imagen" : "Comentarios"}}</h3>
+        </div>
+    </div>
+    <div style="text-align: center" *ngIf="context.type == 'image'">
+        <img style="width:500px" [src]="context.subpackage.file">
+    </div>
+    <p *ngIf="context.type == 'comments'">
+        {{context.subpackage.comments}}
+    </p>
+    <div class="row custom-modal-footer">
+        <button type="button" class="btn btn-primary modal-button" style="float: right; margin-right: 18px;" (click)='closeOk();'>Aceptar</button>
+    </div>
+    <br>
+</div>

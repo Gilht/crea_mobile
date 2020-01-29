@@ -1,0 +1,130 @@
+<div style="height: 100%">
+    <div class="red-panel"></div>
+    <div class="list-panel" *ngIf="!loading">
+        <h3>{{breadcrum}}</h3>
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filters.project' (ngModelChange)="populateProvidersFilter()">
+                    <option value="">Proyecto</option>
+                    <option *ngFor="let item of projects" [ngValue]="item">{{item}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filters.provider' (ngModelChange)="populateFrontsFilter()">
+                    <option value="">Proveedor</option>
+                    <option *ngFor="let item of providers" [ngValue]="item">{{item}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filters.front' (ngModelChange)="populateCollectionsFilter()">
+                    <option value="">Frente</option>
+                    <option *ngFor="let item of fronts" [ngValue]="item">{{item}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filters.collection' (ngModelChange)="populateContractsFilter()">
+                    <option value="">Conjunto</option>
+                    <option *ngFor="let item of collections" [ngValue]="item">{{item}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filters.contract' (ngModelChange)="getEstimatesFilters({})">
+                    <option value="">Contrato</option>
+                    <option *ngFor="let item of contracts" [ngValue]="item">{{item}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filters.status'>
+                    <option value="">Estatus</option>
+                    <option *ngFor="let item of statuses" [ngValue]="item.value">{{item.label}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+              <p-calendar class="p-calendar" inputStyleClass="form-control" placeholder="Desde" [(ngModel)]="filters.startDate" dateFormat="dd/mm/yy"></p-calendar>
+            </div>
+            <div class="bar-filter-container">
+              <p-calendar class="p-calendar" inputStyleClass="form-control" placeholder="Hasta" [(ngModel)]="filters.endDate" dateFormat="dd/mm/yy"></p-calendar>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <button type="button" class="btn btn-primary" (click)="searchEstimates()">Buscar</button>
+            </div>
+            <div class="bar-filter-container">
+                <button type="button" class="btn btn-warning" (click)="cleanFilters()">Limpiar</button>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+
+        <div class="container">
+            <div class="table-container">
+                <table class="table table-hover">
+                    <colgroup>
+                        <col span="8">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>Proyecto</th>
+                            <th>Frente</th>
+                            <th>Conjunto</th>
+                            <th>Proveedor</th>
+                            <th>Contrato</th>
+                            <th>Estatus</th>
+                            <th># Estimación</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="estimates">
+                        <tr *ngFor="let estimate of estimates">
+                            <td>{{estimate.project}}</td>
+                            <td>{{estimate.frontName}}</td>
+                            <td>{{estimate.collectionName}}</td>
+                            <td>{{estimate.providerName}}</td>
+                            <td>{{estimate.contract}}</td>
+                            <td>{{translatedStatuses[estimate.status]}}</td>
+                            <td>{{estimate.estimateNumber}}</td>
+                            <td class="text-center">
+                              <button type="button" class="btn btn-primary pdf-download-button" title="Descargar PDF" (click)="downloadPDF(estimate.id)">
+                                <i class="fa fa-file-pdf-o fa-2" aria-hidden="true"></i>
+                              </button>
+                            </td>
+                            <td class="text-center">
+                              <button type="button" class="btn btn-primary pdf-download-button" title="Descargar Excel" (click)="downloadExcel(estimate.id, estimate.isFinal)">
+                                <i class="fa fa-file-excel-o fa-2" aria-hidden="true"></i>
+                              </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="estimates.length == 0">
+                            <td colspan="7" class="no-info">
+                                <small>No hay información para mostrar</small>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-pagination
+              [(ngModel)]="pag.currentPage"
+              [totalItems]="pag.total"
+              [maxSize]="pag.itemsPerPage"
+              [boundaryLinks]="true"
+              (pageChanged)="pageChanged($event)"
+              previous-text="&lsaquo;"
+              next-text="&rsaquo;"
+              class="pagination-sm">
+            </ng-pagination>
+        </div>
+    </div>
+</div>
+
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+
+<ng2-toasty></ng2-toasty>

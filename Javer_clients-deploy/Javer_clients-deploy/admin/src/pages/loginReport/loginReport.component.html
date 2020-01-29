@@ -1,0 +1,70 @@
+<div class="loginReport">
+  <div class="component-header">
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+      <h3 style="float: left;">Usuario > Reporte de inicio de sesión</h3>
+      <div style="clear: both;" class="list-panel-filters">
+        <div class="bar-filter-container">
+          <p-calendar [(ngModel)]="dateRange.startDate" class="form-control-cal" dateFormat="dd/mm/yy"></p-calendar>
+        </div>
+        <div class="bar-filter-container">
+          <p-calendar [(ngModel)]="dateRange.endDate" class="form-control-cal" dateFormat="dd/mm/yy"></p-calendar>
+        </div>
+        <div class="bar-filter-container">
+          <button type="button" class="btn btn-primary" (click)="getLoginLogsByDateRange(dateRange.startDate, dateRange.endDate, currentPage, itemsPerPage)">Buscar</button>
+          <button type="button" class="btn btn-primary" [disabled]="totalLogs == 0" (click)="getExcel(dateRange.startDate, dateRange.endDate)">Descargar</button>
+        </div>
+      </div>
+      <div style="clear: both;"></div>
+    </div>
+  </div>
+  <div class="list-panel table-container-wrapper" *ngIf="!loading">
+    <div class="table-container">
+      <table class="table table-hover">
+        <colgroup>
+          <col span="2" style="width: 20%;">
+          <col span="1" style="width: 60%;">
+        </colgroup>
+        <thead>
+          <th>Fecha</th>
+          <th>Operaci&oacute;n</th>
+          <th>Usuario</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let logRow of logData">
+            <td>{{logRow.createdAt}}</td>
+            <td>{{logRow.tipoOperacion}}</td>
+            <td>{{logRow.userId}}</td>
+          </tr>
+          <tr>
+            <td colspan="3" class="no-info" *ngIf="logData.length == 0">
+              <small>No hay información para mostrar</small>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-pagination
+      [(ngModel)]="currentPage"
+      [totalItems]="totalLogs"
+      [maxSize]="itemsPerPage"
+      [boundaryLinks]="true"
+      (pageChanged)="pageChanged($event)"
+      previous-text="&lsaquo;"
+      next-text="&rsaquo;"
+      class="pagination-sm">
+    </ng-pagination>
+</div>
+
+</div>
+<div class="loading" *ngIf="loading">
+  <div class="cssload-thecube">
+    <div class="cssload-cube cssload-c1"></div>
+    <div class="cssload-cube cssload-c2"></div>
+    <div class="cssload-cube cssload-c4"></div>
+    <div class="cssload-cube cssload-c3"></div>
+  </div>
+</div>
+
+<ng2-toasty></ng2-toasty>

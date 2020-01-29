@@ -1,0 +1,13 @@
+<ion-content>
+    <ion-row>
+        <h1>Comentario</h1>
+    </ion-row>
+    <ion-row>
+        <textarea cols="30" rows="24" [(ngModel)]="comments" maxlength="1000" [disabled]="readOnly"></textarea>
+        <span style="font-size: 12px;" [ngStyle]="{'color' :  comments?.length == 1000 ? 'red' : 'black' }">({{comments?.length || 0}}/1000 carácteres máximo)</span>
+    </ion-row>
+    <ion-row style="padding: 0 10%;">
+        <button ion-button class="btn-disabled" (click)="dismiss(false)">Cancelar</button>
+        <button ion-button class="btn-primary" [disabled]="readOnly" (click)="dismiss(true)">Guardar</button>
+    </ion-row>
+</ion-content>

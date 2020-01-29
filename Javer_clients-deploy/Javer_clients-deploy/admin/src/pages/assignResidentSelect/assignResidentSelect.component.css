@@ -1,0 +1,43 @@
+.btn-primary {
+    float: right;
+}
+.bar-filter-container h3{
+    margin-top: 5px;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #fff;
+    background-color: #ed1b24;
+    border: 1px solid #ddd;
+    width: 200px;
+    height: 33px;
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;    
+}
+.nav-tabs li{
+    width: 200px;
+    height: 33px;
+    background-color: #dbdbdb;
+    color: #c1c1c1;
+    text-align: center;
+    border-radius: 3px;
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+}
+
+.resident-panel{
+    background-color: #fff;
+    height: 100%;
+    padding: 30px;
+    margin-top: 18px;
+    margin-right: 25px;
+    color: black;    
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.37);  
+}
+
+.resident-panel h4{
+    margin-top: -8px;
+}
+.list-panel .table-container{
+    padding-right: 10px;
+}

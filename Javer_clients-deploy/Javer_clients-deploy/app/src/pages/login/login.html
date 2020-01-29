@@ -1,0 +1,41 @@
+<div *ngIf='!loading' class="main-container">
+    <div class="cc-panel">
+        <br>
+        <div class="login-parent-div">
+            <div class="login-img"></div>
+            <div class="panel panel-default login-panel">
+                <div class="form-group" style="margin-bottom: 5%;">
+                    <div class="input-group">
+                        <input type="text" placeholder="Usuario" class="form-control user-img" [(ngModel)]="newUser.userName">
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom: 5%;">
+                    <div class="input-group">
+                        <input [type]="passwordInputType" placeholder="Contraseña" class="form-control password-img" [(ngModel)]="newUser.password" (keyup.enter)="login(newUser)">
+                    </div>
+                </div>
+                <div class="form-group show-password-section">
+                    <label class="container">Mostrar contrase&ntilde;a
+                      <input type="checkbox" [(ngModel)]="showPassword" (ngModelChange)="changePasswordInputType()">
+                      <span class="checkmark"></span>
+                    </label>
+                </div>
+                <button class="btn btn-default btn-login" ion-button color="danger" (click)="login(newUser)">INICIAR SESIÓN</button>
+                <div class="privacy-policy-container text-center">
+                    <a href="https://www.javer.com.mx/avisos-de-privacidad.php" target="_new">Avisos de privacidad</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="version-container">
+      <span>{{ serverVersion }}</span>
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>

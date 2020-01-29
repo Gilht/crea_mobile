@@ -1,0 +1,18 @@
+page-expiredSessionModal {
+  .grid {
+      height: 100%;
+  }
+
+  .title {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    font-size: 25px;
+  }
+
+  .content {
+    font-size: 18px;
+    align-items: center;
+    flex: 0.8;
+  }
+}

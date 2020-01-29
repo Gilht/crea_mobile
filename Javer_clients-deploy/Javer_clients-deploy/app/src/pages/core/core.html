@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle start large>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <img class="img-position" src="./assets/imgs/casas-javer.png">
+  </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen="true" *ngIf="!loading">
+  <ion-col no-padding>
+    <ion-row class="red-panel"></ion-row>
+    <ion-row class="list-panel">
+      <h1 class="text-format">Inicio</h1>
+
+      <ion-row>
+        <ion-row class="main-menu-format">
+          <ion-item no-lines padding text-center class="module-background" style="clear:both;">
+            <img src="./assets/imgs/app-house.png" height="100%" width="58%">
+          </ion-item>
+          <ion-item no-lines padding text-center class="bottom-module-background" style="clear:both;">
+            <h3 class="description-text-format" text-center>Viviendas Asignadas</h3>
+            <button ion-button color="danger" style="height: 34px;" class="btn-ver" (click)="onGoToPage('assignedResidencyPage')">Ver</button>
+          </ion-item>
+        </ion-row>
+
+        <ion-row class="main-menu-format" *ngIf="online">
+          <ion-item no-lines padding text-center class="module-background" style="clear:both;">
+            <img src="./assets/imgs/app-blueprints.png" height="100%" width="58%">
+          </ion-item>
+          <ion-item no-lines padding text-center class="bottom-module-background" style="clear:both;">
+            <h3 class="description-text-format" text-center>Índice de Planos</h3>
+            <button ion-button color="danger" style="height: 34px;" class="btn-ver" (click)="onGoToPage('blueprintsIndexPage')">Ver</button>
+          </ion-item>
+        </ion-row>
+
+        <ion-row class="main-menu-format">
+          <ion-item no-lines padding text-center class="module-background" style="clear:both;">
+            <img src="./assets/imgs/app-calculator.png" height="100%" width="58%">
+          </ion-item>
+          <ion-item no-lines padding text-center class="bottom-module-background" style="clear:both;">
+            <h3 class="description-text-format" text-center>Estimaciones</h3>
+            <button ion-button color="danger" style="height: 34px;" class="btn-ver" (click)="onGoToPage('estimationsPage')">Ver</button>
+          </ion-item>
+        </ion-row>
+
+        <ion-row class="main-menu-format" *ngIf="online">
+          <ion-item no-lines padding text-center class="module-background" style="clear:both;">
+            <img src="./assets/imgs/app-goals.png" height="100%" width="58%">
+          </ion-item>
+          <ion-item no-lines padding text-center class="bottom-module-background" style="clear:both;">
+            <h3 class="description-text-format break-line" text-center>Programa de Obra</h3>
+            <button ion-button color="danger" style="height: 34px;" class="btn-ver" (click)="onGoToPage('workProgramReportListPage')">Ver</button>
+          </ion-item>
+        </ion-row>
+
+        <ion-row class="main-menu-format" *ngIf="online">
+          <ion-item no-lines padding text-center class="module-background" style="clear:both;">
+            <img src="./assets/imgs/app-calendar.png" height="100%" width="58%">
+          </ion-item>
+          <ion-item no-lines padding text-center class="bottom-module-background" style="clear:both;">
+            <h3 class="description-text-format" text-center>Programar Concretos</h3>
+            <button ion-button color="danger" style="height: 34px;" class="btn-ver" (click)="onGoToPage('concreteschedulePage')">Ver</button>
+          </ion-item>
+        </ion-row>
+
+      </ion-row>
+    </ion-row>
+  </ion-col>
+</ion-content>
+<div class="loading" *ngIf="loading">
+  <div class="cssload-thecube">
+    <div class="cssload-cube cssload-c1"></div>
+    <div class="cssload-cube cssload-c2"></div>
+    <div class="cssload-cube cssload-c4"></div>
+    <div class="cssload-cube cssload-c3"></div>
+  </div>
+</div>

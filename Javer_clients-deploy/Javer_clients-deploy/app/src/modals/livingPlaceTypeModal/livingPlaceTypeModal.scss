@@ -1,0 +1,48 @@
+@import '../../../ionic-angular/themes/ionic.mixins';
+
+$modal-inset-min-width:         768px;
+$modal-inset-min-height-small:  600px;
+$modal-inset-min-height-large:  768px;
+$modal-inset-width:             400px;
+$modal-inset-height-small:      220px;
+$modal-inset-height-large:      220px;
+
+// Custom wrapper
+.section-houses-living-place-type-modal-page .modal-wrapper {
+  @media only screen and (min-width: $modal-inset-min-width) and (min-height: $modal-inset-min-height-small) {
+    @include position(calc(50% - (#{$modal-inset-height-small}/2)), null, null, calc(50% - (#{$modal-inset-width}/2)));
+
+    position: absolute;
+
+    width: $modal-inset-width;
+    height: $modal-inset-height-small;
+  }
+
+  @media only screen and (min-width: $modal-inset-min-width) and (min-height: $modal-inset-min-height-large) {
+    @include position(calc(50% - (#{$modal-inset-height-large}/2)), null, null, calc(50% - (#{$modal-inset-width}/2)));
+
+    position: absolute;
+
+    width: $modal-inset-width;
+    height: $modal-inset-height-large;
+  }
+}
+
+page-livingPlaceTypeModal {
+
+    .list-md {
+        margin: 0;
+    }
+
+    .center {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        text-align: center;
+    }
+
+    .confirm-wrapper {
+        margin: 20px 0 10px 0;
+    }
+
+}

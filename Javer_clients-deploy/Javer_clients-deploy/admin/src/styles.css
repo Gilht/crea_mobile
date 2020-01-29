@@ -1,0 +1,278 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body {
+    height: 100%;
+}
+
+.red-panel {
+    height: 200px;
+    background-color: #e2574c;
+}
+
+.list-panel {
+    margin-top: -180px;
+    color: white;
+    margin-left: 30px;
+}
+
+.list-panel-filters .bar-filter-container, .list-panel-filters .bar-title-container, .list-panel-filters .bar-buttons-container {
+    float: left;
+    padding-left: 5px;
+}
+
+.list-panel-filters .bar-filter-container, .list-panel-filters .bar-buttons-container {
+    padding-top: 5px;
+}
+
+.no-margin{
+    margin: 0;
+}
+
+.list-panel .table {
+    background-color: white;
+    color: black;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.37);
+}
+
+.list-panel .table th {
+    background-color: #dbdbdb;
+}
+
+.list-panel .table td, .list-panel .table th {
+    text-align: left;
+    padding: 3px;
+    padding-left: 13px;
+}
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 0px;
+}
+
+.list-panel .table td.no-info {
+    text-align: center;
+}
+
+.list-panel .table-container {
+    margin-top: 20px;
+    margin-right: 40px;
+    font-size: 12px;
+    overflow-y: auto;
+    max-height: 370px;
+    margin-bottom: 5px;
+}
+
+.btn-warning {
+    background-color: #bebebe !important;
+    border-color: #bebebe !important;
+    color: white !important;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.37);
+    font-weight: 700 !important;
+}
+
+.btn-info {
+    background-color: #545454 !important;
+    border-color: #545454 !important;
+    color: white !important;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.37);
+    font-weight: 700 !important;
+}
+
+.btn-primary {
+    background-color: #ed1b24 !important;
+    border-color: #ed1b24 !important;
+    color: white !important;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.37);
+    font-weight: 700 !important;
+}
+
+.modal-btn-delete {
+    color: white !important;
+    background-color: #545454 !important;
+}
+
+.btn-hover:hover {
+    background-color: #ed1b24 !important;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff !important;
+    cursor: default;
+    background-color: #e2574c;
+    border-color: #e2574c;
+}
+
+.tabs-panel-container {
+    background-color: white;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.37);
+    padding: 17px;
+    margin-right: 27px;
+}
+
+.pagination>li>a, .pagination>li>a:hover .pagination>li>span {
+    color: black;
+}
+
+.pagination>li>a:hover {
+    color: black !important;
+}
+
+.switch-javer span {
+    height: 15px !important;
+    width: 35px !important;
+}
+
+.switch-javer span small {
+    height: 15px !important;
+    width: 15px !important;
+}
+
+.nav-tabs li a{
+    color: white !important;
+}
+.nav-tabs li{
+    width: 200px;
+    height: 33px;
+    background-color: #A5A5A5  !important;
+    color: white !important;
+    text-align: center;
+    border-radius: 3px;
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: none !important;
+    border-bottom-color: transparent;
+}
+.nav-tabs[_ngcontent-c4] > li.active[_ngcontent-c4] > a, .nav-tabs > li.active[_ngcontent-c4] > a[_ngcontent-c4]:focus, .nav-tabs[_ngcontent-c4] > li.active[_ngcontent-c4] > a[_ngcontent-c4]:hover {
+    color: #fff !important;
+    background-color: #ed1b24;
+    border: none !important;
+    width: 200px;
+    height: 33px;
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    background-color: #BDBCBC;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.nav-tabs{
+    margin-right: 25px;
+}
+
+.action-button{
+    padding: 2px 6px;
+}
+.form-control-cal span {
+    width: 100% !important;
+  }
+
+  .form-control-cal input {
+      display: block;
+      width: 100% !important;
+      height: 34px;
+      padding: 2px 4px !important;
+      font-size: 12px;
+      line-height: 1.42857143;
+      color: #555;
+      width: 100% !important;
+      table-layout: fixed !important;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+      -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+          -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  }
+.row-select{
+    border: 1px solid #ccc;
+    font-size: 20px !important;
+    cursor: pointer;
+}
+.close-row{
+    text-align: right;
+    border: 1px solid #ccc;
+    font-size: 20px !important;
+}
+.modal-close{
+    cursor: pointer;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.no-margin {
+  margin: 0;
+}
+
+@media print {
+    .hide-print {
+        display: none !important;
+    }
+    .show-print{
+        height: 100% !important;
+        width: 100% !important;
+        display: block !important;
+    }
+    body, html, #wrapper {
+        width: 100% !important;
+        -webkit-print-color-adjust: exact !important;
+    }
+    .print-margin{
+        margin-top: 80px;
+    }
+    .print-title{
+        width: 100%;
+        display: block;
+        font-size:14px;
+        text-align: left;
+    }
+    .print-font{
+        font-size: 12px !important;
+    }
+    .print-font * {
+        font-size: 10px !important;
+    }
+    .login-img{
+        height: 84px;
+        width: 25%;
+        display: inline-block;
+        vertical-align: bottom;
+        padding-right: 0;
+    }
+    img{
+        -webkit-print-color-adjust: exact !important;
+    }
+    .login-img{
+        -webkit-print-color-adjust: exact !important;
+        height: 84px;
+        width: 33%;
+        display: inline-block;
+        vertical-align: bottom;
+        padding-right: 0;
+    }
+    .login-img img{
+        height: 84px;
+        width: 100%;
+    }
+    .print-date{
+        width: 33%;
+        display: inline-block;
+        vertical-align: top;
+    }
+}

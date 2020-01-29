@@ -1,0 +1,43 @@
+page-estimatesearch {
+        .container{
+            display: inline-block;
+            width: 100%;
+            height: 60%;
+        }
+        .red-panel{
+            background: #e1584d;
+            color: white;
+            height: 185px;
+        }
+        .panel-estimate{
+            display:flex;
+            align-items:center;
+            flex-direction: column;
+        }
+        .panel-estimate ion-row{
+            display:flex;
+            align-items:center;
+            flex-direction: column;
+        }
+        .inside-panel{
+            padding: 55px 0px;
+            background: white;
+            margin-top: -29px;
+            box-shadow: 2px 2px 20px 5px #A3A0A0;
+            border-radius: 10px;
+            margin-top: -12%;
+
+            & > ion-row {
+                justify-content: center;
+            }
+        }
+        .item{
+            border: 1px #dfdfdf solid;
+        }
+        .fixed-content{
+            margin-top: 56px;
+        }
+        .scroll-content{
+            padding-top:56px;
+        }
+    }

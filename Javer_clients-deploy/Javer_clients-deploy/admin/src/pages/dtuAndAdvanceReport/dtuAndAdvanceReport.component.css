@@ -1,0 +1,18 @@
+.btn-info {
+    float: right;
+    margin-right: 35px;
+}
+
+.list-panel-filters .bar-filter-container{
+    width:14.285%;
+}
+.list-panel-filters .bar-filter-container button{
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.list-panel-filters .bar-filter-container .form-control{
+    font-size: 12px;
+}

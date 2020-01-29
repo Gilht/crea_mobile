@@ -1,0 +1,28 @@
+<ion-content>
+    <div class="camera-actions">
+        <div *ngIf="!readOnly && image != ''" class="remove-image" (click)="removePicture()">
+            <ion-icon ios="ios-close-circle" md="md-close-circle"></ion-icon>
+        </div>
+        <img *ngIf="image != ''" [src]="image" alt="Imagen">
+
+        <div *ngIf="image == ''" class="camera-options">
+            <div class="gallery" (click)="galeryPicture()">
+                <div class="image-label-wrapper">
+                    <img src="./assets/imgs/add-picture.png">
+                    <span>Subir Imagen</span>
+                </div>
+            </div>
+            <div class="camera" (click)="cameraPicture()">
+                <div class="image-label-wrapper">
+                    <img src="./assets/imgs/camera.png">
+                    <span>Tomar foto</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="button-row">
+        <button ion-button class="btn-disabled" (click)="dismiss(false)">Cancelar</button>
+        <button ion-button class="btn-primary" [disabled]="readOnly" (click)="dismiss(true)">Guardar</button>
+    </div>
+
+</ion-content>

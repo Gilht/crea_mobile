@@ -1,0 +1,91 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <h3>PLANOS > Carga Masiva</h3>
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <input type="text" placeholder="Subcategoría" class="form-control" [(ngModel)]='filter.subcategory' (ngModelChange)="filterSubcategories();">
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.proyecto' (ngModelChange)="filterPrototypes();">
+                    <option value="">Proyecto</option>
+                    <option *ngFor="let item of projects" [ngValue]="item.externalId">{{item.name}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <select class="form-control" [(ngModel)]='filter.prototipo'>
+                    <option value="">Prototipo</option>
+                    <option *ngFor="let item of showPrototipos" [ngValue]="item">{{item.value}}</option>
+                </select>
+            </div>
+            <div class="bar-filter-container">
+                <button type="button" class="btn btn-primary" [disabled]="!filter.prototipo" (click)="getSubcategoryPrototype();">Buscar</button>
+                <button type="button" class="btn btn-warning" (click)="cleanFilters();">Limpiar</button>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="table-container">
+            <table class="table table-hover">
+                <colgroup>
+                    <col span="2">
+                    <col style="width:260px;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Categoría</th>
+                        <th>Subcategoría</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let subcategoryPrototype of subcategories">
+                        <td>{{subcategoryPrototype.subcategory?.category?.name}}</td>
+                        <td>{{subcategoryPrototype.subcategory?.name}}</td>
+                        <td>
+                            <div hidden>
+                                <input type="file" size="3MB" id="{{subcategoryPrototype.subcategoryId}}" class="inputfile" accept=".pdf" (change)="changeListener($event,subcategoryPrototype)">
+                            </div>
+                            <button *ngIf="writeFlag" type="button" class="btn btn-primary action-button" (click)="clickInputFile(subcategoryPrototype.subcategory)">
+                                <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary action-button" [ngClass]="{'disabled':!subcategoryPrototype.srv_hasPdf}" [disabled]="!subcategoryPrototype.srv_hasPdf"
+                                (click)="downloadPDF(subcategoryPrototype)">
+                                <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary action-button" [ngClass]="{'disabled':!subcategoryPrototype.srv_hasPdf}" [disabled]="!subcategoryPrototype.srv_hasPdf"
+                                (click)="viewPDF(subcategoryPrototype)">
+                                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            </button>
+                            <button *ngIf="deleteFlag" type="button" class="btn btn-primary action-button" [ngClass]="{'disabled':!subcategoryPrototype.srv_hasPdf}" [disabled]="!subcategoryPrototype.srv_hasPdf"
+                                (click)="deleteCategoryModal(subcategoryPrototype)">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="no-info" *ngIf="subcategories.length == 0">
+                            <small>No hay información para mostrar</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ng-pagination *ngIf="dataToShow && switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="itemsPerPage"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+        <ng-pagination *ngIf="dataToShow && !switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="itemsPerPage"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+
+        <button *ngIf="writeFlag" type="button" class="btn btn-info" (click)="save();">Guardar</button>
+
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

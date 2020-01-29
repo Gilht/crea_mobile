@@ -1,0 +1,87 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <button type="button" [routerLink]="'/app/templateReportSection'" class="btn btn-large btn-block btn-info">
+                    < </button>
+            </div>
+            <div class="bar-filter-container">
+                <h3>REPORTES > Reporte de Plantillas</h3>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Paquetes/Conceptos</th>
+                        <th>Depende De</th>
+                        <th>Duración(Días)</th>
+                        <th>Ponderación</th>
+                        <th>Estatus</th>
+                        <th>Comentarios</th>
+                        <th>Fotografía</th>
+                        <th>Geolocalización</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let subpackage of report.sectionHouseTPS; let x = index;">
+                    <tr class="info" *ngIf="x == 0 || subpackage.tPS.templatePackage.packageId != report.sectionHouseTPS[x-1].tPS.templatePackage.packageId">
+                        <td>{{subpackage.tPS.templatePackage.package.name}}</td>
+                        <td>{{packageFatherName(subpackage.tPS.templatePackage.packageFatherId)}}</td>
+                        <td>{{subpackage.tPS.templatePackage.packageDuration}}</td>
+                        <td>{{getPercent(subpackage.tPS.subpackage.packageId) + '%'}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>{{subpackage.tPS.subpackage.name}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td *ngIf="subpackage.subpackageStatus == 3">
+                            <img src="assets\img\status-na.png" style="height: 20px;">
+                        </td>
+                        <td *ngIf="subpackage.subpackageStatus == 2">
+                            <img src="assets\img\status-complete.png" style="height: 20px;">
+                        </td>
+                        <td *ngIf="subpackage.subpackageStatus == 1">
+                            <img src="assets\img\status-inprogress.png" style="height: 20px;">
+                        </td>
+                        <td *ngIf="subpackage.subpackageStatus == 0">
+                            <img src="assets\img\status-pending.png" style="height: 20px;">
+                        </td>
+                        <td (click)="viewSpecificData(subpackage, 'comments')">
+                            <img *ngIf="subpackage.comments != '' &&  subpackage.comments" src="assets\img\added-comment.png" style="height: 20px;">
+                            <img *ngIf="subpackage.comments == '' || !subpackage.comments" src="assets\img\add-comment.png" style="height: 20px;">
+                        </td>
+                        <td (click)="viewSpecificData(subpackage, 'image')">
+                            <img src="assets\img\added-picture.png" style="height: 20px;">
+                        </td>
+                        <td (click)="mapModal(subpackage)">
+                            <img *ngIf="subpackage.latitude && subpackage.longitude" src="assets\img\added-location.png" style="height: 20px;">
+                            <img *ngIf="!subpackage.latitude || !subpackage.longitude" src="assets\img\add-location.png" style="height: 20px;">
+                        </td>
+                    </tr>
+                </tbody>
+                <tr>
+                    <td colspan="12" class="no-info" *ngIf="report && report.sectionHouseTPS && report.sectionHouseTPS.length == 0">
+                        <small>No hay información para mostrar</small>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

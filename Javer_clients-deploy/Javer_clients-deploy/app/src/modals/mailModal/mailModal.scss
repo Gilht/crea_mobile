@@ -1,0 +1,31 @@
+page-mailModal {
+    button{
+        width: 45% !important;
+        max-width: 45% !important;
+    }
+    ion-row{
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        width: 100%;
+      
+    }
+    .selected-row{
+        background: #FC3737 !important;
+        color: white;
+    }
+    textarea{
+        width: 95%;
+    }
+    .select-row{
+        font-size: 22px;
+        background: #EEE;
+        border-top: 1px solid #b3aeae;
+        padding: 12px;
+        cursor: pointer;
+    }
+    .last-row{
+        margin-bottom: 64px;
+        border-bottom: 1px solid #b3aeae;
+    }
+}

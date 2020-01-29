@@ -1,0 +1,17 @@
+#get-sections.btn-primary {
+    float: right;
+    margin-right: 35px;
+}
+
+.bar-filter-container h3{
+    margin-top: 5px;
+}
+
+.list-panel-filters .bar-filter-container .form-control{
+    padding: 6px 4px;
+    font-size: 12px;
+}
+
+.list-panel .table-container {
+    max-height: 650px;
+}

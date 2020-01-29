@@ -1,0 +1,90 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <button type="button" (click)="goBack()" class="btn btn-large btn-block btn-info">
+                    <
+                </button>
+            </div>
+            <div class="bar-filter-container">
+                <h3>VIVIENDAS > {{isReassign ? 'Reasignar Viviendas' : 'Asignar Viviendas'}} > Configurar Viviendas</h3>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="resident-panel">
+            <h4>Asignar Residentes</h4>
+            <div class="form-group" *ngIf="isReassign">
+                <label class="dtuLabel">Pasado Residente</label>
+                <select class="form-control" [disabled]="true">
+                    <option selected value="">{{oldResident.workName + " " + oldResident.lastName + " " + oldResident.lastNameMother }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="dtuLabel">Residente</label>
+                <select class="form-control" [(ngModel)]='resident'>
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let item of residents" [ngValue]="item">{{item.workName + " " + item.lastName + " " + item.lastNameMother }}</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="asingnResident();" [disabled]="!resident">Asignar</button>
+            <div style="clear:both;"></div>
+        </div>
+        <br>
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Residente</th>
+                        <th>Fracc/Proyecto</th>
+                        <th>Sector/Frente</th>
+                        <th>Conjunto</th>
+                        <th>Prototipo</th>
+                        <th>Lote</th>
+                        <th>Manzana</th>
+                        <th>Número Interior</th>
+                        <th>ID Vivienda</th>
+                        <th>Unidad Privativa</th>
+                        <th>Elemento</th>
+                        <th>Sección</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let house of houses">
+                        <tr *ngFor="let section of house.sections">
+                            <td>{{section.resident ? section.resident.workName + " " + section.resident.lastName + " " + section.resident.lastNameMother
+                                : ""}}</td>
+                            <td>{{house.commercialName}}</td>
+                            <td>{{house.front}}</td>
+                            <td>{{house.collection}}</td>
+                            <td>{{section.prototypeName}}</td>
+                            <td>{{house.lotName}}</td>
+                            <td>{{house.blockName}}</td>
+                            <td>{{section.interiorNumber}}</td>
+                            <td>{{section.idLivingPlace}}</td>
+                            <td>{{house.privativeUnit}}</td>
+                            <td>{{house.element}}</td>
+                            <td>{{section.sectionCode}}</td>
+
+                        </tr>
+                    </ng-container>
+                    <tr>
+                        <td colspan="11" class="no-info" *ngIf="houses.length == 0">
+                            <small>No hay información para mostrar</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

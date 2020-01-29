@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <div class="row custom-modal-header">
+      <div class="col-sm-12">
+        <h3>Error en la carga de viviendas</h3>
+      </div>
+    </div>
+    <div class="row custom-modal-content main-warning">
+      <div class="col-sm-12">
+        <div>Por favor, revise los errores detectados en el proceso, corrija e intente guardar de nuevo</div>
+      </div>
+    </div>
+    <div class="row custom-modal-content">
+      <div class="col-sm-12">
+        <table>
+          <colgroup>
+            <col span="1" style="width: 10%">
+            <col span="5" style="width: 12%">
+            <col span="1" style="width: 100%">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Fraccionamiento</th>
+              <th>Frente</th>
+              <th>Conjunto</th>
+              <th>Elemento</th>
+              <th>Secci&oacute;n</th>
+              <th>Mensaje de Error</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let section of sectionHouses">
+              <td class="transaction-id-column">{{section.transactionId}}</td>
+              <td>{{section.subdivisionName}}</td>
+              <td>{{section.frontName}}</td>
+              <td>{{section.collectionName}}</td>
+              <td>{{section.element}}</td>
+              <td>{{section.sectionCode}}</td>
+              <td>{{section.errorMessage}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row custom-modal-content">
+      <div class="button-container">
+        <button type="button" class="btn btn-primary modal-button continue-button" (click)='dismiss()'>Continuar</button>
+      </div>
+    </div>
+</div>

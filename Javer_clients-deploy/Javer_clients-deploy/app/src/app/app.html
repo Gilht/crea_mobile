@@ -1,0 +1,23 @@
+<ion-menu [content]="content" type="overlay">
+  <ion-content class="side-bar-color">
+    <ion-row class="profile">
+      <img src="./assets/imgs/final-main-log.png" class="main-logo logo-img-cursor" menuClose alt="" (click)="onGotoPage('corePage')">
+    </ion-row>
+    <hr>
+    <ion-list>
+      <button class="side-bar-color" menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        <ion-icon [name]="p.icon" item-left></ion-icon>
+        <h2>{{p.title}}</h2>
+      </button>
+
+      <button class="close-session-button" ion-item (click)="onGotoPage('login')">
+        <img src="./assets/imgs/close-sesion.svg" class="close-session-img" item-left>
+        <h2 class="button-text-indent">Cerrar Sesión</h2>
+      </button>
+    </ion-list>
+
+  </ion-content>
+
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

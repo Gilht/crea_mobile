@@ -1,0 +1,172 @@
+page-assigned-residency {
+    .progress-bar-wrapper {
+      margin-top: 125px;
+      margin-left: 125px;
+      margin-right: 125px;
+      margin-bottom: 20px;
+    }
+
+    .download-progress-percentage {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .red-panel h1{
+        color: white;
+    }
+    .red-panel-input-format {
+        width: 22%;
+        border-radius: 10px;
+        margin-top: 3%;
+        display: inline-flex;
+        margin-right: 10%;
+    }
+    .ion-list-size {
+        width: 109%;
+    }
+
+    th {
+        background: #dedede;
+        width: 1%;
+        height: 33px;
+    }
+
+    .input-table {
+        background: white;
+        border: 1px solid;
+        border-color: #d8d4d4;
+        height: 100%;
+        padding: 10px;
+    }
+
+    .input-format {
+        border-radius: 5px;
+        padding: 2px;
+        width: 100%;
+        border-style: solid;
+        border-color: #e6e7e8;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .date-input-format {
+        border-radius: 5px;
+        padding: 1.5px;
+        width: 100%;
+        border-style: solid;
+        border-color: #e6e7e8;
+        font-size: 12px;
+    }
+
+    .table-content {
+        border: 1px solid;
+        border-color: #e4e0e0;
+        margin-top: -1.6%;
+    }
+
+    .ion-grid-format {
+        background: #e8e5e5;
+    }
+
+    .ion-col-input {
+        text-align: center;
+    }
+
+    .input-cell-format {
+        border-radius: 5px;
+        padding: 2px;
+        padding-left: 6px;
+        width: 10%;
+        border-style: solid;
+        border-color: #e6e7e8;
+        font-size: 12px;
+    }
+
+    input[type='radio']:after {
+        width: 10px;
+        height: 10px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #d1d3d1;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+    }
+
+    input[type='radio']:checked:after {
+        width: 10px;
+        height: 10px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #d72222;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid rgb(221, 218, 218);
+    }
+
+    .sections-grid {
+      background: white;
+
+      .sections-list {
+        input[type="checkbox"] {
+          transform: scale(1.5);
+        }
+
+        .row {
+          border-width: 0px 1px 1px 1px;
+          border-style: solid;
+          border-color: #D4D4D4;
+        }
+      }
+
+      ion-col {
+        display: inherit;
+        flex-direction: column;
+        min-height: 40px;
+        font-weight: bold;
+
+        &.items-center {
+          align-items: center;
+          justify-content: center;
+        }
+
+        &.items-vertical-center {
+          justify-content: center;
+        }
+
+      }
+
+    }
+
+    .action-buttons {
+      .button-row:first-child {
+        > ion-col {
+          padding-top: 0;
+
+          > button {
+            margin-top: 0;
+          }
+        }
+      }
+    }
+
+    .content-format {
+        margin-top: 19%;
+        margin-left: 1%;
+        width: 98%;
+    }
+
+    .row {
+        width: 100%;
+    }
+
+    .downloaded-section > img {
+      width: 20%;
+    }
+}

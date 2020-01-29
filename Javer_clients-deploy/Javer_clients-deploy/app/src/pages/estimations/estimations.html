@@ -1,0 +1,226 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle start large>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <img class="img-position" src="./assets/imgs/casas-javer.png">
+  </ion-navbar>
+</ion-header>
+<ion-content fullscreen="true">
+  <ion-grid *ngIf="estimate">
+    <ion-row class="red-panel">
+      <ion-col col-12>
+        <ion-row>
+          <ion-col col-4>
+            <h3 class="title">Estimaciones</h3>
+          </ion-col>
+          <ion-col col-8>
+            <ion-row>
+              <ion-col col-6>
+                <div class="square-to-estimate"></div> Actividad disponible para estimar
+              </ion-col>
+              <ion-col col-6>
+                <div class="square-no-apply"></div> Elemento no aplica en ese contrato
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-6>
+                <div class="square-estimated"></div> Actividad estimada por Módulo de Construcción
+              </ion-col>
+              <ion-col col-6>
+                <div class="square-selected"></div> Actividad Seleccionada
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-6>
+                <div class="square-system-estimated"></div> Actividad estimada por Sistema
+              </ion-col>
+              <ion-col col-6>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-12 class="panel-info">
+            <div class="panel">
+              <ion-row>
+                <ion-col col-4>
+                  <span>Proyecto</span>
+                  <span>{{estimate.projectCode + ' ' + estimate.project}}</span>
+                </ion-col>
+                <ion-col col-4>
+                  <span>Frente</span>
+                  <span>{{estimate.frontName}}</span>
+                </ion-col>
+                <ion-col col-4>
+                  <span>Conjunto</span>
+                  <span>{{estimate.collectionName}}</span>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-4>
+                  <span>Proveedor</span>
+                  <span>{{estimate.providerName}}</span>
+                </ion-col>
+                <ion-col col-4>
+                  <span>Contrato</span>
+                  <span>{{estimate.contract}}</span>
+                </ion-col>
+                <ion-col col-4>
+                  <span># Estimación</span>
+                  <span>{{estimate.estimateNumber}}</span>
+                </ion-col>
+              </ion-row>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3>
+        <input class="filter-subpackage" type="text" placeholder="Subpaquete" [(ngModel)]="selectedSubpackage" (ngModelChange)="applyFilters()" />
+      </ion-col>
+      <ion-col col-3>
+        <ion-item class="toggle-filter show-available">
+          <ion-label class="wrapped-centered-label">Mostrar Disponibles</ion-label>
+          <ion-toggle color="secondary" [(ngModel)]="filters.showAvailable" (ngModelChange)="applyFilters()"></ion-toggle>
+        </ion-item>
+      </ion-col>
+      <ion-col col-3>
+        <ion-item class="toggle-filter show-unit-cost">
+          <ion-label class="wrapped-centered-label">Mostrar Costo Unitario</ion-label>
+          <ion-toggle color="secondary" [(ngModel)]="filters.showUnitCost"></ion-toggle>
+        </ion-item>
+      </ion-col>
+      <ion-col col-3>
+        <ion-item class="toggle-filter show-unit-cost">
+          <ion-label class="wrapped-centered-label">Estimaci&oacute;n de cierre</ion-label>
+          <ion-toggle color="secondary" [(ngModel)]="estimate.isFinal"></ion-toggle>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-col>
+        <button ion-button color="primary" (click)="test()">
+          test
+        </button>
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+  <div class="container" *ngIf="estimate && !loading && !signing">
+    <div class="col-container">
+      <div class="subpackage-row cols" [ngClass]="{'hidden-unit-cost': !filters.showUnitCost}">
+        <div>Paq</div>
+        <div>Subpaquete</div>
+        <div>Cant.
+          <br> Total</div>
+        <div>Cant.
+          <br>Est</div>
+        <div>Cant. x
+          <br>Est</div>
+        <div>Cant.
+          <br>Sel</div>
+        <div *ngIf="filters.showUnitCost">Costo
+          <br>Unitario</div>
+      </div>
+      <div class="house-col">Elementos</div>
+    </div>
+    <div class="col-container" style="height:87%;" *ngIf="subpackagesToShow.length > 0 && estimate.sections.length > 0">
+      <div class="double-scroll-fixer">
+        <div class="containers">
+          <div class="subpackage-container">
+            <div class="table-subtitle"></div>
+            <div class="subpackage-row" *ngFor="let x of subpackagesToShow" [ngClass]="{'hidden-unit-cost': !filters.showUnitCost}">
+              <div>{{x.packageCode}}</div>
+              <div [tooltip]="x.subpackageName" positionV="top">{{getCutString(x.subpackageName)}}</div>
+              <div>{{getSubpackageSections(x)}}</div>
+              <div>{{getSectionsDone(x)}}</div>
+              <div>{{getPendingSections(x)}}</div>
+              <div>{{getSubpackageRowTotal(x)}}</div>
+              <div *ngIf="filters.showUnitCost">{{x.cost | currency: 'USD' : 'symbol' : '1.2-2'}}</div>
+            </div>
+          </div>
+          <div class="house-container">
+            <div class="houses-cols-holder">
+              <ng-container *ngFor="let s of estimate.sections; let z = index;">
+                <div class="houses-cols" [style.width.px]="getSectionWidth(s)" *ngIf="z == 0 || s.element != estimate.sections[z-1].element">
+                  {{s.element}}
+                </div>
+              </ng-container>
+              <br>
+              <div class="section-div" *ngFor="let section of estimate.sections" [style.width.px]="getColSize(section)">{{section.sectionCode}}</div>
+            </div>
+            <div class="colored-container">
+              <div class="colored-col" *ngFor="let h of estimate.sections; let i = index;" [style.width.px]="getColSize(h)">
+                <div class="colored-cell" *ngFor="let s of subpackagesToShow; let j = index;" [style.width.px]="getColSize(h)" (click)="toEstimate(i,j)"
+                  [style.background-color]="paintCell(i,j)">{{getCellNumber(i,j)}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-placeholder" [hidden]="!loading && !signing">
+    <div class="loading-estimates" *ngIf="loading">
+      <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+      </div>
+    </div>
+    <img src="./assets/imgs/casas-javer.png" />
+  </div>
+  <ion-grid>
+    <ion-row class="pagination-controls">
+      <ion-col col-2></ion-col>
+      <ion-col col-8>
+        <ion-row>
+          <ion-col col-4 class="text-center">
+            <button ion-button color="dark" outline (click)="changePage()">
+              {{ getPaginationBeforeNextString() }}
+            </button>
+          </ion-col>
+          <ion-col col-4>
+            <ion-select [(ngModel)]="pagination.currentPage" (ngModelChange)="setCurrentPage(pagination.currentPage)">
+                <ion-option *ngFor="let label of pagination.list; let i = index" [value]="i">{{ label }}</ion-option>
+            </ion-select>
+          </ion-col>
+          <ion-col col-4 class="text-center">
+            <button ion-button color="dark" outline (click)="changePage(true)">
+              {{ getPaginationBeforeNextString(true) }}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col col-2></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+          <div class="subtotal-spacer"></div>
+          <label class="signature-input" *ngIf="showSubtotal" style="font-weight: 700;text-shadow: 2px 1px 1px #ffcbcb;">{{'Subtotal : ' + (getSubpackageTotal() | currency : 'USD' : symbol : '1.2-2') + ' El subtotal mostrado está sujeto a cambios'}}</label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <div class="action-buttons-wrapper">
+          <button ion-button class="action-button" (click)="addSignature(true)" [disabled]="!hasWritePermission() || (estimate.residentSignature && estimate.residentSignature != '')">Firma del Residente
+            <ion-icon style="color: green;" *ngIf="estimate.residentSignature && estimate.residentSignature != ''" md="md-checkmark-circle"></ion-icon>
+          </button>
+          <button ion-button class="action-button" (click)="addSignature(false)" [disabled]="!hasWritePermission() || (estimate.contractSignature && estimate.contractSignature != '')">Firma del Contratista
+            <ion-icon style="color: green;" *ngIf="estimate.contractSignature && estimate.contractSignature != ''" md="md-checkmark-circle"></ion-icon>
+          </button>
+          <button ion-button class="action-button" (click)="showSubtotal = !showSubtotal;estimate.viewedSubtotal = true;">Ver Subtotal</button>
+          <ion-select class="select-as-button" [(ngModel)]="estimate.rating" placeholder="Calificaci&oacute;n general" selectedText="Calificaci&oacute;n general" cancelText="Cancelar">
+            <ion-option *ngFor="let num of rating.availableElements" [value]="num">{{num}}</ion-option>
+          </ion-select>
+          <button ion-button color="danger" style="float:right" (click)="send()" [disabled]="!online || !hasWritePermission() || loading || !(getSubpackageTotal() > 0)">Enviar a Jefe</button>
+          <button ion-button color="danger" style="float:right" (click)="save()" [disabled]="!hasWritePermission() || loading">Guardar</button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

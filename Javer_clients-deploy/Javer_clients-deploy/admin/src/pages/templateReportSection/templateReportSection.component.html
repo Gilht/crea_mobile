@@ -1,0 +1,72 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <button type="button" [routerLink]="'/app/templateReport'" class="btn btn-large btn-block btn-info">
+                    <</button>
+            </div>
+            <div class="bar-filter-container">
+                <h3>REPORTES > Reporte de Plantillas</h3>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                        </th>
+                        <th>Fracc/Proyecto</th>
+                        <th>Prototipo</th>
+                        <th>Conjunto</th>
+                        <th>Sector/Frente</th>
+                        <th>Lote</th>
+                        <th>Manzana</th>
+                        <th>Número Interno</th>
+                        <th>ID Vivienda</th>
+                        <th>Unidad Privativa</th>
+                        <th>Elemento</th>
+                        <th>Sección</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let house of sections" (click)="selectHouse(house)">
+                        <td>
+                            <input type="checkbox" [(ngModel)]="house.selected" (click)="selectHouse(house); $event.stopPropagation();">
+                        </td>
+                        <td>{{house.commercialName}}</td>
+                        <td>{{house.prototypeName}}</td>
+                        <td>{{house.collection}}</td>
+                        <td>{{house.front}}</td>
+                        <td>{{house.lotName}}</td>
+                        <td>{{house.blockName}}</td>
+                        <td>{{house.interiorNumber}}</td>
+                        <td>{{house.idLivingPlace}}</td>
+                        <td>{{house.privativeUnit}}</td>
+                        <td>{{house.element}}</td>
+                        <td>{{house.sectionCode}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="12" class="no-info" *ngIf="sections.length == 0">
+                            <small>No hay información para mostrar</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button type="button" id="get-sections" class="btn btn-primary" (click)="viewAdvance(1);">Reporte DTU</button>
+        <button type="button" id="get-sections" class="btn btn-primary" (click)="viewAdvance(2);">Reporte de Avance</button>
+
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

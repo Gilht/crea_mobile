@@ -1,0 +1,85 @@
+page-assigned-residency {
+    .red-panel h1{
+        color: white;
+    }
+    .red-panel-input-format {
+        width: 22%;
+        border-radius: 10px;
+        margin-top: 3%;
+        display: inline-flex;
+        margin-right: 10%;
+    }
+    .ion-list-size {
+        width: 109%;
+    }
+
+    th {
+        background: #dedede;
+        width: 1%;
+        height: 33px;
+    }
+
+    .input-table {
+        background: white;
+        border: 1px solid;
+        border-color: #d8d4d4;
+        height: 100%;
+        padding: 10px;
+    }
+    
+    .input-format {
+        border-radius: 5px;
+        padding: 2px;
+        width: 100%;
+        border-style: solid;
+        border-color: #e6e7e8;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .date-input-format {
+        border-radius: 5px;
+        padding: 1.5px;
+        width: 100%;
+        border-style: solid;
+        border-color: #e6e7e8;
+        font-size: 12px;
+    }
+
+    .table-content {
+        border: 1px solid;
+        border-color: #e4e0e0;
+        margin-top: -1.6%;
+    }
+
+    .ion-grid-format {
+        background: #e8e5e5;
+    }
+
+    .ion-col-input {
+        text-align: center;
+    }
+
+    .input-cell-format {
+        border-radius: 5px;
+        padding: 2px;
+        padding-left: 6px;
+        width: 10%;
+        border-style: solid;
+        border-color: #e6e7e8;
+        font-size: 12px;
+    }
+
+
+    .content-format {
+        margin-top: 19%;
+        margin-left: 1%;
+        width: 98%;
+    }
+
+    .row {
+        width: 100%;
+    }
+    
+ 
+}

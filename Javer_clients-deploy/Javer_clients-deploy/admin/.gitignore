@@ -1,0 +1,5 @@
+node_modules/
+
+# shared client modules this are copied every time
+# the admin/app is started
+src/clientsSharedModule/

@@ -1,0 +1,424 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+@import "./loading";
+
+.progress-bar {
+  .pb-container {
+    width: 100%;
+    background-color: grey;
+    border-radius: 10px;
+
+    .pb-bar {
+      border-radius: inherit;
+      width: 1%;
+      height: 30px;
+      background-color: #e2574c;
+    }
+  }
+}
+
+html, body {
+    height: 100%;
+}
+
+.red-panel {
+    height: 185px;
+    background-color: #e2574c;
+    color: white;
+    min-height: 185px;
+}
+
+.full-width{
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.list-panel {
+    margin-top: -185px;
+    color: white;
+    margin-left: 30px;
+}
+
+.list-panel-filters .bar-filter-container, .list-panel-filters .bar-title-container, .list-panel-filters .bar-buttons-container {
+    float: left;
+    padding-left: 5px;
+}
+
+.list-panel-filters .bar-filter-container, .list-panel-filters .bar-buttons-container {
+    padding-top: 5px;
+}
+.signature-modal .modal-wrapper{
+    height: 470px !important;
+}
+.notification-modal .modal-wrapper{
+        width : 400px !important;
+        height: 220px !important;
+        position: unset;
+        transform: unset;
+}
+
+.upload-modal .modal-wrapper{
+    width: 75%;
+    height: 60%;
+    margin: auto;
+    background: white;
+    opacity: 1;
+    position: unset;
+    transform: unset;
+}
+
+.upload-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert-modal .modal-wrapper{
+    width: 55%;
+    height: 50%;
+    margin: auto;
+    background: white;
+    opacity: 1;
+    position: unset;
+    transform: unset;
+}
+
+.alert-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.notification-modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mail-modal .modal-wrapper{
+    height: 400px !important;
+}
+
+.unauthorized-modal {
+    .modal-wrapper {
+        width: 400px !important;
+        height: 270px !important;
+        left: calc(50% - (400px/2));
+        top: calc(50% - (270px/2));
+        position: absolute;
+    }
+}
+
+.list-panel .table {
+    background-color: white;
+    color: black;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.37);
+}
+
+.list-panel .table th {
+    background-color: #dbdbdb;
+}
+
+.list-panel .table td, .list-panel .table th {
+    text-align: left;
+    padding: 3px;
+    padding-left: 13px;
+}
+
+.list-panel .table td.no-info {
+    text-align: center;
+}
+
+.list-panel .table-container {
+    margin-top: 20px;
+    padding-right: 40px;
+    font-size: 12px;
+}
+
+.btn-warning {
+    background-color: #bebebe !important;
+    border-color: #bebebe !important;
+    color: white !important;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.37);
+    font-weight: 700 !important;
+    white-space: normal;
+}
+
+.btn-info {
+    background-color: #545454 !important;
+    border-color: #545454 !important;
+    color: white !important;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.37);
+    font-weight: 700 !important;
+    white-space: normal;
+}
+
+.btn-primary {
+    background-color: #ed1b24 !important;
+    border-color: #ed1b24 !important;
+    color: white !important;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.37);
+    font-weight: 700 !important;
+    white-space: normal;
+}
+.btn-disabled {
+    background-color: #AFAFAF !important;
+    border-color: #AFAFAF  !important;
+    color: #7C7C7C !important;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.37);
+    font-weight: 700 !important;
+    opacity: 1 !important;
+    white-space: normal;
+}
+
+
+.modal-btn-delete {
+    color: white !important;
+    background-color: #545454 !important;
+}
+
+.btn-hover:hover {
+    background-color: #ed1b24 !important;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 3;
+    color: #fff !important;
+    cursor: default;
+    background-color: #e2574c;
+    border-color: #e2574c;
+}
+
+.tabs-panel-container {
+    background-color: white;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.37);
+    padding: 17px;
+    margin-right: 27px;
+}
+
+.pagination>li>a, .pagination>li>a:hover .pagination>li>span {
+    color: black;
+}
+
+.pagination>li>a:hover {
+    color: black !important;
+}
+
+.switch-javer span {
+    height: 15px !important;
+    width: 35px !important;
+}
+
+.switch-javer span small {
+    height: 15px !important;
+    width: 15px !important;
+}
+
+.nav-tabs li a{
+    color: white !important;
+}
+.nav-tabs li{
+    width: 200px;
+    height: 33px;
+    background-color: #A5A5A5  !important;
+    color: white !important;
+    text-align: center;
+    border-radius: 3px;
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    color: #555;
+    cursor: default;
+    background-color: #fff;
+    border: none !important;
+    border-bottom-color: transparent;
+}
+.nav-tabs[_ngcontent-c4] > li.active[_ngcontent-c4] > a[_ngcontent-c4], .nav-tabs[_ngcontent-c4] > li.active[_ngcontent-c4] > a[_ngcontent-c4]:focus, .nav-tabs[_ngcontent-c4] > li.active[_ngcontent-c4] > a[_ngcontent-c4]:hover {
+    color: #fff !important;;
+    background-color: #ed1b24;
+    border: none !important;
+    width: 200px;
+    height: 33px;
+    border-radius: 10px 10px 0 0;
+    cursor: pointer;
+}
+.cursor-pointer{
+    cursor: pointer;
+}
+.nav-tabs{
+    margin-right: 25px;
+}
+
+.action-button{
+    padding: 2px 6px;
+}
+.form-control-cal span {
+    width: 100% !important;
+  }
+
+  .form-control-cal input {
+      display: block;
+      width: 100% !important;
+      height: 20px;
+      padding: 2px 4px !important;
+      font-size: 12px;
+      line-height: 1.42857143;
+      color: #555;
+      width: 100% !important;
+      table-layout: fixed !important;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+      -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+          -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  }
+
+  .main-logo {
+      width: 55%;
+      height: 40%;
+  }
+
+  .side-bar-color {
+      background: #e9e8e8;
+  }
+
+  .button-text-indent {
+      text-indent: 15%;
+      white-space: nowrap ;
+  }
+
+  .ion-icon-size {
+    font-size: 20px;
+  }
+
+  .img-position {
+    margin-left: 40%;
+    height: 12%;
+    width: 12%;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8% 1%;
+}
+.close-session-button {
+    background: rgb(192, 191, 191);
+    margin-top: 50%;
+}
+.close-session-img {
+    height: 7.5%;
+    width: 7.5%;
+}
+.button-text-indent {
+    text-indent: 10%;
+}
+
+.logo-img-cursor {
+    cursor: pointer;
+}
+ion-select{
+    width:100% !important;
+    max-width: 100% !important;
+}
+.better-grid{
+    width: 100%;
+    height: 74%;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: row;
+}
+.better-grid .row{
+    align-items: center;
+    height: 42px;
+    border: 1px solid #D4D4D4;
+    background: white;
+    font-weight: bold;
+}
+.better-grid .button-row{
+    border: unset;
+}
+.freeze-row{
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    background: #ddd !important;
+}
+.row {
+    width: 100%;
+}
+
+
+
+@media print {
+    .hide-print {
+        display: none;
+    }
+
+    .show-print {
+        display: block !important;
+    }
+}
+.toast-success .toast-container{
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    color: white;
+    font-size: 12px;
+}
+.toast-error .toast-container{
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    color: white;
+    font-size: 12px;
+}
+.toast-warning .toast-container{
+    background-color: #f0ad4e;
+    border-color: #eea236;
+    color: white;
+    font-size: 12px;
+}
+.toast-info .toast-container{
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    color: white;
+    font-size: 12px;
+}
+.picker-opt-selected{
+    color: #f00 !important;
+    font-weight: 700 !important;
+}
+.picker-opt{
+    font-size: 16px !important;
+}

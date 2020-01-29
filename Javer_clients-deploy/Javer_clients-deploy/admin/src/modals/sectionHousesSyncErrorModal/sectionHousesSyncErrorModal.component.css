@@ -1,0 +1,62 @@
+button {
+  display: block;
+  margin: 20px auto;
+}
+
+.custom-modal-header > div {
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.custom-modal-header h3 {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.custom-modal-content {
+  font-size: 12px;
+  padding: 25px 0;
+}
+
+.custom-modal-content.main-warning {
+  font-size: 15px;
+  text-align: center;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-wrapper input {
+  transform: scale(1.5);
+}
+
+.checkbox-wrapper label {
+  margin-left: 15px;
+  font-size: 15px;
+}
+
+.button-container {
+  flex: 1;
+  justify-content: center;
+}
+
+.continue-button {
+  margin: auto;
+}
+
+table {
+  width: 100%;
+  border: 1px solid #d2d2d2;
+}
+
+table th, table td {
+  border: 1px solid #d2d2d2;
+  padding: 5px;
+  text-align: center;
+}
+
+.transaction-id-column {
+  word-break: break-all;
+}

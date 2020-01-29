@@ -1,0 +1,52 @@
+<ion-content>
+    <ion-header>
+        <div class="center">
+            <h3>Error en la carga de viviendas</h3>
+        </div>
+    </ion-header>
+    <ion-content>
+        <ion-grid>
+            <ion-row class="center">
+                <ion-col col-12 class="message">
+                    <div>Por favor, revise los errores detectados en el proceso, corrija e intente guardar de nuevo</div>
+                </ion-col>
+                <ion-col col-12 class="message">
+                    <table>
+                        <colgroup>
+                            <col span="1" style="width: 10%">
+                            <col span="5" style="width: 5%">
+                            <col span="1" style="width: 100%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Fraccionamiento</th>
+                                <th>Frente</th>
+                                <th>Conjunto</th>
+                                <th>Elemento</th>
+                                <th>Secci&oacute;n</th>
+                                <th>Mensaje de Error</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let section of sectionHouses">
+                                <td class="transaction-id-column">{{section.transactionId}}</td>
+                                <td>{{section.subdivisionName}}</td>
+                                <td>{{section.frontName}}</td>
+                                <td>{{section.collectionName}}</td>
+                                <td>{{section.element}}</td>
+                                <td>{{section.sectionCode}}</td>
+                                <td>{{section.errorMessage}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-content>
+    <ion-footer>
+        <div class="center">
+            <button ion-button class="btn-primary" (click)="dismiss()">Continuar</button>
+        </div>
+    </ion-footer>
+</ion-content>

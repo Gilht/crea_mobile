@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="row custom-modal-header">
+        <div class="col-xs-12 close-row">
+            <span class="modal-close" (click)="closeModal();">x</span>
+        </div>
+        <div class="col-xs-12 row-select list-element" *ngFor="let sp of subpackages" (click)="selectSubpackage(sp);">
+            {{sp.name}}
+        </div>
+        <div class="col-xs-12 row-select list-element" (click)="showNew = !showNew;">
+            + Nuevo Subpaquete
+        </div>
+        <div class="col-xs-12 row-select add-sub-package-form" *ngIf="showNew">
+            <input type="number" step=".01" class="form-control" placeholder="Orden" [(ngModel)]="newSubpackage.order" (keypress)="validateNumber($event)">
+            <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="newSubpackage.name" maxlength="60">
+            <span style="font-size: 10px; display: block;" [ngStyle]="{'color' :  newSubpackage?.name?.length == 60 ? 'red' : 'black' }">({{newSubpackage?.name?.length || 0}}/60 carácteres máximo)</span>
+            <button type="button" class="btn btn-primary modal-button" (click)='addNewSubpackage();' [disabled]="!newSubpackage.name || newSubpackage.name.length == 0">Agregar Nuevo</button>
+        </div>
+    </div>
+</div>

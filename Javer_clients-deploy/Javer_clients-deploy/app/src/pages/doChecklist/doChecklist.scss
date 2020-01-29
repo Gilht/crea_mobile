@@ -1,0 +1,124 @@
+page-doChecklist {
+    .red-panel h1{
+        color: white;
+    }
+    .red-panel-input-format {
+        width: 22%;
+        border-radius: 10px;
+        margin-top: 3%;
+        display: inline-flex;
+        margin-right: 10%;
+    }
+    .grid-grids{
+        margin: 2px 0px;
+    }
+
+    .grid-grids ion-row ion-col{
+        white-space: normal;
+        text-align: center;
+        white-space: normal;
+        height: 100% !important;
+    }
+
+    .grid-grids ion-row ion-col:nth-child(1){
+        background: #f6f6f6;
+        color: #4f4f4e;
+    }
+    .grid-grids ion-row ion-col:nth-child(2){
+        background: #ededed;
+        color: #333131;
+        font-weight: bold;
+    }
+    .checklist-grid ion-row{
+      text-align: center;
+      border-bottom: #bbb solid 1px;
+      align-items: center !important;
+      justify-content: center;
+    }
+    .checklist-grid ion-row ion-col:nth-child(1){
+        text-align: left;
+    }
+    .checklist-grid .title, .packages-headers.title{
+        padding: 5px;
+        background: #ededed;
+        color: #000;
+        text-align: center;
+    }
+
+    .packages-headers .packages-names {
+        text-align: left;
+    }
+
+    .checklist-grid .package ion-col:nth-child(1){
+        background: #a8a8a8;
+        font-weight: bold;
+
+    }
+    .checklist-grid img{
+        width: 42px;
+    }
+    .checklist-grid ion-row ion-col:nth-child(n+2) {
+        cursor: pointer;
+    }
+    .checklist-grid ion-row ion-col{
+        vertical-align: middle;
+        line-height: 100%;
+    }
+
+    .better-grid{
+        width: 100%;
+        height: 74%;
+        white-space: nowrap;
+        display: flex;
+        flex-direction: row;
+    }
+    .better-grid .row{
+        align-items: unset;
+        background: transparent;
+        border: unset;
+        height: min-content;
+        font-weight: bold;
+    }
+    .grid-grids .row{
+        background: #f6f6f6;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ddd;
+    }
+    .red-panel {
+        height: 36%;
+        background-color: #e2574c;
+        color: white;
+    }
+    .tiny-img img{
+        width:15px;
+    }
+    .show-print{
+        display: block !important;
+    }
+
+    .validatedSection {
+      .sp-status {
+        filter: grayscale(100%);
+      }
+    }
+
+    .checkDisabled {
+      img.completed {
+        filter: grayscale(100%);
+      }
+    }
+
+    .pictureDisabled {
+      filter: grayscale(100%);
+    }
+
+    .loading {
+        position: absolute;
+        z-index: 15;
+        width: 100%;
+        background: #fff;
+        margin-top: 56px;
+        height: calc(100% - 56px);
+    }
+}

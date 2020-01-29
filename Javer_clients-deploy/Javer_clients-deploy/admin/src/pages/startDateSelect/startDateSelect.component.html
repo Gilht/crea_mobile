@@ -1,0 +1,83 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <button type="button" (click)="goBack()" class="btn btn-large btn-block btn-info">
+                    <</button>
+            </div>
+            <div class="bar-filter-container">
+                <h3>CONTROL DE OBRA > Fecha de Arranque Calendarizada > Asignar Fecha de Arranque</h3>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="resident-panel">
+            <h4>Asignar Fecha de Arranque</h4>
+            <div class="form-group">
+
+                <div class="col-xs-2">
+                    <label class="dtuLabel">Fecha</label>
+                    <p-calendar dateFormat="dd/mm/yy" class="form-control-cal" [(ngModel)]="selectedDate"></p-calendar>
+                </div>
+
+            </div>
+            <button type="button" class="btn btn-primary" (click)="asignDate();" [disabled]="!selectedDate">Asignar</button>
+            <div style="clear:both;"></div>
+        </div>
+        <br>
+        <div class="table-container" *ngIf="sections.length > 0 && sections">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Residente</th>
+                        <th>Fracc/Proyecto</th>
+                        <th>Sector/Frente</th>
+                        <th>Conjunto</th>
+                        <th>Prototipo</th>
+                        <th>Lote</th>
+                        <th>Manzana</th>
+                        <th>Número Interior</th>
+                        <th>ID Vivienda</th>
+                        <th>Unidad Privativa</th>
+                        <th>Elemento</th>
+                        <th>Sección</th>
+                        <th>Fecha de Arranque</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let section of sections">
+                        <td>{{section.resident ? section.resident.workName + " " + section.resident.lastName + " " + section.resident.lastNameMother
+                            : ""}}</td>
+                        <td>{{section.house.commercialName}}</td>
+                        <td>{{section.house.front}}</td>
+                        <td>{{section.house.collection}}</td>
+                        <td>{{section.prototypeName}}</td>
+                        <td>{{section.house.lotName}}</td>
+                        <td>{{section.house.blockName}}</td>
+                        <td>{{section.interiorNumber}}</td>
+                        <td>{{section.idLivingPlace}}</td>
+                        <td>{{section.house.privativeUnit}}</td>
+                        <td>{{section.house.element}}</td>
+                        <td>{{section.sectionCode}}</td>
+                        <td>{{section.startDate | date: 'dd/MM/yyyy'}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="11" class="no-info" *ngIf="sections.length == 0">
+                            <small>No hay información para mostrar</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

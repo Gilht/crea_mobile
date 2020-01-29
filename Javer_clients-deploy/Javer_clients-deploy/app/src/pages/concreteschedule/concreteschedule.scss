@@ -1,0 +1,93 @@
+page-concreteschedule {
+
+    .red-panel-input-format {
+        width: 22%;
+        border-radius: 10px;
+        margin-top: 3%;
+        display: inline-flex;
+        margin-right: 10px;
+    }
+    .ion-list-size {
+        width: 109%;
+    }
+    .input-table {
+        background: white;
+        border: 1px solid;
+        border-color: #d8d4d4;
+        height: 100%;
+        padding: 10px;
+    }
+    .date-input-format {
+        padding: 1.5px;
+        width: 100%;
+        border: 1px solid #a9a9a9;
+        font-size: 12px;
+        height: 23px;
+        display: inline-block;
+    }
+
+    .table-content {
+        border: 1px solid;
+        border-color: #e4e0e0;
+        margin-top: -1.6%;
+    }
+
+    .ion-grid-format {
+        background: #e8e5e5;
+    }
+    .concrete-items ion-col input,.concrete-items ion-col ion-datetime{
+        width:80%;
+    }
+
+    
+    .cols{
+        background: #e8e5e5;
+        white-space: nowrap;
+    }
+
+    .cols ion-col{
+        text-align: center;
+    }
+
+    .input-cols {
+        width: 100%;
+        background: #e8e5e5;
+        padding: 0px;
+        display: inline-block;
+        white-space: nowrap;
+    }
+    .content-format ion-col{
+        max-width: 130px;
+        min-width: 130px;
+        width: 130px;
+        display: table-cell;
+    }
+    .concrete-grid {
+        width: max-content;
+        background: white;
+    }
+    .concrete-grid ion-row{
+        white-space: nowrap;
+        flex-wrap: nowrap;
+        width: max-content;
+        align-items: center;
+    }
+    .concrete-grid ion-row ion-col{
+        text-align: center;
+        width: 200px;
+        min-width: 200px;
+        max-width: 200px;
+    }
+    .concrete-grid ion-row ion-col:nth-child(1){
+        text-align: center;
+        width: 50px;
+        min-width: 50px;
+        max-width: 50px;
+    }
+    .no-lines{
+        text-align: center;
+        padding: 20px;
+        font-style:italic;
+    }
+
+}

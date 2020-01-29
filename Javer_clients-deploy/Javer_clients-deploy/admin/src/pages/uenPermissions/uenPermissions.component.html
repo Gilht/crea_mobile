@@ -1,0 +1,50 @@
+<div class="uen-permissions">
+  <div class="component-header">
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+      <h3 style="float: left;">Usuario > Asignar permisos</h3>
+      <div style="clear: both;"></div>
+    </div>
+  </div>
+  <div class="list-panel content-container-wrapper" *ngIf="!loading">
+    <div class="user-dropdown">
+      <h3>Usuario</h3>
+      <select class="form-control" [ngModel]="targetUserId" (ngModelChange)="onUserChange($event)">
+        <option value="">Seleccione una opci&oacute;n</option>
+        <option *ngFor="let user of userList" [ngValue]="user.id">{{user.workName + ' ' + user.lastName + ' ' + user.lastNameMother}}</option>
+      </select>
+      <h4 class="free-access-uen">Acceso Completo a UEN</h4>
+      <input type="checkbox" #fuen="ngModel" [(ngModel)]="freeUenAccess" />
+      <div style="clear: both;"></div>
+    </div>
+    <div class="uen-dropdown">
+      <h3>UEN</h3>
+      <select class="form-control" [ngModel]="targetUenId" (ngModelChange)="onUenChange($event)">
+        <option value="">Seleccione una opci&oacute;n</option>
+        <option *ngFor="let uen of uenList" [ngValue]="uen.id">{{uen.name}}</option>
+      </select>
+      <div style="clear: both;"></div>
+    </div>
+    <div class="project-access">
+      <ng2-dual-list-box [data]="notAllowedProjects" valueField="id" textField="name" [rightData]="allowedProjects"
+        (onItemsMoved)="syncLists($event)"
+        [availableText]="'Sin Acceso'"
+        [selectedText]="'Con Acceso'">
+      </ng2-dual-list-box>
+    </div>
+    <div class="action-buttons">
+        <button type="button" class="btn btn-warning" (click)="redirectTo()">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!((listToSync.length > 0 && fuen.dirty) || (listToSync.length > 0 || fuen.dirty) || couldSave)">Guardar</button>
+    </div>
+
+  </div>
+  <div class="loading" *ngIf="loading">
+      <div class="cssload-thecube">
+          <div class="cssload-cube cssload-c1"></div>
+          <div class="cssload-cube cssload-c2"></div>
+          <div class="cssload-cube cssload-c4"></div>
+          <div class="cssload-cube cssload-c3"></div>
+      </div>
+  </div>
+</div>

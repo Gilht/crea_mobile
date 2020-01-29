@@ -1,0 +1,104 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle start large>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <img class="img-position" src="./assets/imgs/casas-javer.png">
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="true" *ngIf="!loading">
+    <ion-grid style="padding:0px">
+        <ion-row class="red-panel">
+            <ion-col col-12>
+                <ion-row>
+                    <ion-col col-12>
+                        <h3 class="title">Estimaciones</h3>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-3></ion-col>
+            <ion-col col-6 class="inside-panel">
+                <ion-row>
+                    <ion-col col-6>
+                        <label>Proyecto</label>
+                        <ion-list>
+                            <ion-item>
+                                <ion-select [(ngModel)]="filter.proyecto" (ngModelChange)="getFrontCollection()">
+                                    <ion-option *ngFor="let project of projects" [value]="project.shortName">{{project.shortName +'-'+ project.name}}</ion-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-6>
+                        <label>Frente</label>
+                        <ion-list>
+                            <ion-item>
+                                <ion-select [(ngModel)]="filter.frente" (ngModelChange)="setCollection()">
+                                    <ion-option *ngFor="let front of fronts" [value]="front.id">{{front.name}}</ion-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-6>
+                        <label>Conjunto</label>
+                        <ion-list>
+                            <ion-item>
+                                <ion-select [(ngModel)]="filter.conjunto" (ngModelChange)="getProvidersContracts()">
+                                    <ion-option *ngFor="let collection of selectedFront.collections" [value]="collection.id">{{collection.name}}</ion-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-6>
+                        <label>Proveedor</label>
+                        <ion-list>
+                            <ion-item>
+                                <ion-select [(ngModel)]="selectedProvider" (ngModelChange)="filterContracts();">
+                                    <ion-option *ngFor="let provider of providers" [value]="provider">{{provider.name}}</ion-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-6>
+                        <label>Contrato</label>
+                        <ion-list>
+                            <ion-item>
+                                <ion-select [(ngModel)]="selectedContract" (ngModelChange)="checkEstimate()">
+                                    <ion-option *ngFor="let contract of contracts" [value]="contract.id">{{contract.id}}</ion-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-12>
+                        <div style="text-align:center; margin-top:15px;">
+                            <button ion-button color="danger" [disabled]="!estimate" style="display:inline-block" (click)="goToEstimate()"> Siguiente</button>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+            <ion-col col-3></ion-col>
+
+        </ion-row>
+
+    </ion-grid>
+</ion-content>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>

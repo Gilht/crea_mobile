@@ -1,0 +1,16 @@
+.reveal-modal {
+    text-align:center;
+    width:100%;
+}
+
+.list-element{
+    padding: 10px;
+}
+
+.add-sub-package-form {
+    text-align: center;
+}
+
+.add-sub-package-form > * {
+    margin: 10px 0px;
+}

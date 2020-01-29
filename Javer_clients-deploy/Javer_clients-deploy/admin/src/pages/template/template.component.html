@@ -1,0 +1,70 @@
+<div>
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" *ngIf="!loading">
+        <h3>CHECKLIST > Plantillas</h3>
+        <div class="list-panel-filters">
+            <div class="bar-filter-container">
+                <input type="text" placeholder="Plantilla" class="form-control" [(ngModel)]='filter.template' (ngModelChange)="filterTemplate()">
+            </div>
+            <div class="bar-filter-container">
+                <button type="button" class="btn btn-warning" (click)="cleanFilters();">Limpiar</button>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="table-container">
+            <table class="table table-hover">
+                <colgroup>
+                    <col span="1">
+                    <col style="width:130px;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Plantilla</th>
+                        <th>Tipo de Plantilla</th>
+                        <th>Origen</th>
+                        <th>Usuario</th>
+                        <th style="width: 10%;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let t of templates">
+                        <td>{{t.name}}</td>
+                        <td>{{templateType(t.type)}}</td>
+                        <td>{{t.copy ? 'Copiada' : 'Base'}}</td>
+                        <td>{{(t.user ? t.user.workName + ' ' + t.user.lastName + ' ' + t.user.lastNameMother : '')}}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary action-button" [routerLink]="['edit', t.id]">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </button>
+                            <button *ngIf="deleteFlag" type="button" class="btn btn-primary action-button" (click)="deleteTempalteModal(t)">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="no-info" *ngIf="templates.length == 0">
+                            <small>No hay información para mostrar</small>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ng-pagination *ngIf="dataToShow && switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+        <ng-pagination *ngIf="dataToShow && !switchPagination" [totalItems]="dataToShow.length" [(ngModel)]="currentPage" [maxSize]="20"
+            class="pagination-sm" [boundaryLinks]="true" (pageChanged)="pageChanged($event)" previous-text="&lsaquo;" next-text="&rsaquo;"></ng-pagination>
+
+        <button *ngIf="createFlag" type="button" class="btn btn-info" (click)="configureNewTemplate();">Crear Plantilla</button>
+
+    </div>
+</div>
+<div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+        <div class="cssload-cube cssload-c1"></div>
+        <div class="cssload-cube cssload-c2"></div>
+        <div class="cssload-cube cssload-c4"></div>
+        <div class="cssload-cube cssload-c3"></div>
+    </div>
+</div>
+<ng2-toasty></ng2-toasty>

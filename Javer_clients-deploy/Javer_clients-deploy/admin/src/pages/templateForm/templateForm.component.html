@@ -1,0 +1,166 @@
+<div style="height:100%">
+    <div class="red-panel">
+    </div>
+    <div class="list-panel" style="margin-top: -220px;" *ngIf="!loading">
+        <div class="list-panel-filters">
+            <div class="row">
+                <div class="bar-filter-container">
+                  <button type="button" [routerLink]="'/app/template'" class="btn btn-large btn-block btn-info">
+                      <</button>
+                </div>
+                <div class="bar-filter-container">
+                    <h3>CHECKLIST > Plantillas > {{templateId ? 'Editar Plantilla':'Nueva Plantilla'}} | Tipo : {{template.copy ? 'Copiada' : 'Base'}}</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-xs-2">
+                    <input [disabled]="!(writeFlag || createFlag)" type="text" class="form-control" placeholder="Nombre" [(ngModel)]="template.name" (ngModelChange)="myCheck()">
+                </div>
+                <div class="form-group col-xs-2">
+                    <select class="form-control" [(ngModel)]="template.type" [disabled]="template.copy" (ngModelChange)="myCheck()">
+                        <option value="0">Tipo de Plantilla</option>
+                        <option *ngFor="let type of types" [value]="type.code">{{type.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-xs-2">
+                    <select *ngIf="writeAddPaqFlag || createFlag" class="form-control" [(ngModel)]="selectedPackage" (ngModelChange)="myCheck()">
+                        <option value="">Agregar Paquete</option>
+                        <option *ngFor="let item of package" [value]="item.id">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-xs-2">
+                    <button *ngIf="writeAddPaqFlag || createFlag" type="button" style="width: 100%" class="btn btn-primary" (click)="addPackage(package);" (ngModelChange)="myCheck()">Agregar Paquete</button>
+                </div>
+                <div class="form-group col-xs-2">
+                    <button *ngIf="writeFlag || createFlag" type="button" style="width: 100%" class="btn btn-primary" [disabled]="!modified" (click)="saveTemplate(template,false);"
+                        (ngModelChange)="myCheck()">Guardar Plantilla</button>
+                </div>
+                <div class="form-group col-xs-2">
+                    <button *ngIf="writeFlag || createFlag" type="button" style="width: 100%" class="btn btn-primary" (click)="saveTemplate(template,true);" [disabled]="alreadyCopy" (ngModelChange)="myCheck()">Copiar Plantilla</button>
+                </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-2" style="text-align: center;">
+                <label>PAQUETE INICIAL: </label>
+              </div>
+              <div class="form-group col-xs-2">
+                  <select class="form-control" [(ngModel)]="template.initialPackageId" [disabled]="template.copy || !createFlag" (ngModelChange)="myCheck()">
+                      <option value="null">PAQUETE INICIAL</option>
+                      <option *ngFor="let item of posiblePackage" [value]="item.id">{{item.name}}</option>
+                  </select>
+              </div>
+              <div class="form-group col-xs-2" style="text-align: center;">
+                <label>PAQUETE FINAL:</label>
+              </div>
+              <div class="form-group col-xs-2">
+                  <select class="form-control" [(ngModel)]="template.finalPackageId" [disabled]="template.copy || !createFlag" (ngModelChange)="myCheck()">
+                      <option value="null">PAQUETE FINAL</option>
+                      <option *ngFor="let item of posiblePackage" [value]="item.id">{{item.name}}</option>
+                  </select>
+              </div>
+              <div class="form-group col-xs-2" style="text-align: center;">
+                <label>PROTOTIPO:</label>
+              </div>
+              <div class="form-group col-xs-2">
+                  <select class="form-control" [(ngModel)]="template.externalId" (ngModelChange)="myCheck()">
+                      <option value="null">PROTOTIPO</option>
+                      <option *ngFor="let item of prototypes" [value]="item.externalId">{{item.name}}</option>
+                  </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-xs-2" style="text-align: center;">
+                <label>PORCENTAJE DE PAQUETES:</label>
+              </div>
+              <div class="form-group col-xs-2" style="text-align: center;">
+                <label>{{porcActualPackage}} %</label>
+              </div>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <div class="container">
+            <div class="template-cols" style="width:95%;position: relative;">
+                <div>Orden</div>
+                <div>Nombre del Paquete</div>
+                <div>Depende de</div>
+                <div>Duración (días)</div>
+                <div>Ponderación</div>
+                <div>Peso Esfuerzo</div>
+                <div></div>
+            </div>
+            <div style="height: 97%; overflow-y: visible; overflow-x: hidden;">
+                <div class="template-packages" *ngFor="let package of template.packages; let i = index;">
+                    <div style="width:95%; display:inline-block;white-space:normal;vertical-align:middle;">
+                        <div class="template-cols package">
+                            <div>
+                                <input [disabled]="!(writeFlag || createFlag)" type="number" class="form-control" [(ngModel)]="package.packageOrder" (ngModelChange)="myCheck(); checkPackageOrderNegative(package);">
+                            </div>
+                            <div>{{package.package.name}}</div>
+                            <div>
+                                <select [disabled]="!(writeFlag || createFlag)" class="form-control" [(ngModel)]="package.packageFatherId" (ngModelChange)="myCheck()">
+                                    <option value="null">Seleccione</option>
+                                    <ng-container *ngFor="let item of template.packages; let y = index">
+                                        <option *ngIf="package.package.id != item.package.id && dependingOrder(package.packageOrder,item.packageOrder)
+                                         && package.packageOrder != '' && package.packageOrder != 1" [value]="item.package.id">
+                                            {{item.package.name}}
+                                        </option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div>
+                                <input [disabled]="!(writeFlag || createFlag)" type="number" class="form-control" [(ngModel)]="package.packageDuration" (ngModelChange)="myCheck()">
+                            </div>
+                            <div>
+                                <input [disabled]="!(writePorcPaqFlag || createFlag)" type="number" step=".01" class="form-control" [(ngModel)]="package.packageWeighing" (ngModelChange)="myCheck(); calcPorcPackage();">
+                            </div>
+                            <div>{{getSubpackageTotal(package)}}</div>
+                        </div>
+                        <div *ngFor="let subpackage of package.subpackages">
+                            <div class="subpackage-cols2">
+                                <div></div>
+                                <div>
+                                    <input [disabled]="!(writeFlag || createFlag)" type="number" step=".01" class="form-control" [(ngModel)]="subpackage.order" (ngModelChange)="myCheck(); checkSubpackageOrderNegative(subpackage);">
+                                </div>
+                                <div>
+                                    {{subpackage.subpackage.name}}
+                                    <i *ngIf="writeFlag || createFlag" class="fa fa-trash" (click)="deleteSubpackage(package,subpackage);"></i>
+                                </div>
+                                <div>
+                                    <input [disabled]="!(writePorcSubPaqFlag || createFlag)" type="number" class="form-control" step=".01" [(ngModel)]="subpackage.subpackageEffortWeight" (ngModelChange)="myCheck();">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="subpackage-cols">
+                                <div></div>
+                                <div>Agregar Subpaquete
+                                    <i *ngIf="writeFlag || createFlag" class="fa fa-plus" (click)="addSubpackage(package, i);"></i>
+                                </div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="writeDeletePaqFlag || createFlag" style="width:5%; display:inline-block;white-space:normal;vertical-align:middle;text-align:center">
+                        <button type="button" style=" margin-right: 18%; float:none" class="btn btn-primary" (click)="deletePackage(package);">
+                            <i class="fa fa-trash" style="color:white"></i>
+                        </button>
+                    </div>
+
+                </div>
+                <div style="display:block" class="no-info" *ngIf="template.packages.length == 0">
+                    <small>No hay información para mostrar</small>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="loading" *ngIf="loading">
+        <div class="cssload-thecube">
+            <div class="cssload-cube cssload-c1"></div>
+            <div class="cssload-cube cssload-c2"></div>
+            <div class="cssload-cube cssload-c4"></div>
+            <div class="cssload-cube cssload-c3"></div>
+        </div>
+    </div>
+    <ng2-toasty></ng2-toasty>

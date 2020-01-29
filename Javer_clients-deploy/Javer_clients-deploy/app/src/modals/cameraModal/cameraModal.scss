@@ -1,0 +1,68 @@
+page-cameraModal {
+    .camera-actions{
+        width: 88%;
+        height: 78%;
+        display: flex;
+        position: relative;
+        margin: 5% 6%;
+        border: 1px dashed #B8B7B7;
+        z-index: -1;
+    }
+    .camera-actions .remove-image{
+        position: relative;
+        z-index: 1;
+        top: 5%;
+        left: 90%;
+    }
+    .camera-actions .remove-image ion-icon{
+        font-size: 2.8em;
+        color: #ed1b24;
+    }
+    .camera-actions img{
+        max-width: 100%;
+        min-width: 100%;
+        max-height: 100%;
+        min-height: 100%;
+        position: absolute;
+        right: 0%;
+    
+    }   
+    .camera-actions .camera-options{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        z-index: -1;
+    }
+    .camera-actions .camera-options .gallery,.camera-actions .camera-options .camera{
+        width : 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .camera-actions .camera-options .gallery span,.camera-actions .camera-options .camera span{
+        display: inline-block;
+        font-size: 20px;
+        color: #bdb8b8;
+        font-weight: bold;
+    }
+    .camera-actions .camera-options .gallery img,.camera-actions .camera-options .camera img{
+        max-width:  100%;
+        min-width:  100%;
+        max-height: 100%;
+        min-height: 100%;
+        display: inline-block;
+        position: relative;
+    }
+    .image-label-wrapper{
+        width: 60%;
+        text-align: center;
+    }
+    .button-row{
+        width: 100%;
+        height: 10%;
+        display: flex;
+        justify-content: center;
+    }
+
+}

@@ -1,0 +1,32 @@
+<ion-content>
+    <div class="am-container">
+        <div class="am-header">
+            <h3>Alerta</h3>
+        </div>
+        <div class="am-body">
+            <div class="am-image">
+                <img src="./assets/imgs/alert.png">
+            </div>
+            <div class="am-content">
+                <p>
+                    Tienes estimaciones guardadas
+                </p>
+                <p>¿Deseas actualizar?</p>
+                <p>
+                    <strong>Continuar</strong> - Seguir editando estimación guardada
+                </p>
+                <p>
+                    <strong>Actualizar</strong> - Actualiza caratula con Módulo de Construcción ( se perderá estimación guardada )
+                </p>
+            </div>
+        </div>
+        <div class="am-footer">
+            <div class="am-button-container">
+                <button ion-button class="btn-disabled" (click)="dismiss(false)">Continuar</button>
+            </div>
+            <div class="am-button-container">
+                <button ion-button class="btn-primary" (click)="dismiss(true)">Actualiza</button>
+            </div>
+        </div>
+    </div>
+</ion-content>

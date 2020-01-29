@@ -1,0 +1,108 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle start large>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <img class="img-position" src="./assets/imgs/casas-javer.png">
+    </ion-navbar>
+</ion-header>
+<ion-content fullscreen="true">
+    <div style="height: 100%;" *ngIf="!loading">
+        <div class="red-panel">
+        </div>
+        <div class="list-panel">
+            <h3>Reportes de Programa de Obra</h3>
+            <div class="list-panel-filters">
+                <div class="bar-filter-container">
+                    <ion-list>
+                        <ion-item>
+                            <ion-select [(ngModel)]="filter.proyecto" (ngModelChange)="getFrente()">
+                                <ion-option value="">Proyecto</ion-option>
+                                <ion-option *ngFor="let item of projects" [value]="item.id">{{item.name}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <div class="bar-filter-container">
+                    <ion-list>
+                        <ion-item>
+                            <ion-select [(ngModel)]="filter.frente" (ngModelChange)="getConjunto()">
+                                <ion-option value="">Frente</ion-option>
+                                <ion-option *ngFor="let item of frentes" [value]="item.id">{{item.value }}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <div class="bar-filter-container">
+                    <ion-list>
+                        <ion-item>
+                            <ion-select [(ngModel)]="filter.conjunto">
+                                <ion-option value="">Conjunto</ion-option>
+                                <ion-option *ngFor="let item of conjuntos" [value]="item.id">{{item.value }}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <div class="right-button-2">
+                    <button ion-button type="button" class="btn btn-primary" (click)="getWorkPrograms();">
+                        <ion-icon md="md-search"></ion-icon>
+                    </button>
+                </div>
+                <div class="right-button">
+                    <button ion-button type="button" class="btn btn-warning" (click)="cleanFilters();">
+                        <ion-icon ios="ios-trash" md="md-trash"></ion-icon>
+                    </button>
+                </div>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="table-container">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Versión</th>
+                            <th>Fracc/Proyecto</th>
+                            <th>Conjunto</th>
+                            <th>Sector/Frente</th>
+                            <th>Autorización</th>
+                            <th colspan="2">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let wP of workPrograms; let i = index;">
+                            <td>{{wP.version}}</td>
+                            <td>{{wP.commercialName}}</td>
+                            <td>{{wP.collection}}</td>
+                            <td>{{wP.front}}</td>
+                            <td>
+                                <ion-icon [name]="wP.authorized ? 'checkmark' : 'close'"></ion-icon>
+                            </td>
+                            <td>
+                                <button class="btn eye-button" (click)="showComments(wP.comments)">
+                                    <ion-icon name="paper"></ion-icon>
+                                </button>
+                            </td>
+                            <td>
+                                <button class="btn eye-button" (click)="goToWorkProgram(wP.id)">
+                                    <ion-icon name="eye"></ion-icon>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="no-info" *ngIf="workPrograms.length == 0">
+                                <small>No hay información para mostrar</small>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="loading" *ngIf="loading">
+        <div class="cssload-thecube">
+            <div class="cssload-cube cssload-c1"></div>
+            <div class="cssload-cube cssload-c2"></div>
+            <div class="cssload-cube cssload-c4"></div>
+            <div class="cssload-cube cssload-c3"></div>
+        </div>
+    </div>
+</ion-content>

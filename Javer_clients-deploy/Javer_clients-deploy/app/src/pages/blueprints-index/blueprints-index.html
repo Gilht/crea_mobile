@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle start large>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <img class="img-position" src="./assets/imgs/casas-javer.png">
+  </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen="true" *ngIf="residentPrototypes && !loading">
+  <ion-row>
+    <ion-col no-padding>
+      <ion-row class="red-panel"></ion-row>
+      <ion-list class="list-panel">
+        <ion-row>
+          <h1 class="text-format">Índice de Planos</h1>
+        </ion-row>
+        <ion-row>
+          <ion-list class="ion-list-size">
+            <ion-item style="border-radius: 5px">
+              <ion-select color="secondary" class="alert-md" [(ngModel)]="filterProject" (ngModelChange)="filterPrototypes()">
+                <ion-option value="">Fraccionamiento</ion-option>
+                <ion-option *ngFor="let project of projects" [value]="project">{{project.name}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+          <ion-list class="ion-list-size" style="margin-left:15px;">
+            <ion-item style="border-radius: 5px">
+
+              <ion-label *ngIf="collapseable.length > 0">Prototipo</ion-label>
+              <ion-label *ngIf="collapseable.length == 0">No existen Prototipos</ion-label>
+              <ion-select *ngIf="collapseable.length > 0" color="secondary" class="alert-md" [(ngModel)]="filterPrototipo">
+                <ion-option value="">Prototipos</ion-option>
+                <ion-option *ngFor="let prototype of dataToShow">{{prototype.name}}</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </ion-row>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-list *ngIf="filterPrototipo.length > 0" class="drop-down-container" style="display: inline-block;">
+      <div class="bar-filter-container" style="margin: -1%;">
+        <ion-col no-padding *ngFor="let prototype of dataToShow; let i = index" class="profile-usermenu" style="margin-bottom:2%; color: black; opacity: 1;">
+          <ion-list *ngIf="prototype.name == filterPrototipo" class="style" style="background: #e8e7e7; padding: 2%;">
+            <ion-col no-padding>
+              <a (click)="collapseable[i] = !collapseable[i]" class="cursor-pointer" style="opacity: 1;">
+              {{prototype.name}}
+              <i style="float:right">
+                <ion-icon [name]="collapseable[i] ? 'arrow-dropup' : 'arrow-dropdown'"></ion-icon>
+              </i>
+            </a>
+              <ion-list *ngIf="collapseable[i]" class="nav options-format">
+                <ion-list *ngFor="let subcategory of prototype.subcategories; let s = index;" class="style">
+                  <p *ngIf="isSameCategory(s, prototype)" style="color:black; margin-left: 5%; padding: 1%" class="list-items">{{subcategory.subcategory?.category?.name | uppercase}}
+                  </p>
+                  <a style="opacity: 1;" (click)="onSubCategoryClick(subcategory, prototype)" class="list-items skip-line">{{subcategory.subcategory?.name | uppercase}}
+                </a>
+                  <hr>
+                </ion-list>
+              </ion-list>
+            </ion-col>
+          </ion-list>
+        </ion-col>
+      </div>
+    </ion-list>
+
+    <ion-col *ngIf="isMenuOptionsVisible" class="pop-menu" text-center>
+      <h6 class="pop-menu-text" [textContent]="subCategoryName"></h6>
+      <button ion-button color="danger" class="btn-ver" [disabled]="!file" (click)="downloadPDF()">Ver / Descargar</button>
+      <button ion-button color="lightdark" class="btn-cancelar" (click)="isMenuOptionsVisible = !isMenuOptionsVisible" [color]="ionicButtonColor">Cancelar</button>
+      <button ion-button color="danger" class="btn-salir" (click)="onSalirClick()">Salir</button>
+    </ion-col>
+
+    <button ion-button *ngIf="isImageVisible" class="btn-close-img" color="danger" (click)="isImageVisible = !isImageVisible;isMenuOptionsVisible = true">Cerrar</button>
+  </ion-row>
+</ion-content>
+
+<div class="loading" *ngIf="loading">
+  <div class="cssload-thecube">
+    <div class="cssload-cube cssload-c1"></div>
+    <div class="cssload-cube cssload-c2"></div>
+    <div class="cssload-cube cssload-c4"></div>
+    <div class="cssload-cube cssload-c3"></div>
+  </div>
+</div>

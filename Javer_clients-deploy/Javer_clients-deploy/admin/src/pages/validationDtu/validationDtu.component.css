@@ -1,0 +1,37 @@
+.btn-info {
+    float: right;
+    margin-right: 40px;
+}
+.list-panel-filters .bar-filter-container{
+    max-width: 180PX;
+    min-width: 110px;
+}
+
+.list-panel-filters .bar-filter-container .form-control{
+    padding: 6px 4px;
+    font-size: 12px;
+}
+
+.list-panel .table td.input-dtu-dti-date-column, .list-panel .table td.input-dtu-dti-date-column > div {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.input-dtu-dti-date-column input {
+  border: 2px solid #efefef;
+  text-align: center;
+}
+
+.input-dtu-dti-date-column input[disabled] {
+  background: #efefef;
+}
+
+.label-dtu-dti-text-column {
+  vertical-align: middle;
+  font-weight: bold;
+}
+
+.label-dtu-dti-text-column .label-dtu-dti-text {
+  text-align: center;
+}

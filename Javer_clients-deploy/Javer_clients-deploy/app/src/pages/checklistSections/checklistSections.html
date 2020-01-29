@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle start large>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <!--<ion-title>Core</ion-title>-->
+    <img class="img-position" src="./assets/imgs/casas-javer.png">
+  </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <div *ngIf="!loading && sections.length > 0">
+    <ion-row class="red-panel">
+      <ion-row>
+        <ion-col col-12>
+          <h1>Viviendas Asignadas</h1>
+          <br>
+          <h1>{{sections[0].house.commercialName + ' / ' + sections[0].house.front + + ' / ' + sections[0].house.collection}}</h1>
+        </ion-col>
+      </ion-row>
+    </ion-row>
+
+    <ion-grid class="better-grid">
+      <ion-col col-9 style="overflow-y:scroll">
+        <ion-row class="freeze-row">
+          <ion-col col-1>
+            <input type="checkbox" [(ngModel)]="selectA" (ngModelChange)="selectAll()">
+          </ion-col>
+          <ion-col col-3>Seleccionar <br/> Todos</ion-col>
+          <ion-col col-1></ion-col>
+          <ion-col col-2>% Avance</ion-col>
+          <ion-col col-2>% DTU/DTI</ion-col>
+          <ion-col col-1></ion-col>
+          <ion-col col-2>Validadas</ion-col>
+        </ion-row>
+        <ion-row *ngFor="let section of sections" [style.background-color]="getColor(section)">
+          <ion-col col-1>
+            <input type="checkbox" [(ngModel)]="section.selected" (ngModelChange)="selectOne($event)">
+          </ion-col>
+          <ion-col col-3>{{section.house.element}}</ion-col>
+          <ion-col col-1>{{section.sectionCode}}</ion-col>
+          <ion-col col-2>{{getTotalSectionAdvance(section)}}</ion-col>
+          <ion-col col-2>{{getTotalSectionDtu(section)}}</ion-col>
+          <ion-col col-1>{{(section.dtu ? 'DTU' : (section.dti ? 'DTI' : ''))}}</ion-col>
+          <ion-col col-2 style="text-align:center">
+            <input type="checkbox" [(ngModel)]="section.valid" (ngModelChange)="checkPermissions()" [disabled]="disableValid(section) || section.wasValid">
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col col-3>
+        <ion-row class="button-row">
+          <button ion-button class="full-width" [ngClass]="{'btn-disabled': !isSelected,'btn-primary' : isSelected }" [disabled]="!isSelected"
+            (click)="goToChecklist(2)">Contestar Avance</button>
+        </ion-row>
+        <ion-row class="button-row">
+          <button ion-button class="full-width" [ngClass]="{'btn-disabled': !canDtu,'btn-primary' : canDtu }" (click)="goToChecklist(1)"
+            [disabled]="!canDtu">Contestar DTU</button>
+        </ion-row>
+        <ion-row class="button-row">
+          <button ion-button class="full-width" [disabled]="!canValid" [ngClass]="{'btn-disabled': !canValid,'btn-primary' : canValid }"
+            (click)="validSections()">Validadas por Verificador</button>
+        </ion-row>
+        <!-- <ion-row class="button-row">
+          <button ion-button class="full-width btn-primary" (click)="testValidatedSection()">Test</button>
+        </ion-row> -->
+      </ion-col>
+    </ion-grid>
+  </div>
+  <div class="loading" *ngIf="loading">
+    <div class="cssload-thecube">
+      <div class="cssload-cube cssload-c1"></div>
+      <div class="cssload-cube cssload-c2"></div>
+      <div class="cssload-cube cssload-c4"></div>
+      <div class="cssload-cube cssload-c3"></div>
+    </div>
+  </div>
+</ion-content>

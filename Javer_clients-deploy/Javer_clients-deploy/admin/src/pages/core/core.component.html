@@ -1,0 +1,304 @@
+<div class="profile">
+  <div class="col-sm-3 hide-print side-menu-hide" [ngStyle]="{ 'right': hidden ? '100%' : '75%' }">
+    <div class="profile-sidebar">
+      <!-- SIDEBAR USERPIC -->
+      <div class="profile-userpic">
+        <img src="/assets/img/main-logo.png" class="main-logo" alt="">
+        <!-- SIDEBAR USER TITLE -->
+        <div class="profile-usertitle">
+          <div class="profile-usertitle-name">
+            {{user}}
+          </div>
+          <div class="profile-usertitle-job">
+            {{username}}
+          </div>
+        </div>
+        <!-- END SIDEBAR USER TITLE -->
+      </div>
+      <!-- END SIDEBAR USERPIC -->
+      <!-- SIDEBAR MENU -->
+      <div class="profile-usermenu">
+        <ul class="nav">
+          <li *ngIf="permissions.allowPurchase || permissions.allowDtu || permissions.allowControl || permissions.isAdmin">
+            <a (click)=" collapseable.config=! collapseable.config; " class="cursor-pointer ">
+              <i class="glyphicon glyphicon-home "></i>
+              Configuración
+              <i style="float:right " [ngClass]="{ 'glyphicon': true, 'glyphicon-menu-down': !collapseable.config,
+          'glyphicon-menu-up' : collapseable.config} "></i>
+            </a>
+            <ul *ngIf="collapseable.config" class="nav ">
+              <li *ngIf="permissions.allowPurchase || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                <a class="menu-item " [routerLink]=" '/app/purchase' ">
+                  <img src="assets/img/coins.svg " alt=" "> Compras
+                </a>
+              </li>
+              <li *ngIf="permissions.allowDtu || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                <a class="menu-item " [routerLink]=" '/app/dtu' ">
+                  <img src="assets/img/gears.svg " alt=" "> DTU
+                </a>
+              </li>
+              <li *ngIf="permissions.allowControl || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                <a class="menu-item " [routerLink]=" '/app/siteControl' ">
+                  <img src="assets/img/gears.svg " alt=" "> Control de Obra
+                </a>
+              </li>
+            </ul>
+          </li>
+          <hr>
+          <li *ngIf="permissions.allowValidationDtu || permissions.allowAssignResident || permissions.allowReassignResident
+          || permissions.isAdmin ">
+            <a (click)="collapseable.houses=! collapseable.houses; " class="cursor-pointer ">
+              <i class="glyphicon glyphicon-home "></i>
+              Viviendas
+              <i style="float:right " [ngClass]="{ 'glyphicon': true, 'glyphicon-menu-down': !collapseable.houses,
+          'glyphicon-menu-up' : collapseable.houses} "></i>
+            </a>
+            <ul *ngIf="collapseable.houses " class="nav ">
+              <li *ngIf="permissions.allowAssignResident || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                <a class="menu-item " [routerLink]=" '/app/assignResident' ">
+                  <img src="assets/img/gears.svg " alt=" "> Asignar Viviendas
+                </a>
+              </li>
+              <li *ngIf="permissions.allowReassignResident || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                <a class="menu-item " [routerLink]=" '/app/reassignResident' ">
+                  <img src="assets/img/gears.svg " alt=" "> Reasignar Viviendas
+                </a>
+              </li>
+              <li *ngIf="permissions.allowValidationDtu || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                <a class="menu-item " [routerLink]=" '/app/validationDtu' ">
+                  <i class="glyphicon glyphicon-home "></i>Validación DTU/DTI
+                </a>
+              </li>
+            </ul>
+          </li>
+          <hr>
+          <li *ngIf="permissions.allowCategory || permissions.allowSubcategory || permissions.allowSubcategoryBulkUpload
+          || permissions.isAdmin ">
+            <a (click)="collapseable.blueprints=! collapseable.blueprints; " class="cursor-pointer ">
+              <img src="assets/img/file.svg " alt=" "> Planos
+              <i style="float:right " [ngClass]="{ 'glyphicon': true, 'glyphicon-menu-down': !collapseable.blueprints,
+          'glyphicon-menu-up' : collapseable.blueprints} "></i>
+            </a>
+            <ul *ngIf="collapseable.blueprints " class="nav ">
+              <li *ngIf="permissions.allowCategory || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                <a class="menu-item " [routerLink]=" '/app/category' ">
+                  <img src="assets/img/book.svg " alt=" "> Categorías
+                </a>
+              </li>
+              <li *ngIf="permissions.allowSubcategory || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                <a class="menu-item " [routerLink]=" '/app/subcategory' ">
+                  <img src="assets/img/book.svg " alt=" "> Subcategorías
+                </a>
+              </li>
+              <li *ngIf="permissions.allowSubcategoryBulkUpload || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                <a class="menu-item " [routerLink]=" '/app/subcategoryBulkUpload' ">
+                  <img src="assets/img/gears.svg " alt=" "> Carga Masiva
+                </a>
+              </li>
+            </ul>
+          </li>
+          <hr>
+            <li *ngIf="permissions.allowUser || permissions.isAdmin ">
+              <a (click)="collapseable.roles=! collapseable.roles; " class="cursor-pointer ">
+                <img src="assets/img/roles.png " alt=" "> Roles
+                <i style="float:right " [ngClass]="{ 'glyphicon': true, 'glyphicon-menu-down': !collapseable.roles,
+          'glyphicon-menu-up' : collapseable.roles} "></i>
+              </a>
+              <ul *ngIf="collapseable.roles " class="nav ">
+                <li [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/rol' ">
+                    <img src="assets/img/roles.png " alt=" "> Creacion de roles
+                  </a>
+                </li>
+                <li [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/rolAssignment' ">
+                    <img src="assets/img/roles.png " alt=" "> Asignacion de permisos a roles
+                  </a>
+                </li>
+              </ul>
+            </li>
+          <hr>
+            <li *ngIf="permissions.allowUser || permissions.isAdmin ">
+              <a (click)="collapseable.users=! collapseable.users; " class="cursor-pointer ">
+                <img src="assets/img/man-user.svg " alt=" "> Usuario
+                <i style="float:right " [ngClass]="{ 'glyphicon': true, 'glyphicon-menu-down': !collapseable.users,
+          'glyphicon-menu-up' : collapseable.users} "></i>
+              </a>
+              <ul *ngIf="collapseable.users " class="nav ">
+                <li [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/user' ">
+                    <img src="assets/img/gears.svg " alt=" "> Asignar roles a usuarios
+                  </a>
+                </li>
+                <li [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/loginReport' ">
+                    <img src="assets/img/gears.svg " alt=" "> Reporte de inicio de sesión
+                  </a>
+                </li>
+                <li [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/uenPermissions' ">
+                    <img src="assets/img/gears.svg " alt=" "> Asignar proyectos
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <hr>
+            <li *ngIf="permissions.allowPackage || permissions.allowSubPackage || permissions.allowTemplate || permissions.isAdmin ">
+              <a (click)="collapseable.checklist=! collapseable.checklist; " class="cursor-pointer ">
+                <img src="assets/img/check-sign.png " alt=" "> Checklist
+                <i style="float:right " [ngClass]="{ 'glyphicon': true, 'glyphicon-menu-down': !collapseable.checklist,
+          'glyphicon-menu-up' : collapseable.checklist} "></i>
+              </a>
+              <ul *ngIf="collapseable.checklist " class="nav ">
+                <li *ngIf="permissions.allowPackage || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/package' ">
+                    <img src="assets/img/layers.png " alt=" "> Paquetes
+                  </a>
+                </li>
+                <li *ngIf="permissions.allowSubPackage || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/subpackage' ">
+                    <img src="assets/img/layers.png " alt=" "> Subpaquetes
+                  </a>
+                </li>
+                <li *ngIf="permissions.allowTemplate || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/template' ">
+                    <img src="assets/img/web-design.png " alt=" "> Plantillas
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <hr>
+            <li *ngIf="permissions.allowAssignTemplate || permissions.allowStartDate || permissions.allowWorkProgram ||
+          permissions.isAdmin || permissions.allowEstimations || permissions.aproveEstimates ">
+              <a (click)="collapseable.workControl=! collapseable.workControl; " class="cursor-pointer ">
+                <img src="assets/img/travel-case.png " alt=" "> Control de Obra
+                <i style="float:right " [ngClass]="{ 'glyphicon': true, 'glyphicon-menu-down': !collapseable.workControl,
+          'glyphicon-menu-up' : collapseable.workControl} "></i>
+              </a>
+              <ul *ngIf="collapseable.workControl " class="nav ">
+                <li *ngIf="permissions.allowAssignTemplate || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/assignTemplate' ">
+                    <img src="assets/img/layers.png " alt=" "> Asignar Plantillas
+                  </a>
+                </li>
+                <li *ngIf="permissions.allowStartDate || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/startDate' ">
+                    <img src="assets/img/calendar.png " alt=" "> Fecha de Arranque
+                  </a>
+                </li>
+                <li *ngIf="permissions.allowWorkProgram || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/workProgram' ">
+                    <img src="assets/img/calculator.png " alt=" "> Programa de Obra
+                  </a>
+                </li>
+                <li *ngIf="permissions.allowEstimations || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/estimate' ">
+                    <img src="assets/img/calculator.png " alt=" "> Estimaciones
+                  </a>
+                </li>
+                <li *ngIf="permissions.aproveEstimates || permissions.isAdmin " [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/aproveEstimate' ">
+                    <img src="assets/img/calculator.png " alt=" "> Aprobar Estimaciones
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <hr>
+            <li *ngIf="permissions.allowTemplateReport || permissions.allowWorkProgramReport || permissions.allowHistoryReport
+          || permissions.isAdmin ||  permissions.allowDtuReport || permissions.allowEstimationReport || permissions.allowEstimationReportResident
+          || permissions.allowHouseProgressReport">
+              <a (click)="collapseable.reports=! collapseable.reports; " class="cursor-pointer ">
+                <img src="assets/img/progress-report.png " alt=" "> Reportes
+                <i style="float:right " [ngClass]="{ 'glyphicon': true, 'glyphicon-menu-down': !collapseable.reports,
+          'glyphicon-menu-up' : collapseable.reports} "></i>
+              </a>
+              <ul *ngIf="collapseable.reports" class="nav">
+                <li [routerLinkActive]="[ 'active']" *ngIf="collapseable.reports && (permissions.allowTemplateReport || permissions.isAdmin)">
+                  <a class="menu-item " [routerLink]=" '/app/templateReport' ">
+                    <img src="assets/img/progress-report.png " alt=" "> Reporte de Plantillas
+                  </a>
+                </li>
+                <li [routerLinkActive]="[ 'active']" *ngIf="collapseable.reports && (permissions.allowWorkProgramReport || permissions.isAdmin)">
+                  <a class="menu-item " [routerLink]=" '/app/workProgramReport'">
+                    <img src="assets/img/progress-report.png " alt=" "> Reporte Programa de Obra
+                  </a>
+                </li>
+                <li [routerLinkActive]="[ 'active']" *ngIf="collapseable.reports && (permissions.allowDtuReport || permissions.isAdmin)">
+                  <a class="menu-item " [routerLink]=" '/app/dtuAndAdvanceReport' ">
+                    <img src="assets/img/progress-report.png " alt=" "> Reporte de Avance y DTU/DTI
+                  </a>
+                </li>
+                <li [routerLinkActive]="[ 'active']" *ngIf="collapseable.reports && (permissions.allowHistoryReport || permissions.isAdmin)">
+                  <a class="menu-item " [routerLink]=" '/app/houseReport' ">
+                    <img src="assets/img/progress-report.png " alt=" "> Reporte de Viviendas
+                  </a>
+                </li>
+                <li [routerLinkActive]="[ 'active']" *ngIf="collapseable.reports && (permissions.allowHouseProgressReport || permissions.isAdmin)">
+                  <a class="menu-item " [routerLink]=" '/app/houseProgressReport' ">
+                    <img src="assets/img/progress-report.png " alt=" "> Reporte Carga de Avances
+                  </a>
+                </li>
+                <li [routerLinkActive]="['active']" *ngIf="collapseable.reports && (permissions.allowEstimationReport || permissions.isAdmin)">
+                  <a class="menu-item " [routerLink]=" '/app/estimationReport' ">
+                    <img src="assets/img/progress-report.png " alt=" " /> Reporte de estimaci&oacute;n
+                  </a>
+                </li>
+                <li [routerLinkActive]="['active']" *ngIf="collapseable.reports && (permissions.allowEstimationReportResident || permissions.isAdmin)">
+                  <a class="menu-item " [routerLink]=" '/app/estimationReportResident' ">
+                    <img src="assets/img/progress-report.png " alt=" " /> Reporte de estimaci&oacute;n Residente
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <hr>
+            <li *ngIf="permissions.allowDeveloper">
+              <a (click)=" collapseable.developer=! collapseable.developer; " class="cursor-pointer ">
+                <img src="assets/img/developer.png " alt=" ">
+                Desarrollador
+                <i style="float:right " [ngClass]="{ 'glyphicon': true, 'glyphicon-menu-down': !collapseable.developer,
+            'glyphicon-menu-up' : collapseable.developer} "></i>
+              </a>
+              <ul *ngIf="collapseable.developer" class="nav ">
+                <li *ngIf="collapseable.developer" [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/clientPermission' ">
+                    <img src="assets/img/developer.png " alt=" "> Catálogo Permisos Cliente
+                  </a>
+                </li>
+                <li *ngIf="collapseable.developer" [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/resourcePermission' ">
+                    <img src="assets/img/developer.png " alt=" "> Catalogo recursos
+                  </a>
+                </li>
+                <li *ngIf="collapseable.developer" [routerLinkActive]="[ 'active'] ">
+                  <a class="menu-item " [routerLink]=" '/app/resourceAssignment' ">
+                    <img src="assets/img/developer.png " alt=" "> Asignar recursos
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <br>
+        </ul>
+      </div>
+      <!-- END MENU -->
+    </div>
+  </div>
+  <div class="col-sm-9 main-container show-print" [ngStyle]="{ 'width': hidden ? '100%' : '75%', 'margin-left': hidden ? '0%' : '25%' }">
+    <div class="navbar-javer hide-print">
+      <div class="row" class="nav-row">
+        <div class="left-nav-element" (click)="hidden = !hidden;">
+          <i class="glyphicon" [ngClass]="{ 'glyphicon-menu-hamburger': hidden,'glyphicon-remove': !hidden  }"></i>
+        </div>
+        <div class="element-style ">{{'Versión: ' + version}}</div>
+        <div class="login-img "></div>
+        <div class="col-xs-2 session-close-icon right-nav-element" [routerLink]=" '/login' ">
+          <a class="cursor-pointer ">Cerrar Sesión</a>
+          <img class="cursor-pointer " src="assets/img/close-sesion.svg " alt=" ">
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-content show-print ">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
