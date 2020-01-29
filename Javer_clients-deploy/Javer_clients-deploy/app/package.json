@@ -56,7 +56,7 @@
         "cordova-plugin-file-opener2": "^2.2.0",
         "cordova-plugin-file-transfer": "^1.7.1",
         "cordova-plugin-geolocation": "^4.0.1",
-        "cordova-plugin-ionic-webview": "^1.2.1",
+        "cordova-plugin-ionic-webview": "^2.2.0",
         "cordova-plugin-network-information": "^2.0.1",
         "cordova-plugin-splashscreen": "^4.1.0",
         "cordova-plugin-sqlite": "^1.0.3",
