@@ -33,7 +33,7 @@
     "html2canvas": "^1.0.0-alpha.12",
     "jquery": "^3.2.1",
     "lodash": "^4.17.10",
-    "moment-timezone": "^0.5.21",
+    "moment-timezone": "^0.5.35",
     "ng2-dual-list-box": "^1.0.5",
     "ng2-toasty": "^4.0.3",
     "ngx-ui-switch": "^1.4.4",
